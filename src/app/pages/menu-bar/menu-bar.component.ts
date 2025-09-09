@@ -26,17 +26,17 @@ export class MenuBarComponent implements OnInit {
     if (this.token.isAdmin()) {
       this.model = [
         { label: 'Dashboard', icon: 'fa fa-home', routerLink: ['/dashboard'] },
-        { label: 'Packages', icon: 'fa fa-database', routerLink: ['/packages'] },
-        { label: 'Transfer Wallet', icon: 'fab fa-bitcoin', routerLink: ['/activationwallet'] },
-        { label: 'Deposites', icon: 'fa fa-home', routerLink: ['/deposites'] },
-        { label: 'Users', icon: 'fa fa-users', routerLink: ['/users'] },
-        { label: 'Wallet', icon: 'fas fa-wallet', routerLink: ['/wallet'] },
-        { label: 'Icon Club Users', icon: 'fa fa-users', routerLink: ['/silverusers'] },
-        { label: 'Royalty Users', icon: 'fa fa-users', routerLink: ['/royaltyusers'] },
-        { label: 'Award Users', icon: 'fa fa-trophy', routerLink: ['/awardusers'] },
-        { label: 'Profile', icon: 'fa fa-user', routerLink: ['/updateprofile'] },
-        { label: 'Add News', icon: 'fa fa-home', routerLink: ['/addnews'] },
-        { label: 'Support', icon: 'fas fa-comment', routerLink: ['/adminsupport'] }
+        // { label: 'Packages', icon: 'fa fa-database', routerLink: ['/packages'] },
+        // { label: 'Transfer Wallet', icon: 'fab fa-bitcoin', routerLink: ['/activationwallet'] },
+        // { label: 'Deposites', icon: 'fa fa-home', routerLink: ['/deposites'] },
+        // { label: 'Users', icon: 'fa fa-users', routerLink: ['/users'] },
+        // { label: 'Wallet', icon: 'fas fa-wallet', routerLink: ['/wallet'] },
+        // { label: 'Icon Club Users', icon: 'fa fa-users', routerLink: ['/silverusers'] },
+        // { label: 'Royalty Users', icon: 'fa fa-users', routerLink: ['/royaltyusers'] },
+        // { label: 'Award Users', icon: 'fa fa-trophy', routerLink: ['/awardusers'] },
+        // { label: 'Profile', icon: 'fa fa-user', routerLink: ['/updateprofile'] },
+        // { label: 'Add News', icon: 'fa fa-home', routerLink: ['/addnews'] },
+        // { label: 'Support', icon: 'fas fa-comment', routerLink: ['/adminsupport'] }
       ];
     }
 

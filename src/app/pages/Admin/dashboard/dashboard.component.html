@@ -5,150 +5,85 @@
     
         <div class="row">
             <div class="col-md-12 col-lg-12">
-                <div class="dashboard-header">
-                    <div class="title-dashboard">
-                        <h1>Dashboard</h1>
-                        <p>Users Full Data</p>
-                    </div>
-                    <div class="dashboard-select">
-                     
-                    </div>
-                </div>
-
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="card db-widgets">
-                            <div class="card-header pb-0">
-                                <div class="media">
-                                    <img src="assets/img/bitcoin.png" class="mr-2" alt="Bitcoin">
-                                    <div class="media-body">
-                                        <h5>Total Users</h5>
-                                        <h6>{{data1.users}}</h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-4">
-                                <h6 class="text-success">Active: {{data1.actuser}}</h6>
-                                <h6 class="text-danger">InActive: {{data1.inuser}}</h6>
-                                <div > <i class="fa fa-users"></i> </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <div class="card db-widgets">
-                            <div class="card-header pb-0">
-                                <div class="media">
-                                    <img src="assets/img/ethereum.png" class="mr-2" alt="Bitcoin">
-                                    <div class="media-body">
-                                        <h5>Today Users</h5>
-                                        <h6> </h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-4">
-                                <h6 class="text-success">Today Active: {{data1.todayact}}</h6>
-                                <h6 class="text-danger">Today Join: {{data1.todayreg}}</h6>
-                                <div > <i class="fa fa-wallet"></i> </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card db-widgets">
-                            <div class="card-header pb-0">
-                                <div class="media">
-                                    <img src="assets/img/ripple.png" class="mr-2" alt="Bitcoin">
-                                    <div class="media-body">
-                                        <h5>Payments</h5>
-                                        <h6></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-4">
-                                <h6 class="text-success">Paid: {{data1.paidamount}}</h6>
-                                <h6 class="text-danger">Pending: {{data1.pendingamount}}</h6>
-                                <div > <i class="fa fa-bitcoin"></i> </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                   
-                    <!-- <div class="col-md-8 d-flex">
+                    <div class="col-md-12 d-flex wlt">
                         <div class="card chart-card mb-0 flex-fill">
-                            <div class="card-header">
-                                <h2>Pending Withdrawal</h2>                      
-                            </div>
-                            
-                            
-                        </div>
-                    </div> -->
-
-                    <div class="col-md-4 d-flex wlt">
-                        <div class="card chart-card mb-0 flex-fill">
-                            <div class="card-header">
-                                <h2>Packages History</h2>                      
-                            </div>
-
                             <div class="card-body pt-0">
                                 <div class="wallet-sec">
                                     <div class="usd-sec">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h4>{{data1.totalrecivefund | currency:'USD':true:'1.0-1'}}</h4>
-                                            <h4>{{data1.totaltransferfund | currency:'USD':true:'1.0-1' }} </h4>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h5>Total Received Fund</h5>
-                                            <h5>Total Transfer Fund</h5>
+                                            <h4>Today Payouts</h4>
                                         </div>
                                     </div>
 
-                                    <div class="table-responsive">
-                                        <table>
-                                            <tr>
-                                                <td class="d-flex align-items-center">
-                                                    <img src="assets/img/bitcoin.png" alt="BitCoin">
-                                                    <div>
-                                                        <h5>$54</h5>
-                                                        <h6>Package</h6>
-                                                    </div>
-                                                </td>
-                                                <td class="text-right">
-                                                    <h4>{{data1.totalpack54fund | currency:'USD':true:'1.0-1'}}</h4>
-                                                    <h6>Total Fund</h6>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="d-flex align-items-center">
-                                                    <img src="assets/img/ethereum.png" alt="BitCoin">
-                                                    <div>
-                                                        <h5>$306 </h5>
-                                                        <h6>Package</h6>
-                                                    </div>
-                                                </td>
-                                                <td class="text-right">
-                                                    <h4>{{data1.totalpack306fund | currency:'USD':true:'1.0-1'}}</h4>
-                                                    <h6>Total Fund</h6>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="d-flex align-items-center">
-                                                    <img src="assets/img/ripple.png" alt="BitCoin">
-                                                    <div>
-                                                        <h5>$45</h5>
-                                                        <h6>Package</h6>
-                                                    </div>
-                                                </td>
-                                                <td class="text-right">
-                                                    <h4>{{data1.totalpack45fund | currency:'USD':true:'1.0-1'}}</h4>
-                                                    <h6>Total Fund</h6>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>                                    
-                                </div>
+                                    <div class="mb-3 d-flex justify-content-between">
+  <div>
+    <button class="btn btn-success me-2" (click)="exportToExcel(true)" [disabled]="loading || !data1.length">
+      Export All to Excel
+    </button>
+    <button class="btn btn-primary" (click)="exportToExcel(false)" [disabled]="selectedRows.length === 0">
+      Export Selected to Excel
+    </button>
+  </div>
+  <div>
+    <button class="btn btn-warning" (click)="openConfirmModal(confirmModal)" [disabled]="selectedRows.length === 0">
+      Confirm Selected Payments
+    </button>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <div *ngIf="loading" class="text-center my-4">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2">Fetching data, please wait...</p>
+  </div>
+
+  <table *ngIf="!loading && data1?.length" class="table table-striped">
+    <thead>
+      <tr>
+        <th><input type="checkbox" [checked]="isAllSelected()" (change)="toggleSelectAll($event)"></th>
+        <th>S.No</th><th>Regid</th><th>Name</th><th>Phone</th><th>Account No</th><th>IFSC</th><th>Wallet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of data1; let i = index" [class.table-active]="isSelected(row)">
+        <td><input type="checkbox" [checked]="isSelected(row)" (change)="toggleSelection(row)"></td>
+        <td>{{i+1}}</td><td>{{row.reg_id}}</td><td>{{row.name}}</td><td>{{row.contact}}</td>
+        <td>{{row.account_no}}</td><td>{{row.ifsc}}</td><td>{{row.wallet_amount*0.80 | number:'1.2-2'}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && !data1?.length" class="text-center text-muted mt-4">
+    No data found.
+  </div>
+</div>
+
+<!-- NgBootstrap Modal -->
+<ng-template #confirmModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Confirm Payment</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="selectedRowForModal">
+      <p>You are about to confirm payments for {{selectedRowForModal.length}} rows.</p>
+    </div>
+    <div *ngIf="selectedRowForModal?.length === 1">
+      <p>Regid: {{selectedRowForModal[0]?.reg_id}}</p>
+      <p>Amount: {{selectedRowForModal[0]?.amount}}</p>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="confirmPayment(modal)">Confirm</button>
+  </div>
+</ng-template>
+
+
+
+                              
                             </div>
                         </div>
                     </div>

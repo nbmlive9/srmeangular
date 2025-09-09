@@ -32,10 +32,10 @@ import { RoyaltyUsersDataComponent } from './pages/Admin/royalty-users-data/roya
 
 const routes: Routes = [
   {path:"login",component:LoginComponent },
-  {path:"",component:UloginComponent },
-  {path:"auth-login",component:UloginComponent },
-  {path:"auth-signup",component:RegistrationComponent },
-{ path: "auth-sponsorsignup/:regid", component: SponsorRegistrationComponent },
+  {path:"",component:LoginComponent },
+//   {path:"auth-login",component:UloginComponent },
+//   {path:"auth-signup",component:RegistrationComponent },
+// { path: "auth-sponsorsignup/:regid", component: SponsorRegistrationComponent },
 
   //Admin Routings
   { path: "dashboard", component: DashboardComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },

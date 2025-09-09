@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from './token-storage.service';
 import { Observable } from 'rxjs';
 
-const AUTH_API ='https://iconistar.net/ICON/ICON/Admin/'
+const AUTH_API ='https://srme.us/SRMEBNK/SRMEBNK/Admin/'
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class AdminService {
       })
     }
     return this.http.get(
-      AUTH_API + 'Home',
+      AUTH_API + 'Total_Credit',
       httpOptions
     );
   }
@@ -40,6 +40,26 @@ export class AdminService {
       httpOptions
     );
   }
+
+  TodayWalletpay(value:{
+  regid: string;
+  amount: number;
+}){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+  return this.http.post(
+    AUTH_API + 'Withdraw',  { 
+      "regid":value.regid, 
+      "amount":value.amount,   
+    },
+     httpOptions 
+  );
+}
 
     GetPckages(){
     const token1 = this.token.getToken();
