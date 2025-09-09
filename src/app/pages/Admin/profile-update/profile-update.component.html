@@ -1,0 +1,51 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="page-title">Edit Profile</h4>
+            </div>
+        </div>
+
+        <div class="card-box">
+            <h3 class="card-title">Contact Informations</h3>
+            <div class="row">
+                <!-- <div class="col-md-12">
+                    <div class="form-group ">
+                        <label class="focus-label">Address</label>
+                        <input type="text" class="form-control floating" value="4487 Snowbird Lane">
+                    </div>
+                </div> -->
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label class="focus-label">Username</label>
+                        <input type="text" class="form-control floating" [(ngModel)]="data.user">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="focus-label">Paswword</label>
+                        <input type="text" class="form-control floating" [(ngModel)]="data.password">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="focus-label">Name</label>
+                        <input type="text" class="form-control floating" value="Icon Istar" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label class="focus-label">Email</label>
+                        <input type="text" class="form-control floating" [(ngModel)]="data.email">
+                    </div>
+                </div>
+                <div class="text-center m-t-20">
+                    <button class="btn btn-primary submit-btn" type="button">Save</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

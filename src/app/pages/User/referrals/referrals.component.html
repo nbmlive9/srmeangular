@@ -1,0 +1,87 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="content" style="margin-top: -50px;">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-success">My Team</h4>
+                <div class="text-center mb-3 d-flex flex-wrap justify-content-center">
+                  <button class="btn btn-outline-primary m-1" (click)="showSection('direct')">Direct Team</button>
+                    <button class="btn btn-outline-success m-1" (click)="showSection('indirect')">InDirect Team</button>
+                </div>
+            </div>
+            <div class="col-md-12" *ngIf="direct">
+                <div class="buy-form">
+                    <div class="row">
+                        <!-- Rows per page selector -->
+                            <div class="col-md-6">
+                                <h4 class="page-title text-success">Direct Team</h4>
+                            </div>
+                      </div>
+              
+                  <!-- Table -->
+                  <div class="table-responsive">
+                    <!-- Table -->
+                      <table class="table table-striped custom-table mb-0">
+                        <thead>
+                          <tr>
+                            <th>S.No</th>
+                            <th>Date</th>
+                            <th>Userid</th>
+                            <th>Activate Package</th>
+                            <th>Status</th>
+                            <!-- <th>Action</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of data1; let i = index">
+                            <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
+                            <td>{{ item.cdate }}</td>
+                            <td>{{ item.regid }} / {{ item.name }}</td>
+                            <td>
+                              <span *ngIf="item.pack45==='1'">45$ Package</span> <br>
+                               <span *ngIf="item.pack54==='1'">54$ Package</span><br>
+                                <span *ngIf="item.pack306==='1'">306$ Package</span>
+                            </td>
+                            <td>
+                              <span class="badge badge-danger" *ngIf="item.topupstatus === '0'">Not Activated</span>
+                              <span class="badge badge-success" *ngIf="item.topupstatus === '1'">Activated</span>
+                            </td>
+                            <!-- <td>
+                              <span class="btn btn-sm btn-success" *ngIf="item.topupstatus === '0'" >Activate Now</span>
+                            </td> -->
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <!-- Pagination -->
+                         <nav *ngIf="totalPages > 1" class="mt-3">
+            <ul class="pagination justify-content-center flex-wrap">
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" (click)="goToPage(currentPage - 1)">Previous</a>
+              </li>
+              <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="currentPage === i + 1">
+                <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" (click)="goToPage(currentPage + 1)">Next</a>
+              </li>
+            </ul>
+          </nav>
+
+                  </div>
+              
+                  <!-- Pagination -->
+                  
+                </div>
+              </div>
+
+              <div class="col-md-12" *ngIf="indirect">
+                  <app-level-members></app-level-members>
+              </div>
+
+        </div>
+    </div>
+</div>
+
+  

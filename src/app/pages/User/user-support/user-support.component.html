@@ -1,0 +1,85 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+  <div class="content" style="margin-top: -50px;">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card p-2 buy-form">
+          <h4 class="page-title text-danger">Create Ticket</h4>
+          <form [formGroup]="form1" novalidate>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="focus-label">Query*</label>
+                  <select class="form-control floating" formControlName="query">
+                    <option value="" selected>Select Query</option>
+                    <option value="Profile">Profile</option>
+                    <option value="Activation">Activation</option>
+                    <option value="Payment">Payment</option>
+                    <option value="Deposites">Deposites</option>
+                    <option value="Wallet Address">Wallet Address</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="focus-label">Subject*</label>
+                  <input type="text" class="form-control floating" formControlName="subject" />
+                </div>
+              </div>
+
+              <div class="text-center m-t-20 col-md-12">
+                <button class="btn btn-primary submit-btn" (click)="add()" [disabled]="!form1.valid" type="button">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-12 mt-5">
+        <div class="buy-form">
+          <div class="row">
+            <div class="col-md-6">
+              <h4 class="page-title text-danger">Tickets</h4>
+            </div>
+          </div>
+          <div class="card" *ngIf="loading">
+            <p class="text-danger">Loading Data...</p>
+          </div>
+          <div class="table-responsive" *ngIf="!loading">
+            <table class="table table-striped custom-table mb-0">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Date</th>
+                  <th>Query</th>
+                  <th>Subject</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of data1; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.cdate | date: 'dd/MMM/yyyy' }}</td>
+                  <td>{{ item.query }}</td>
+                  <td>{{ item.subject }}</td>
+                  <td>
+                    <span class="btn btn-sm"
+                      [ngClass]="{ 'btn-success': item.status === '1', 'btn-danger': item.status === '0' }">
+                      {{ item.status === '1' ? 'Completed' : 'Pending' }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

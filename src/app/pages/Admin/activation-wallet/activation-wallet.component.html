@@ -1,0 +1,104 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="buy-form">
+                 <h4 class="page-title">Transfer Wallet <small>To User</small></h4>
+                    <form [formGroup]="form" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Enter Userid</label>
+                                    <input class="form-control" type="text" formControlName="regid" id="" (keyup)="onRegisterIdSelect($event)" >
+                                     <span class="text-success">{{idselectmsg}}</span>
+                                     <span class="text-danger">{{errorMessage}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Enter Amount</label>
+                                    <input class="form-control" type="text" formControlName="amount">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Remark</label>
+                                    <input class="form-control" type="text" formControlName="remark" >
+                                </div>
+                            </div>
+                              <!-- <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Txn Password</label>
+                                    <input class="form-control" type="text" formControlName="transactionpassword" >
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="mt-2 text-center">
+                            <button class="btn btn-primary submit-btn" (click)="openConfirmModal()" [disabled]="!form.valid">Transfer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+          <div class="card" *ngIf="loading">
+            <p class="text-danger">...Loading Data </p>
+        </div>
+        <div class="row" *ngIf="!loading">
+            <div class="col-md-12">
+                <div class="buy-form">
+                    <h4 class="page-title">Transfer Wallet History</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped custom-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th> S.No</th> 
+                                    <th> Date</th> 
+                                    <th> Name</th>
+                                    <th> Amount</th>
+                                    <th> Remark</th>
+                                    <th> Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of tws; let i=index">
+                                     <td>{{i + 1}}</td>
+                                    <td>{{row.cdate | date:'dd/MMM/YYYY'}} <br> {{row.ctime }} </td>
+                                    <td>{{row.userid}} <br> <small>{{row.rname}}</small></td>
+                                    <td>{{row.amount | currency:'USD':true:'1.0-1'}}</td>
+                                    <td>{{row.remark}}</td>
+                                    <td>
+                                        <span class="btn btn-sm btn-success">Success</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm Modal -->
+<!-- Confirm Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirm Transfer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to transfer {{ form.value.amount | currency:'USD':true:'1.0-1' }} to {{ regname?.name }} ({{ regname?.phone }}) - {{ regname?.email }} ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="confirmAction()">Yes, Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>

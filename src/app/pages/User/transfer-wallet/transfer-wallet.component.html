@@ -1,0 +1,133 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="content" style="margin-top: -50px;">
+        <div class="row">
+            <div class="col-md-12">
+              <div class="text-center mb-3 d-flex flex-wrap justify-content-center">
+                <button class="btn btn-outline-primary m-1" (click)="showSection('selftransfer')">Self Transfer</button>
+                  <button class="btn btn-outline-success m-1" (click)="showSection('usertransfer')">User Transfer Wallet</button>
+              </div>
+            </div>
+            <div class="col-md-12" *ngIf="usertransfer">
+                <div class="card p-2 buy-form">
+                    <h5 class="page-title text-danger" *ngFor="let pdata of data2">Transfer to Other User Wallet <span class="badge badge-success"> Wallet: {{pdata.actwallet | currency:'USD':true:'1.0-1' }}</span> </h5>
+                      <form [formGroup]="form" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="focus-label">Transfer Amount ($)*</label>
+                                    <input type="text" class="form-control floating" formControlName="amount">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="focus-label">Enter Userid*</label>
+                                    <input type="text" class="form-control floating" formControlName="regid" (keyup)="onRegisterIdSelect($event)">
+                                      <span class="text-success">{{idselectmsg}}</span>
+                                    <span class="text-danger">{{errorMessage}}</span>
+                                </div>
+                            </div>
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="focus-label">Remark*</label>
+                                    <input type="text" class="form-control floating" formControlName="remark">
+                                </div>
+                            </div>
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="focus-label">Security Key*</label>
+                                    <input type="text" class="form-control floating" formControlName="transactionpassword">
+                                </div>
+                            </div>
+                            <div class="text-center m-t-20">
+                                <button class="btn btn-primary submit-btn" (click)="openConfirmModal()" [disabled]="!form.valid" type="button">Submit</button>
+                            </div>
+                         </div>
+                      </form>
+                </div>
+                    
+            </div>
+
+            <div class="col-md-12 mt-2" *ngIf="selftransfer"> 
+              <app-self-transfer></app-self-transfer> 
+            </div>
+
+            <div class="col-md-12">
+              <div class="text-center mb-3 d-flex flex-wrap justify-content-center">
+                <button class="btn btn-outline-primary m-1" (click)="showSection1('transfer')">Transfer Report</button>
+                  <button class="btn btn-outline-success m-1" (click)="showSection1('received')">Received Wallet</button>
+              </div>
+            </div>
+
+            <div class="col-md-12 mt-2" *ngIf="transfer">
+                <div class="buy-form">
+                    <div class="row">
+                        <!-- Rows per page selector -->
+                            <div class="col-md-6">
+                                <h4 class="page-title text-success">Transfer Report</h4>
+                            </div>
+                      </div>
+              
+                  <!-- Table -->
+                  <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Date</th>
+                          <th>Amount</th>
+                          <th>Userid</th>
+                          <th>Remark</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of tdata; let i = index">
+                          <td>{{ i + 1 }}</td>
+                          <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
+                          <td>{{ item.amount | currency:'USD':true:'1.0-1' }}</td>
+                          <td>{{ item.userid }} <br><small>{{item.rname}}</small></td>
+                          <td>{{ item.remark }}</td>
+                          <td>
+                            <span class="btn btn-sm btn-success">Success</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              
+                 
+                </div>
+              </div>
+
+               <div class="col-md-12 mt-2" *ngIf="received">
+                  <app-received-report></app-received-report>
+              </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Confirm Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="confirmModalLabel">Confirm Action</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <p>Are you sure you want to confirm this action?</p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-success" (click)="confirmAction()">Yes, Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

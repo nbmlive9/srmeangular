@@ -1,0 +1,53 @@
+
+
+<div class="col-md-12 mt-5">
+    <div class="buy-form">
+        <div class="row">
+          <!-- Rows per page selector -->
+                <div class="col-md-6">
+                    <h4 class="page-title text-success">Completed Payments</h4>
+                </div>
+                <!-- <div class="col-md-6">
+                    <div class="form-group d-flex justify-content-end">
+                        <label class="mr-2">Rows per page:</label>
+                        <select class="form-control w-auto" [value]="rowsPerPage" (change)="onChangeRowsPerPage()">
+                        <option *ngFor="let option of rowsOptions" [value]="option">{{ option }}</option>
+                        </select>
+                    </div>
+                </div> -->
+       </div>
+  
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="table table-striped custom-table mb-0">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Wallet</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.date }}</td>
+              <td>
+                {{ item.name }} <br />
+                <small>{{ item.userId }}</small>
+              </td>
+              <td>{{ item.amount }}</td>
+              <td>{{ item.wallet1 }}</td>
+              <td>
+                <span class="btn btn-sm btn-success">Paid</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      
+    </div>
+  </div>

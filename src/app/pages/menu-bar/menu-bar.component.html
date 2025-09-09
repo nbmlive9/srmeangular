@@ -1,0 +1,53 @@
+<!-- Header with logo -->
+<div class="d-flex align-items-center justify-content-between p-2 border-bottom shadow-sm" style="background-color: #022252;">
+  <!-- Menu Toggle Button for mobile -->
+  <button class="btn btn-outline-warning d-md-none" data-bs-toggle="offcanvas" data-bs-target="#sidebarModal">
+    <i class="fas fa-bars"></i> Menu
+  </button>
+
+  <div class="d-flex align-items-center">
+    <a *ngIf="token1.isAdmin()" routerLink="/dashboard" class="logo-link me-3 animate-logo">
+      <img src="assets/logo.png" width="70" height="60" alt="Logo">
+    </a>
+    <a *ngIf="token1.isUser()" routerLink="/mydashboard" class="logo-link me-3 animate-logo">
+      <img src="assets/logo.png" width="70" height="60" alt="Logo">
+    </a>
+  </div>
+</div>
+
+<!-- Desktop Sidebar (Visible on md and up) -->
+<div class="d-none d-md-block position-fixed top-0 start-0 h-100 shadow" style="width: 250px; z-index: 1040; padding-top: 15px; ">
+      <div class="text-center" style="background-color: #022252;">
+           <img src="assets/logo.png" width="70" height="60" alt="Logo">
+      </div> 
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item list-group-item-action" *ngFor="let item of model">
+      <a [routerLink]="item.routerLink" class="text-decoration-none text-dark">
+        <i class="{{ item.icon }} me-2"></i>{{ item.label }}
+      </a>
+    </li>
+    <li class="list-group-item list-group-item-action text-danger" (click)="logout()">
+      <i class="fa fa-sign-out-alt me-2"></i>Logout
+    </li>
+  </ul>
+</div>
+
+<!-- Offcanvas Sidebar (Mobile/Tablet) -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarModal" aria-labelledby="sidebarModalLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-action" *ngFor="let item of model" (click)="closeSidebar()">
+        <a [routerLink]="item.routerLink" class="text-decoration-none text-dark">
+          <i class="{{ item.icon }} me-2"></i>{{ item.label }}
+        </a>
+      </li>
+      <li class="list-group-item list-group-item-action text-danger" (click)="logout()">
+        <i class="fa fa-sign-out-alt me-2"></i>Logout
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="col-md-12">
+    <div class="buy-form">
+        <div class="row">
+            <!-- Rows per page selector -->
+                <div class="col-md-6">
+                    <h4 class="page-title text-success">Direct Referral Club Income</h4>
+                </div>
+          </div>
+  
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="table table-striped custom-table mb-0">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Club</th>
+              <th>Direct Referrals</th>
+              <th>Each Earning</th>
+              <th>Earning</th>
+              <!-- <th>Status</th> -->
+            </tr>
+          </thead>
+          <tbody>
+             <tr>
+              <td>1</td>
+              <td>Normal Club</td>
+              <td>4 <span class="text-success">({{data2.asponsors}})</span></td>
+              <td>$27</td>
+              <td>  {{ data1.directincome | currency:'USD':true:'1.0-1' }} </td>
+              <!-- <td>
+                <span class="btn btn-sm btn-success">Eligible</span>
+              </td> -->
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Gold Club</td>
+              <td>5-8 <span class="text-success">({{data2.asponsors}})</span></td>
+              <td>$0.5</td>
+              <td>  {{ data1.silverclubincome | currency:'USD':true:'1.0-1' }}  </td>
+              <!-- <td>
+                <span class="btn btn-sm btn-success">Eligible</span>
+              </td> -->
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Platinum Club</td>
+                <td>9-12 <span class="text-success">({{data2.asponsors}})</span></td>
+                <td>$1</td>
+                <td> {{ data1.goldclubincome | currency:'USD':true:'1.0-1' }} </td>
+                <!-- <td>
+                  <span class="btn btn-sm btn-danger">Not Eligible</span>
+                </td> -->
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Diamond Club</td>
+                <td>Above 12 <span class="text-success">({{data2.asponsors}})</span></td>
+                <td>$1.5</td>
+                <td>{{ data1.diamondclubincome | currency:'USD':true:'1.0-1' }}  </td>
+                <!-- <td>
+                  <span class="btn btn-sm btn-danger">Not Eligible</span>
+                </td> -->
+              </tr>
+              
+          </tbody>
+        </table>
+      </div>
+  
+      
+    </div>
+  </div>

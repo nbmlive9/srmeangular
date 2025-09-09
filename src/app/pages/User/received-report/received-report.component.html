@@ -1,0 +1,38 @@
+<div class="buy-form">
+                    <div class="row">
+                        <!-- Rows per page selector -->
+                            <div class="col-md-6">
+                                <h4 class="page-title text-danger">Received Report</h4>
+                            </div>
+                      </div>
+              
+                  <!-- Table -->
+                  <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Date</th>
+                          <th>Amount</th>
+                          <th>From Userid</th>
+                          <th>Remark</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of tdata; let i = index">
+                          <td>{{ i + 1 }}</td>
+                            <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
+                          <td>{{ item.amount | currency:'USD':true:'1.0-1' }}</td>
+                          <td>{{ item.fromid }} <br><small>{{item.sname}}</small></td>
+                          <td>{{ item.remark }}</td>
+                          <td>
+                            <span class="btn btn-sm btn-success">Success</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              
+                 
+                </div>

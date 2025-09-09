@@ -1,0 +1,48 @@
+<div class="col-md-12">
+    <div class="buy-form">
+        <div class="row">
+            <!-- Rows per page selector -->
+                <div class="col-md-6">
+                    <h4 class="page-title text-primary">Icon Silver Club Income</h4>
+                </div>
+          </div>
+  
+          <!-- Table -->
+          <div class="table-responsive">
+            <table class="table table-striped custom-table mb-0">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Level</th>
+                  <th>Amount</th>
+                  <th>Count</th>
+                  <th>Total Earn</th>
+                  <th>Upgrade</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Level 1</td>
+                  <td>$75</td>
+                  <td>{{ data1.level1count }}</td>
+                  <td>{{ data1.level1count * 75 | currency:'USD':true:'1.0-1' }} </td>
+                  <td> - </td>
+                </tr>
+                  <tr>
+                  <td>2</td>
+                  <td>Level 2</td>
+                  <td>$225</td>
+                  <td>{{ data1.level2count }}</td>
+                  <td>{{ data1.level2count * 225 | currency:'USD':true:'1.0-1' }} </td>
+                  <td> $3,000 </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+  </div>
+
+  <app-gold-income></app-gold-income>
+
+  <app-diamond-income></app-diamond-income>

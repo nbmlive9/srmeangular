@@ -1,0 +1,189 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="content">
+           <div *ngIf="errorMessage" class="alert alert-danger text-center" role="alert">
+                    {{ errorMessage }}
+                    </div>
+        <div class="row" >
+          <div class="card" *ngIf="loading">
+              <p class="text-danger">...Loading Data </p>
+          </div>
+            <div class="col-md-12 " *ngIf="!loading">
+                <div class="buy-form">
+                    <h4 class="page-title text-danger">Pending Deposites</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped custom-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th> S.No</th> 
+                                    <th> Date</th> 
+                                    <th> Name</th>
+                                    <th> Amount</th>
+                                    <th> Hash Id</th>
+                                    <th> Image</th>
+                                    <th> Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of data1;let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
+                                     <td>{{row.userid}} <br> <small>{{row.rname}}</small></td>
+                                    <td>{{row.amount | currency:'USD':true:'1.0-1'}}</td>
+                                    <td (click)="copyToClipboard(row.note, i)" style="cursor: pointer;" title="Click to copy">
+                                      {{ row.note }} <i class="fa fa-copy text-danger"></i>
+                                      <span *ngIf="copiedIndex === i" class="text-success ml-2">Copied!</span>
+                                    </td>
+                                    <td><img [src]="row.doc" style="width: 50px; height: 50px;" alt="Deposit Image" (click)="openImageModal(row.doc)" /></td>
+                                    <td><span class="btn btn-sm btn-danger m-1" (click)="openReplyModal(row)">Replay</span>
+                                        <span class="btn btn-sm btn-success m-1" (click)="openConfirmModal(row)">Confirm</span>
+                                    </td>
+                                </tr>
+                                <ng-template #imageModal let-modal>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Image Preview</h5>
+                                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <img [src]="selectedImageUrl" alt="Full Image" style="max-width: 100%; max-height: 80vh;" />
+                                    </div>
+                                </ng-template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mt-5">
+                <div class="buy-form">
+                    <div class="row">
+                      <!-- Rows per page selector -->
+                            <div class="col-md-6">
+                                <h4 class="page-title text-success">Completed Deposites</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group d-flex justify-content-end">
+                                    <label class="mr-2">Rows per page:</label>
+                                    <select class="form-control w-auto" [value]="rowsPerPage" (change)="onChangeRowsPerPage()">
+                                    <option *ngFor="let option of rowsOptions" [value]="option">{{ option }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                   </div>
+              
+                  <!-- Table -->
+                  <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Date</th>
+                          <th>Name</th>
+                          <th>Amount</th>
+                          <th>Hash Id</th>
+                           <th>Remark</th>
+                          <th>Image</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of data2; let i = index">
+                          <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
+                          <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
+                          <td>
+                            {{ item.userid }} 
+                            <!-- <small>{{ item.userId }}</small> -->
+                          </td>
+                          <td>{{ item.amount | currency:'USD':true:'1.0-1' }}</td>
+                          <td (click)="copyToClipboard(item.note, i)" style="cursor: pointer;" title="Click to copy">
+                                      {{ item.note }} <i class="fa fa-copy text-primary"></i>
+                                      <span *ngIf="copiedIndex === i" class="text-success ml-2">Copied!</span>
+                                    </td>
+                          <td>{{ item.remark }}</td>
+                          <td>
+                            <img [src]="item.doc" style="width: 50px; height: 50px;" alt="Deposit Image" />
+                          </td>
+                          <td>
+                            <span class="btn btn-sm btn-success">Success</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              
+                  <!-- Pagination -->
+                  <nav *ngIf="totalPages > 1" class="mt-3">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item" [class.disabled]="currentPage === 1">
+                        <a class="page-link" (click)="goToPage(currentPage - 1)">Previous</a>
+                      </li>
+                      <li
+                        class="page-item"
+                        *ngFor="let page of [].constructor(totalPages); let i = index"
+                        [class.active]="currentPage === i + 1"
+                      >
+                        <a class="page-link"  (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+                      </li>
+                      <li class="page-item" [class.disabled]="currentPage === totalPages">
+                        <a class="page-link"  (click)="goToPage(currentPage + 1)">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Replay modal -->
+<div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form [formGroup]="form" (ngSubmit)="replay()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Reply</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control" formControlName="reply" rows="4" placeholder="Enter your reply"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Send Reply</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<!-- Confirm Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="confirmModalLabel">Confirm Action</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <p>Are you sure you want to confirm this action?</p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-success" (click)="confirmAction()">Yes, Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

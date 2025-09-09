@@ -1,0 +1,47 @@
+<div class="card p-2 buy-form">
+                    <h4 class="page-title text-danger" *ngFor="let pdata of data2">Self Transfer <span class="badge badge-success"> Main Wallet: {{pdata.walletamount | currency:'USD':true:'1.0-1' }}</span> </h4>
+                    <span class="text-danger"> {{errorMessage}} </span>
+                    <span class="text-danger"> {{successMessage}} </span>
+                      <form [formGroup]="form1" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="focus-label">Transfer Amount ($)*</label>
+                                    <input type="text" class="form-control floating" formControlName="amount">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="focus-label">Remark*</label>
+                                    <input type="text" class="form-control floating" formControlName="remark">
+                                </div>
+                            </div>
+                            <div class="text-center m-t-20">
+                                <button class="btn btn-primary submit-btn" (click)="add()" [disabled]="!form1.valid" type="button">Submit</button>
+                            </div>
+                         </div>
+                      </form>
+                </div>
+
+                
+                
+<!-- Confirm Modal -->
+<div class="modal fade" id="confirmModal1" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="confirmModalLabel">Confirm Action</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <p>Are you sure you want to confirm this action?</p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-success" (click)="confirmAction1()">Yes, Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>

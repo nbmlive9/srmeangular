@@ -1,0 +1,96 @@
+<app-menu-bar></app-menu-bar>
+<div class="page-wrapper bg-wrapper">
+    <div class="content" style="margin-top: -50px;">
+        <div class="row">  
+            <div class="col-md-12">
+                <div class="buy-form">
+                    <div class="row">
+                        <!-- Rows per page selector -->
+                            <div class="col-md-6">
+                                <h4 class="page-title text-danger">Royalty / Award Users</h4>
+                            </div>
+                    </div>
+            
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0">
+                    <thead>
+                        <tr>
+                        <th>S.No</th>
+                        <th>Date</th>
+                        <th>Userid</th>
+                        <th>Name</th>
+                        <th>Royalty</th>
+                        <th>Award <span ngbTooltip="{{ tooltipText }}"> <i class="fa fa-exclamation-circle"></i></span></th>
+                        <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of data1; let i=index">
+                            <td> {{i+1}} </td>
+                            <td>{{row.cdate}}</td>
+                            <td>{{row.regid}}</td>
+                             <td>{{row.name}} <br><small>{{row.phone}}</small></td>
+                            <td class="text-success"><b>Eligible</b></td>
+                            <td>
+                                <span class="badge badge-danger" *ngIf="row.rewardstatus==='0'">Award Not Eligible</span>
+                                <span class="badge badge-success" *ngIf="row.rewardstatus==='1'">Award Eligible</span>
+                                <span class="badge badge-primary" *ngIf="row.rewardstatus==='2'">Award Delivered</span>
+                            </td>
+                             <td>
+                                <span class="btn btn-sm btn-success" *ngIf="row.rewardstatus==='1'" (click)="openConfirmModal(row.id)">Confirm Delivery</span>
+                                <span class="text-primary" *ngIf="row.rewardstatus==='2'">Delivered</span>
+                            </td>
+                        </tr>
+                    
+                    </tbody>
+                    </table>
+                </div>
+            
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm Modal -->
+<div
+  class="modal fade"
+  id="confirmModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="confirmModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="confirmModalLabel">Confirm Action</h5>
+        <button
+          type="button"
+          class="close text-white"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Are you sure you want to confirm delivery for this user?</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">
+          No
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="confirmAction()"
+        >
+          Yes, Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

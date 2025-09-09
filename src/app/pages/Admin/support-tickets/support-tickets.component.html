@@ -1,0 +1,105 @@
+<app-menu-bar></app-menu-bar>
+<div class="page-wrapper bg-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12 d-flex">
+                <div class="card chart-card mb-0 flex-fill">
+                    <div class="card-header">
+                        <h6 class="text-danger">Pending Support Ticket</h6>                      
+                    </div>
+                    <div class="card-body pt-0 pb-0">
+                        <div class="table table-responsive">
+                            <table class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Date</th>
+                                        <th>UserId</th>
+                                        <th>Query</th>
+                                        <th>Remark</th>
+                                        <th>Action</th>
+                                    </tr>            
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of data1; let i =index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
+                                        <td>{{row.userid}}</td>
+                                        <td>{{row.query }}</td>
+                                         <td>{{row.subject }}</td>
+                                        <td> <button class="btn btn-sm btn-success" (click)="openReplyModal(replyModal, row.id)">Replay</button> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12 d-flex">
+                <div class="card chart-card mb-0 flex-fill">
+                    <div class="card-header">
+                        <h6 class="text-success">Completed Support Ticket</h6>                      
+                    </div>
+                    <div class="card-body pt-0 pb-0">
+                        <div class="table table-responsive">
+                            <table class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Date</th>
+                                        <th>UserId</th>
+                                        <th>Query</th>
+                                        <th>Remark</th>
+                                        <th>Replay</th>
+                                        <th>Action</th>
+                                    </tr>            
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of data2; let i =index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
+                                        <td>{{row.userid}}</td>
+                                        <td>{{row.query }}</td>
+                                         <td>{{row.subject }}</td>
+                                           <td>{{row.replays }} <small>{{row.rdate | date:'dd/MMM/YYYY'}}</small></td>
+                                        <td> <button class="btn btn-sm btn-success">Suucess</button> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #replyModal let-modal>
+  <form [formGroup]="form" (ngSubmit)="replay()">
+    <div class="modal-header">
+      <h5 class="modal-title">Reply</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <textarea
+        class="form-control"
+        formControlName="reply"
+        rows="4"
+        placeholder="Enter your reply"
+      ></textarea>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Send Reply</button>
+    </div>
+  </form>
+</ng-template>

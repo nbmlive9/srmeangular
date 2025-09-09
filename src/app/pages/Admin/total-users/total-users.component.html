@@ -1,0 +1,148 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <app-search-user></app-search-user>
+            </div>
+            <!-- Filter Buttons -->
+
+            <div class="col-md-12">
+                <div class="text-center mb-3 d-flex flex-wrap justify-content-center">
+                    <button class="btn btn-outline-primary m-1" (click)="showSection('total')">Total Users</button>
+                    <button class="btn btn-outline-success m-1" (click)="showSection('today')">Today Users</button>
+                    <button class="btn btn-outline-info m-1" (click)="showSection('active')">Active Users</button>
+                    <button class="btn btn-outline-danger m-1" (click)="showSection('inactive')">Inactive Users</button>
+                </div>
+            </div>
+
+  
+  <!-- Total Users Section -->
+  <div class="table-responsive" >
+    <div class="col-md-12">
+      <div class="buy-form">
+        <!-- Responsive Table -->
+        <div *ngIf="TotalUsers">
+            <h4 class="page-title text-success">Total Users</h4>
+          <table class="table table-striped custom-table mb-0">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Sponsor</th>
+                <th>Wallet</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+             <tr *ngFor="let item of data; let i = index">
+                <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
+                <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
+                <td>{{ item.name }}<br /><small>{{ item.regid }} ({{ item.password }})</small></td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.sponcerid }}</td>
+                <td>{{ item.actwallet | currency:'USD':true:'1.0-1' }} / {{ item.walletamount | currency:'USD':true:'1.0-1' }}</td>
+                <td>
+                    <span style="cursor: pointer">
+                                    <ng-container *ngIf="item.status=='1'">
+                                        <span class="badge badge-success"> Active</span> 
+                                    </ng-container>
+                                    <ng-container *ngIf="item.status=='0'">
+                                        <span class="badge badge-danger">InActive</span>
+                                    </ng-container>
+                                </span>
+                </td>
+                <td class="text-center">
+                   <a (click)="openEditModal(item.regid)" style="cursor: pointer;"> <i class="fa fa-edit"></i> Edit  </a><br>
+                    <a (click)="block(item.regid)" *ngIf="item.status==='1'" style="cursor: pointer; color: brown; font-weight: 600;">Block</a><br>
+                    <a (click)="unblock(item.regid)" *ngIf="item.status==='0'" style="cursor: pointer; color: green; font-weight: 600;">Unblock</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+           <!-- Pagination -->
+        <nav *ngIf="totalPages > 1" class="mt-3">
+            <ul class="pagination justify-content-center flex-wrap">
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" (click)="goToPage(currentPage - 1)">Previous</a>
+              </li>
+              <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="currentPage === i + 1">
+                <a class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" (click)="goToPage(currentPage + 1)">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+  
+       
+      </div>
+    </div>
+  </div>
+  
+  <!-- Conditional User Components -->
+  <div *ngIf="TodayUsers" class="p-2"><app-today-users></app-today-users></div>
+  <div *ngIf="Activeusers" class="p-2"><app-active-users></app-active-users></div>
+  <div *ngIf="Inactiveusers" class="p-2"><app-inactive-users></app-inactive-users></div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade show d-block" 
+     *ngIf="isEditModalOpen"
+     style="background: rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <form [formGroup]="form" (ngSubmit)="submitUpdate()">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User Profile</h5>
+          <button type="button" class="close" (click)="closeModal()">
+            <span>&times;</span>
+          </button>
+        </div>
+
+        <div class="row p-2">
+          <div class="col-md-6 mb-3">
+            <label>Name</label>
+            <input formControlName="name" class="form-control" type="text">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Phone</label>
+            <input formControlName="phone" class="form-control" type="text">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Email</label>
+            <input formControlName="email" class="form-control" type="email">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Password</label>
+            <input formControlName="password" class="form-control" type="text">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Security Key</label>
+            <input formControlName="transpassword" class="form-control" type="text">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Wallet Address</label>
+            <input formControlName="wallet1" class="form-control" type="text">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+  

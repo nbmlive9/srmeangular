@@ -1,0 +1,55 @@
+<div *ngFor="let level of getLevels()">
+  <h5 class="mt-4 text-primary text-uppercase">Level {{ level.replace('level', '') }}</h5>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th>S.NO</th>
+          <th>Date</th>
+          <th>User ID</th>
+          <th>Name</th>
+          <th>$54 Package</th>
+          <th>$306 Package</th>
+          <th>$45 Package</th>
+          <th>Sponsor ID</th>
+          <th>Sponsor Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="isArray(data1[level]) && data1[level].length > 0; else noUsers">
+          <tr *ngFor="let user of data1[level]; let idx = index">
+            <td>{{ idx + 1 }}</td>
+            <td>{{ user.adate  || '-'  }}</td>
+            <td>{{ user.regid }}</td>
+            <td>{{ user.name }}</td>
+            <td>
+              <span [ngClass]="{'text-success': user.pack54 == '1', 'text-danger': user.pack54 == '0'}">
+                {{ user.pack54 == '1' ? 'Active' : 'Not Activated' }}
+              </span>
+            </td>
+            <td>
+              <span [ngClass]="{'text-success': user.pack306 == '1', 'text-danger': user.pack306 == '0'}">
+                {{ user.pack306 == '1' ? 'Active' : 'Not Activated' }}
+              </span>
+            </td>
+            <td>
+              <span [ngClass]="{'text-success': user.pack45 == '1', 'text-danger': user.pack45 == '0'}">
+                {{ user.pack45 == '1' ? 'Active' : 'Not Activated' }}
+              </span>
+            </td>
+            <td>{{ user.sponcerid }}</td>
+            <td>{{ user.sname || '-' }}</td>
+          </tr>
+        </ng-container>
+
+        <ng-template #noUsers>
+          <tr>
+            <td colspan="9" class="text-center text-muted">No users found for this level.</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+</div>
+

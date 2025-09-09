@@ -1,0 +1,46 @@
+ <div class="card" *ngIf="loading">
+            <p class="text-danger">...Loading Data </p>
+        </div>
+
+<div class="col-md-12 mt-5" *ngIf="!loading">
+    <div class="buy-form">
+        <div class="row">
+            <!-- Rows per page selector -->
+                <div class="col-md-6">
+                    <h4 class="page-title text-success">Activation Report</h4>
+                </div>
+               
+          </div>
+  
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="table table-striped custom-table mb-0">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Date</th>
+              <th>Package</th>
+              <th>Amount</th>
+              <th>Userid</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data1; let i = index">
+              <td>{{  i + 1 }}</td>
+              <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
+              <td>{{ item.packagename }}</td>
+              <td>{{ item.amount | currency:'USD':true:'1.0-1' }}</td>
+              <td>{{ item.forid }} <br><small>{{item.rname}}</small></td>
+              <td>
+                <span class="badge badge-success">Success</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Pagination -->
+      
+    </div>
+  </div>

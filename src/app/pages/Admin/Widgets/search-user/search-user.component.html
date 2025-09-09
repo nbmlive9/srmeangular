@@ -1,0 +1,111 @@
+<div class="card p-3">
+    <form class="form-row justify-content-center" (ngSubmit)="searchUser()">
+        <div class="col-sm-6 col-md-4 mb-2">
+          <input type="text" class="form-control" required
+        type="text"
+        id="searchTerm"
+        name="searchTerm"
+        placeholder="Enter User ID"
+        class="form-control"
+        [(ngModel)]="searchTerm">
+        </div>
+        <div class="col-auto mb-2">
+          <button type="submit" class="btn btn-success">Search</button>
+        </div>
+      </form>
+      
+      
+<div class="row" *ngIf="data2 && data2.length > 0">
+    <div class="col-md-12 mt-2">
+        <div class="">
+            <div class="table-responsive">
+                <table class="table table-striped custom-table mb-0">
+                    <thead>
+                        <tr>
+                            <th> S.No</th> 
+                            <th> Date</th> 
+                            <th> Name</th>
+                            <th> Email</th>
+                            <th> Wallet Address</th>
+                            <th> Wallet </th>
+                            <th> Status</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of data2; let i=index">
+                            <td> {{i+1}} </td>
+                            <td>{{row.cdate | date:'dd/MM/YYYY'}}</td>
+                            <td>{{row.name}} <br> <small>{{row.regid}}</small></td>
+                            <td>{{row.email}}</td>
+                            <td>{{row.wallet1}}</td>
+                            <td>{{row.actwallet | currency:'USD':true:'1.0-1'}}  / {{row.walletamount | currency:'USD':true:'1.0-1'}} </td>
+                            <td> <span class="btn btn-sm btn-success m-1" *ngIf="row.status==='1'">Active</span> <span class="btn btn-sm btn-danger m-1" *ngIf="row.status==='0'">InActive</span> </td>
+                            <td class="text-center">
+                                <a class="dropdown-item" (click)="openEditModal(row.regid)" style="cursor: pointer;">
+                                      <i class="fa fa-edit"></i> Edit
+                                    </a>
+                                 <a (click)="block(row.regid)" *ngIf="row.status==='1'" style="cursor: pointer; color: brown; font-weight: 600;">Block</a><br>
+                              <a (click)="unblock(row.regid)" *ngIf="row.status==='0'" style="cursor: pointer; color: green; font-weight: 600;">Unblock</a>
+                              </td>                              
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+   
+
+</div>
+
+
+<div class="modal fade show d-block" 
+     *ngIf="isEditModalOpen"
+     style="background: rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <form [formGroup]="form" (ngSubmit)="submitUpdate()">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User Profile</h5>
+          <button type="button" class="close" (click)="closeModal()">
+            <span>&times;</span>
+          </button>
+        </div>
+
+        <div class="row p-2">
+          <div class="col-md-6 mb-3">
+            <label>Name</label>
+            <input formControlName="name" class="form-control" type="text">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Phone</label>
+            <input formControlName="phone" class="form-control" type="text">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Email</label>
+            <input formControlName="email" class="form-control" type="email">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Password</label>
+            <input formControlName="password" class="form-control" type="text">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Security Key</label>
+            <input formControlName="transpassword" class="form-control" type="text">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Wallet Address</label>
+            <input formControlName="wallet1" class="form-control" type="text">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

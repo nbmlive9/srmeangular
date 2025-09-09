@@ -1,0 +1,62 @@
+<app-menu-bar></app-menu-bar>
+<div class="page-wrapper bg-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12 d-flex">
+                <div class="card chart-card mb-0 flex-fill">
+                    <div class="card-header">
+                        <h2>News {{errorMessage}}</h2>        
+                    </div>
+                    <div class="card-body">
+                         <form [formGroup]="form" novalidate>
+                    <div class="container mb-5">
+                        <div class="row">
+                            <div class="field col-md-6">
+                                <label for="lastname2">News Title *</label>
+                                <input class="form-control" pInputText id="userid" type="text" formControlName="news_title" placeholder="News Title" required />
+                            </div>
+                            <div class="field col-md-6">
+                                <label for="lastname2">News *</label>
+                                <input class="form-control" pInputText id="address" type="text" placeholder="News" formControlName="news" required />
+                            </div>
+                        </div>
+                        
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-sm btn-danger" (click)="add()" [disabled]="!form.valid">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                    </div>
+
+                    <div class="card-body pt-0 pb-0">
+                        <div class="table table-responsive">
+                            <table class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>            
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of data; let i = index">
+                                         <td>{{i+1}}</td>
+                                          <td>{{row.cdate}}</td>
+                                        <td>{{row.news_title}}</td>
+                                        <td>{{row.news }}</td>
+                                        <td> <button class="btn btn-sm btn-danger" (click)="Delete(row.id)">Delete</button> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

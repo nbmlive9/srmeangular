@@ -1,0 +1,237 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="content">
+        <div class="row">
+
+            <!-- Silver Total Users Section -->
+            <div class="text-center mb-2">
+                <h4 class="page-title text-success">Icon Silver Award Users</h4>
+                <div class="table-responsive" >
+                    <div class="col-md-12">
+                    <div class="buy-form">
+                        <!-- Responsive Table -->
+                        <div>
+                        <table class="table table-striped custom-table mb-0">
+                            <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Sponsor</th>
+                                <th>Wallet</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of filteredData; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ item.cdate | date:'dd/MMM/yyyy' }}</td>
+                                    <td>
+                                        {{ item.rname }}<br />
+                                        <small>{{ item.regid }}</small>
+                                    </td>
+                                    <td>{{ item.rphone }}</td>
+                                    <td>{{ item.sponcerid }}</td>
+                                    <td>{{ item.walletamount }}</td>
+                                    <td>
+                                        <span style="cursor: pointer">
+                                        <ng-container *ngIf="item.status === '1'">
+                                            <span class="badge badge-success">Active</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="item.status === '0'">
+                                            <span class="badge badge-danger">Inactive</span>
+                                        </ng-container>
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge badge-danger" (click)="silver(item.id)" style="cursor: pointer;">Confirm</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                
+                        </div>
+                
+                    
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Gold Total Users Section -->
+            <div class="text-center m-2">
+                <h4 class="page-title text-warning">Icon Gold Award Users</h4>
+                <div class="table-responsive" >
+                    <div class="col-md-12">
+                    <div class="buy-form">
+                        <!-- Responsive Table -->
+                        <div>
+                        <table class="table table-striped custom-table mb-0">
+                            <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Sponsor</th>
+                                <th>Wallet</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of filteredData1; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ item.cdate | date:'dd/MMM/yyyy' }}</td>
+                                    <td>
+                                        {{ item.rname }}<br />
+                                        <small>{{ item.regid }}</small>
+                                    </td>
+                                    <td>{{ item.rphone }}</td>
+                                    <td>{{ item.sponcerid }}</td>
+                                    <td>{{ item.walletamount }}</td>
+                                    <td>
+                                        <span style="cursor: pointer">
+                                        <ng-container *ngIf="item.status === '1'">
+                                            <span class="badge badge-success">Active</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="item.status === '0'">
+                                            <span class="badge badge-danger">Inactive</span>
+                                        </ng-container>
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge badge-warning" (click)="gold(item.id)" style="cursor: pointer;">Confirm</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                
+                        </div>
+                
+                    
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+
+             <!-- Dimaond Total Users Section -->
+              
+           <div class="text-center mt-2">
+               <h4 class="page-title text-danger">Icon Diamond Award Users</h4>
+                <div class="table-responsive" >
+                    <div class="col-md-12">
+                    <div class="buy-form">
+                        <!-- Responsive Table -->
+                        <div>
+                        <table class="table table-striped custom-table mb-0">
+                            <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Sponsor</th>
+                                <th>Wallet</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of filteredData2; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ item.cdate | date:'dd/MMM/yyyy' }}</td>
+                                    <td>
+                                        {{ item.rname }}<br />
+                                        <small>{{ item.regid }}</small>
+                                    </td>
+                                    <td>{{ item.rphone }}</td>
+                                    <td>{{ item.sponcerid }}</td>
+                                    <td>{{ item.walletamount }}</td>
+                                    <td>
+                                        <span style="cursor: pointer">
+                                        <ng-container *ngIf="item.status === '1'">
+                                            <span class="badge badge-success">Active</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="item.status === '0'">
+                                            <span class="badge badge-danger">Inactive</span>
+                                        </ng-container>
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge badge-danger" (click)="diamond(item.id)" style="cursor: pointer;">Confirm</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                
+                        </div>
+                
+                    
+                    </div>
+                    </div>
+                </div>
+           </div>
+
+        </div>
+    </div>
+</div>
+
+  
+<!-- Confirmation Silver Modal -->
+<div class="modal-backdrop" *ngIf="showConfirmModal">
+  <div class="custom-modal">
+    <div class="modal-header">
+      <h5 class="modal-title">Confirm Action</h5>
+    </div>
+    <div class="modal-body">
+      Are you sure you want to give the silver award?
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" (click)="confirmSilver()">Yes</button>
+      <button class="btn btn-secondary" (click)="closeConfirmModal()">No</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Gold Modal -->
+<div class="modal-backdrop" *ngIf="showConfirmModal1">
+  <div class="custom-modal">
+    <div class="modal-header">
+      <h5 class="modal-title">Confirm Action</h5>
+    </div>
+    <div class="modal-body">
+      Are you sure you want to give the Gold award?
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" (click)="confirmGold()">Yes</button>
+      <button class="btn btn-secondary" (click)="closeConfirmModal1()">No</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Diamond Modal -->
+<div class="modal-backdrop" *ngIf="showConfirmModal2">
+  <div class="custom-modal">
+    <div class="modal-header">
+      <h5 class="modal-title">Confirm Action</h5>
+    </div>
+    <div class="modal-body">
+      Are you sure you want to give the Diamond award?
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" (click)="confirmDiamond()">Yes</button>
+      <button class="btn btn-secondary" (click)="closeConfirmModal2()">No</button>
+    </div>
+  </div>
+</div>
+
+
+

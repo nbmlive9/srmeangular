@@ -1,0 +1,74 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="content" style="margin-top: -50px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="page-title">Edit Profile</h4>
+            </div>
+        </div>
+
+        <div class="card-box">
+            <h3 class="card-title">My Informations</h3>
+            <div *ngIf="successMessage" class="alert alert-success text-center">
+            {{ successMessage }}
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger text-center">
+            {{ errorMessage }}
+            </div>
+            <form class="mb-3" method="post" [formGroup]="form" >
+                <div class="row" *ngFor="let row of data2">
+                    <!-- <div class="col-md-12">
+                        <div class="form-group ">
+                            <label class="focus-label">Address</label>
+                            <input type="text" class="form-control floating" value="4487 Snowbird Lane">
+                        </div>
+                    </div> -->
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class="focus-label">UserID</label>
+                            <input type="text" class="form-control floating" placeholder="{{row.regid}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="focus-label">Paswword</label>
+                            <input type="text" class="form-control floating" [ngModel]="row.password" formControlName="password">
+                        </div>
+                    </div>
+                       <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="focus-label">Security Key</label>
+                            <input type="text" class="form-control floating" placeholder="{{row.transpassword}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="focus-label">Name</label>
+                            <input type="text" class="form-control floating" placeholder="{{row.name}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class="focus-label">Email</label>
+                            <input type="text" class="form-control floating" placeholder="{{row.email}}" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label class="focus-label">Wallet Address [USDT (BEP 20)]</label>
+                            <!-- <input type="text" class="form-control floating" [ngModel]="row.wallet1" formControlName="wallet1"> -->
+                                 <input class="form-control"  type="text" [readonly]="row.wallet1 !== null && row.wallet1 !== ''" [placeholder]="row.wallet1" formControlName="wallet1" />
+                            <span class="text-primary">Note: Carefully Update if wrong update we are not reposnible, Once Update USDT Wallet Address won't change contact to Admin Support <a routerLink="/support" class="text-danger"> <i class="fa fa-comments"></i> </a> </span>
+                        </div>
+                    </div>
+                    <div class="text-center m-t-20">
+                        <button class="btn btn-primary submit-btn" type="button" (click)="edit()">Save</button>
+                    </div>
+                </div>
+           </form>
+        </div>
+        
+
+    </div>
+</div>

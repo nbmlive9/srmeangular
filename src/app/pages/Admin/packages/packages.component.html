@@ -1,0 +1,70 @@
+<app-menu-bar></app-menu-bar>
+<div class="page-wrapper bg-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12 d-flex">
+                <div class="card chart-card mb-0 flex-fill">
+                    <div class="card-header">
+                        <h2>Packages</h2>                      
+                    </div>
+                    <div class="card-body">
+                          <button class="btn btn-outline-primary m-1" (click)="showSection('user54')">$54 Package Users</button>
+                        <button class="btn btn-outline-danger m-1" (click)="showSection('user306')">$306 Package Users</button>
+                        <button class="btn btn-outline-success m-1" (click)="showSection('user45')">$45 Package Users</button>
+                    </div>
+
+                    <div class="card-body">
+                          <div *ngIf="user54" class="p-2"><app-package54-users></app-package54-users> </div>
+                            <div *ngIf="user306" class="p-2"> <app-package306-users></app-package306-users> </div>
+                              <div *ngIf="user45" class="p-2"> <app-package45-users></app-package45-users> </div>
+                    </div>
+
+                    <!-- <div class="card-body">
+                         <form [formGroup]="form" novalidate>
+                    <div class="container mt-5 mb-5">
+                        <div class="row">
+                            <div class="field col-md-6">
+                                <label for="lastname2">Package Name *</label>
+                                <input class="form-control" pInputText id="userid" type="text" formControlName="pname" placeholder="Package Name" required />
+                            </div>
+                            <div class="field col-md-6">
+                                <label for="lastname2">Amount *</label>
+                                <input class="form-control" pInputText id="address" type="number" placeholder="Package Amount" formControlName="amount" required />
+                            </div>
+                        </div>
+                        
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-sm btn-danger" (click)="add()" [disabled]="!form.valid">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                    </div> -->
+
+                    <!-- <div class="card-body pt-0 pb-0">
+                        <div class="table table-responsive">
+                            <table class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>            
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of data">
+                                        <td>{{row.pname}}</td>
+                                        <td>{{row.amount | currency:'USD':true:'1.0-1' }}</td>
+                                        <td> <button class="btn btn-sm btn-success">Active</button> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

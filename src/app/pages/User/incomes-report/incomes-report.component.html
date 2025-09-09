@@ -1,0 +1,51 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="content" style="margin-top: -50px;">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-success">Incomes Report</h4>
+                <div class="text-center mb-3 d-flex flex-wrap justify-content-center">
+                  <button class="btn btn-outline-primary m-1" (click)="showSection('referral')">Referral</button>
+                    <button class="btn btn-outline-success m-1" (click)="showSection('rfclub')">Referral Club</button>
+                    <button class="btn btn-outline-info m-1" (click)="showSection('level')">Level</button>
+                    <button class="btn btn-outline-danger m-1" (click)="showSection('silver')">Club Incomes</button>
+                    <!-- <button class="btn btn-outline-danger m-1" (click)="showSection('gold')">Gold</button>
+                    <button class="btn btn-outline-primary m-1" (click)="showSection('diamond')">Diamond</button> -->
+                    <button class="btn btn-outline-primary m-1" (click)="showSection('autopool')">Auto Pool</button>
+                    <!-- <button class="btn btn-outline-info m-1" (click)="showSection('royalty')">Royalty</button> -->
+                </div>
+            </div>
+
+            <div class="col-md-12 " *ngIf="referral">
+                 <app-referral-income></app-referral-income>
+            </div>
+            <div class="col-md-12 " *ngIf="rfclub">
+                <app-referral-club-income></app-referral-club-income>
+           </div>
+           <div class="col-md-12 " *ngIf="level">
+               <app-level-income></app-level-income>
+            </div>
+            <div class="col-md-12 " *ngIf="silver">
+                <app-silver-income></app-silver-income>
+             </div>
+             <div class="col-md-12 " *ngIf="gold">
+                <app-gold-income></app-gold-income>
+             </div>
+             <div class="col-md-12 " *ngIf="diamond">
+                <app-diamond-income></app-diamond-income>
+             </div>
+             <div class="col-md-12 " *ngIf="autopool">
+                <app-auto-pool-income></app-auto-pool-income>
+             </div>
+             <div class="col-md-12 " *ngIf="royalty">
+                <app-royalty-income></app-royalty-income>
+             </div>
+           
+
+        </div>
+    </div>
+</div>
+
+
+  
