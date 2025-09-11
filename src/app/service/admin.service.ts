@@ -41,25 +41,26 @@ export class AdminService {
     );
   }
 
-  TodayWalletpay(value:{
-  regid: string;
-  amount: number;
-}){
-  const token1 = this.token.getToken();
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token1
-    })
-  };
-  return this.http.post(
-    AUTH_API + 'Withdraw',  { 
-      "regid":value.regid, 
-      "amount":value.amount,   
-    },
-     httpOptions 
-  );
-}
+  TodayWalletpay(value: { regid: string; amount: number }): Observable<any> {
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      }),
+      responseType: 'text' as 'json' // FIX: Allow text response if backend doesn't return JSON
+    };
+
+    return this.http.post(
+      AUTH_API + 'Withdraw',
+      {
+        regid: value.regid,
+        amount: value.amount
+      },
+      httpOptions
+    );
+  }
+
 
     GetPckages(){
     const token1 = this.token.getToken();

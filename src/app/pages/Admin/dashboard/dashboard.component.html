@@ -1,97 +1,104 @@
+<!-- src/app/pages/dashboard/dashboard.component.html -->
 <app-menu-bar></app-menu-bar>
 
 <div class="page-wrapper bg-wrapper">
-    <div class="content">
-    
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
         <div class="row">
-            <div class="col-md-12 col-lg-12">
-                <div class="row">
-                    <div class="col-md-12 d-flex wlt">
-                        <div class="card chart-card mb-0 flex-fill">
-                            <div class="card-body pt-0">
-                                <div class="wallet-sec">
-                                    <div class="usd-sec">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h4>Today Payouts</h4>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3 d-flex justify-content-between">
-  <div>
-    <button class="btn btn-success me-2" (click)="exportToExcel(true)" [disabled]="loading || !data1.length">
-      Export All to Excel
-    </button>
-    <button class="btn btn-primary" (click)="exportToExcel(false)" [disabled]="selectedRows.length === 0">
-      Export Selected to Excel
-    </button>
-  </div>
-  <div>
-    <button class="btn btn-warning" (click)="openConfirmModal(confirmModal)" [disabled]="selectedRows.length === 0">
-      Confirm Selected Payments
-    </button>
-  </div>
-</div>
-
-<div class="table-responsive">
-  <div *ngIf="loading" class="text-center my-4">
-    <div class="spinner-border text-primary" role="status"></div>
-    <p class="mt-2">Fetching data, please wait...</p>
-  </div>
-
-  <table *ngIf="!loading && data1?.length" class="table table-striped">
-    <thead>
-      <tr>
-        <th><input type="checkbox" [checked]="isAllSelected()" (change)="toggleSelectAll($event)"></th>
-        <th>S.No</th><th>Regid</th><th>Name</th><th>Phone</th><th>Account No</th><th>IFSC</th><th>Wallet</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of data1; let i = index" [class.table-active]="isSelected(row)">
-        <td><input type="checkbox" [checked]="isSelected(row)" (change)="toggleSelection(row)"></td>
-        <td>{{i+1}}</td><td>{{row.reg_id}}</td><td>{{row.name}}</td><td>{{row.contact}}</td>
-        <td>{{row.account_no}}</td><td>{{row.ifsc}}</td><td>{{row.wallet_amount*0.80 | number:'1.2-2'}}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div *ngIf="!loading && !data1?.length" class="text-center text-muted mt-4">
-    No data found.
-  </div>
-</div>
-
-<!-- NgBootstrap Modal -->
-<ng-template #confirmModal let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title">Confirm Payment</h5>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-  </div>
-  <div class="modal-body">
-    <div *ngIf="selectedRowForModal">
-      <p>You are about to confirm payments for {{selectedRowForModal.length}} rows.</p>
-    </div>
-    <div *ngIf="selectedRowForModal?.length === 1">
-      <p>Regid: {{selectedRowForModal[0]?.reg_id}}</p>
-      <p>Amount: {{selectedRowForModal[0]?.amount}}</p>
-    </div>
-
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="confirmPayment(modal)">Confirm</button>
-  </div>
-</ng-template>
-
-
-
-                              
-                            </div>
-                        </div>
-                    </div>
+          <div class="col-md-12 d-flex wlt">
+            <div class="card chart-card mb-0 flex-fill">
+              <div class="card-body pt-0">
+                <div class="wallet-sec">
+                  <div class="usd-sec d-flex align-items-center justify-content-between">
+                    <h4>Today Payouts</h4>
+                  </div>
                 </div>
-            </div>
 
+                <div class="mb-3 d-flex justify-content-between">
+                  <div>
+                    <button class="btn btn-success me-2" (click)="exportToExcel(true)" [disabled]="loading || !data1.length">
+                      Export All to Excel
+                    </button>
+                    <button class="btn btn-primary" (click)="exportToExcel(false)" [disabled]="selectedRows.length === 0">
+                      Export Selected to Excel
+                    </button>
+                  </div>
+                  <div>
+                    <button class="btn btn-warning" (click)="openConfirmModal(confirmModal)" [disabled]="selectedRows.length === 0">
+                      Confirm Selected Payments
+                    </button>
+                  </div>
+                </div>
+
+                <div class="table-responsive">
+                  <div *ngIf="loading" class="text-center my-4">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Fetching data, please wait...</p>
+                  </div>
+
+                  <table *ngIf="!loading && data1?.length" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>
+                          <input type="checkbox" [checked]="isAllSelected()" (change)="toggleSelectAll($event)">
+                        </th>
+                        <th>S.No</th>
+                        <th>Regid</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Account No</th>
+                        <th>IFSC</th>
+                        <th>Wallet</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of data1; let i = index" [class.table-active]="isSelected(row)">
+                        <td>
+                          <input type="checkbox" [checked]="isSelected(row)" (change)="toggleSelection(row)">
+                        </td>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ row.reg_id }}</td>
+                        <td>{{ row.name }}</td>
+                        <td>{{ row.contact }}</td>
+                        <td>{{ row.account_no }}</td>
+                        <td>{{ row.ifsc }}</td>
+                        <td>{{ row.wallet_amount * 0.80 | number:'1.2-2' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div *ngIf="!loading && !data1?.length" class="text-center text-muted mt-4">
+                    No data found.
+                  </div>
+                </div>
+
+                <!-- Modal -->
+                <ng-template #confirmModal let-modal>
+                  <div class="modal-header">
+                    <h5 class="modal-title">Confirm Payment</h5>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div *ngIf="selectedRowForModal">
+                      <p>You are about to confirm payments for {{selectedRowForModal.length}} rows.</p>
+                    </div>
+                    <div *ngIf="selectedRowForModal?.length === 1">
+                      <p>Regid: {{selectedRowForModal[0]?.reg_id}}</p>
+                      <p>Amount: {{selectedRowForModal[0]?.wallet_amount * 0.80 | number:'1.2-2'}}</p>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+                    <button type="button" class="btn btn-primary" (click)="confirmPayment(modal)">Confirm</button>
+                  </div>
+                </ng-template>
+
+              </div>
+            </div>
+          </div>
         </div>
-        
-        
       </div>
-   </div>
+    </div>
+  </div>
+</div>

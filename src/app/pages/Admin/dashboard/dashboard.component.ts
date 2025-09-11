@@ -1,3 +1,4 @@
+// src/app/pages/dashboard/dashboard.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -26,9 +27,7 @@ export class DashboardComponent implements OnInit {
   ) {
     this.confirmForm = this.fb.group({
       regid: [''],
-      amount: [''],
-      remark: [''],
-      transactionpassword: ['']
+      amount: ['']
     });
   }
 
@@ -36,15 +35,17 @@ export class DashboardComponent implements OnInit {
     this.getpayoutdata();
   }
 
+  // Fetch data
   getpayoutdata() {
     this.loading = true;
     this.api.AdminHome().subscribe({
       next: (res: any) => {
+        console.log('Payout Data:', res);
         this.data1 = res.data ?? [];
         this.loading = false;
       },
       error: (err) => {
-        console.error(err);
+        console.error('Error fetching payout data:', err);
         this.loading = false;
       }
     });
@@ -52,41 +53,42 @@ export class DashboardComponent implements OnInit {
 
   // Selection methods
   toggleSelection(row: any) {
-    const index = this.selectedRows.findIndex(r => r._id === row._id || r.id === row.id);
+    const index = this.selectedRows.findIndex(r => r.reg_id === row.reg_id);
     if (index > -1) {
-      this.selectedRows.splice(index, 1);
+      this.selectedRows.splice(index, 1); // Remove if already selected
     } else {
-      this.selectedRows.push(row);
+      this.selectedRows.push(row); // Add if not selected
     }
   }
 
-  isSelected(row: any) {
-    return this.selectedRows.some(r => r._id === row._id || r.id === row.id);
+  isSelected(row: any): boolean {
+    return this.selectedRows.some(r => r.reg_id === row.reg_id);
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     return this.data1.length > 0 && this.selectedRows.length === this.data1.length;
   }
 
   toggleSelectAll(event: Event) {
     const input = event.target as HTMLInputElement;
-    if (input.checked) this.selectedRows = [...this.data1];
-    else this.selectedRows = [];
+    this.selectedRows = input.checked ? [...this.data1] : [];
   }
 
   // Open modal
   openConfirmModal(content: any, row?: any) {
-    if (row) this.selectedRowForModal = [row];
-    else if (this.selectedRows.length > 0) this.selectedRowForModal = [...this.selectedRows];
-    else {
+    if (row) {
+      this.selectedRowForModal = [row];
+    } else if (this.selectedRows.length > 0) {
+      this.selectedRowForModal = [...this.selectedRows];
+    } else {
       alert('Select at least one row.');
       return;
     }
 
     const firstRow = this.selectedRowForModal[0];
     this.confirmForm.patchValue({
-      regid: firstRow.userid,
-      amount: firstRow.amount
+      regid: firstRow.reg_id,
+      amount: firstRow.wallet_amount
     });
 
     this.modalService.open(content, { centered: true, backdrop: 'static', keyboard: false });
@@ -98,43 +100,50 @@ export class DashboardComponent implements OnInit {
 
     this.selectedRowForModal.forEach((row) => {
       const val = {
-        regid: String(row.userid),
-        amount: Number(row.amount),
-        remark: this.confirmForm.value.remark,
-        transactionpassword: this.confirmForm.value.transactionpassword
+        regid: String(row.reg_id),
+        amount: Number(row.wallet_amount)
       };
 
       this.api.TodayWalletpay(val).subscribe({
-        next: (res) => console.log('Payment confirmed for', val.regid, res),
-        error: (err) => console.error('Payment failed for', val.regid, err)
+        next: (res) => {
+          console.log('Payment confirmed for', val.regid, 'Response:', res);
+        },
+        error: (err) => {
+          console.error('Payment failed for', val.regid, err);
+          this.errorMessage = 'Payment failed for ' + val.regid;
+        }
       });
     });
 
-    setTimeout(() => {
-      this.getpayoutdata();
-      this.selectedRows = [];
-      this.selectedRowForModal = [];
-    }, 2000);
+     // Navigate to same route to trigger refresh
+  setTimeout(() => {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/dashboard']);
+    });
+  }, 2000);
   }
 
   // Excel export
   exportToExcel(all: boolean = false) {
     const exportData = (all ? this.data1 : this.selectedRows).map((row, index) => ({
-      'Transaction Type':'IMPS',
-      'Beneficiary Code':'',
-      'Value Date':'',
-      'Debit A/C Number':'258885011099',
-      'Transaction Amount':row.wallet_amount * 0.80,
-      'Beneficiary Name':row.name,
-      'Beneficiary A/c No.':row.account_no,
-      'IFSC Code':row.ifsc,
-      'User ID':row.reg_id,
-      'Bene Mobile No':row.contact,
-      'Customer Ref No':index + 1,
-      'Payment Narration':''
+      'Transaction Type': 'IMPS',
+      'Beneficiary Code': '',
+      'Value Date': '',
+      'Debit A/C Number': '258885011099',
+      'Transaction Amount': row.wallet_amount * 0.80,
+      'Beneficiary Name': row.name,
+      'Beneficiary A/c No.': row.account_no,
+      'IFSC Code': row.ifsc,
+      'User ID': row.reg_id,
+      'Bene Mobile No': row.contact,
+      'Customer Ref No': index + 1,
+      'Payment Narration': ''
     }));
 
-    if (exportData.length === 0) { alert('No data available!'); return; }
+    if (exportData.length === 0) {
+      alert('No data available!');
+      return;
+    }
 
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
     const workbook: XLSX.WorkBook = XLSX.utils.book_new();
