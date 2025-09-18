@@ -29,7 +29,7 @@ export class MenuBarComponent implements OnInit {
         // { label: 'Packages', icon: 'fa fa-database', routerLink: ['/packages'] },
         // { label: 'Transfer Wallet', icon: 'fab fa-bitcoin', routerLink: ['/activationwallet'] },
         // { label: 'Deposites', icon: 'fa fa-home', routerLink: ['/deposites'] },
-        // { label: 'Users', icon: 'fa fa-users', routerLink: ['/users'] },
+        { label: 'Users', icon: 'fa fa-users', routerLink: ['/users'] },
         // { label: 'Wallet', icon: 'fas fa-wallet', routerLink: ['/wallet'] },
         // { label: 'Icon Club Users', icon: 'fa fa-users', routerLink: ['/silverusers'] },
         // { label: 'Royalty Users', icon: 'fa fa-users', routerLink: ['/royaltyusers'] },

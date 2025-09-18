@@ -1,34 +1,117 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/service/admin.service';
+
 declare var $: any;
+
 @Component({
   selector: 'app-total-users',
   templateUrl: './total-users.component.html',
   styleUrls: ['./total-users.component.css']
 })
-export class TotalUsersComponent {
+export class TotalUsersComponent implements OnInit {
   data: any[] = [];
-  paginatedData: any[] = [];
-  rowsPerPage = 20;
+  gdata: any[] = [];
   rowsOptions = [10, 20, 50, 100];
-  currentPage = 1;
-  totalPages = 0;
- totalRecords: number = 0;
+  totalRecords: number = 0;
+currentPage: number = 1;
+rowsPerPage: number = 10;
+totalPages: number = 50; // Example: set dynamically after API call
+  // section flags
   TotalUsers: boolean = true;
   TodayUsers: boolean = false;
   Activeusers: boolean = false;
   Inactiveusers: boolean = false;
-  tusers:any;
-  ttusers:any;
-   selectedUserId: any = null;
-  udata:any;
-  form:any;
-  constructor(private api:AdminService, private router: Router, private fb:FormBuilder){
-   
+
+  selectedUserId: any = null;
+  form!: FormGroup;
+  isEditModalOpen = false;
+
+  constructor(
+    private api: AdminService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
+
+  ngOnInit() {
+    this.form = this.fb.group({
+      name: [''],
+      phone: [''],
+      email: [''],
+      password: [''],
+      transpassword: [''],
+      wallet_amount: [''],
+    });
+
+    this.loadUsers(this.currentPage, this.rowsPerPage);
   }
-  
+
+  // ✅ API call for paginated users
+loadUsers(page: number, rows: number) {
+  this.api.TotalUsers(page, rows).subscribe((res: any) => {
+    console.log('API Response:', res);
+
+    this.data = res.udata?.data || [];
+    this.totalRecords = res.udata?.count || 0;
+    this.totalPages = Math.ceil(this.totalRecords / rows);
+
+    this.gdata = res.gdata || []; // ✅ store gdata
+  });
+}
+
+getGdataByRegId(regId: string) {
+  return this.gdata.find(item => item.userdata?.reg_id === regId) || {};
+}
+
+ getPaginationGroup(): number[] {
+  const groupSize = 10; // show 10 numbers
+  const groupStart = Math.floor((this.currentPage - 1) / groupSize) * groupSize + 1;
+  let groupEnd = groupStart + groupSize - 1;
+
+  if (groupEnd > this.totalPages) {
+    groupEnd = this.totalPages;
+  }
+
+  const pages: number[] = [];
+  for (let i = groupStart; i <= groupEnd; i++) {
+    pages.push(i);
+  }
+  return pages;
+}
+
+goToPage(page: number) {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+    this.loadUsers(this.currentPage, this.rowsPerPage); // ✅ pass args
+  }
+}
+
+goToNextGroup() {
+  const groupSize = 10;
+  const nextGroupPage = Math.floor((this.currentPage - 1) / groupSize) * groupSize + groupSize + 1;
+  if (nextGroupPage <= this.totalPages) {
+    this.currentPage = nextGroupPage;
+    this.loadUsers(this.currentPage, this.rowsPerPage); // ✅
+  }
+}
+
+goToPrevGroup() {
+  const groupSize = 10;
+  const prevGroupPage = Math.floor((this.currentPage - 1) / groupSize) * groupSize;
+  if (prevGroupPage > 0) {
+    this.currentPage = prevGroupPage;
+    this.loadUsers(this.currentPage, this.rowsPerPage); // ✅
+  }
+}
+
+
+  onChangeRowsPerPage(value: string): void {
+    this.rowsPerPage = +value;
+    this.currentPage = 1;
+    this.loadUsers(this.currentPage, this.rowsPerPage);
+  }
+
   showSection(section: string) {
     this.TotalUsers = section === 'total';
     this.TodayUsers = section === 'today';
@@ -36,156 +119,74 @@ export class TotalUsersComponent {
     this.Inactiveusers = section === 'inactive';
   }
 
-openConfirmModal() {
-  $('#confirmModal').modal('show');
-}
-
-confirmAction() {
-  $('#confirmModal').modal('hide');
-  // Your actual confirmation logic here
-  console.log('Action confirmed!');
-}
-
-ngOnInit() {
-     this.form = this.fb.group({
-      name: ['', ], 
-      phone: ['', ], 
-      email: ['', ],
-      password: ['', ],
-      transpassword: ['', ],
-      wallet1: ['', ],
-    });
-
-  this.loadUsers({ first: 0, rows: this.rowsPerPage });
-  this.api.TotalMembers().subscribe((res:any)=>{
-    console.log(res);
-    this.ttusers=res.data;
-  })
-}
-
-loadUsers(event: any) {
-  const first = event.first || 0;
-  const rows = event.rows || this.rowsPerPage;
-  const page = Math.floor(first / rows) + 1;
-
-  this.api.TotalUsers(page, rows).subscribe((res: any) => {
-        console.log('total',res);
-    this.data = res.data.data;
-    this.totalRecords = res.data.count;
-    this.totalPages = Math.ceil(this.totalRecords / rows);
-  });
-}
-
-goToPage(page: number): void {
-  if (page >= 1 && page <= this.totalPages) {
-    this.currentPage = page;
-    const first = (this.currentPage - 1) * this.rowsPerPage;
-    this.loadUsers({ first, rows: this.rowsPerPage });
-  }
-}
-
-onChangeRowsPerPage(value: string): void {
-  this.rowsPerPage = +value; // Convert to number
-  this.currentPage = 1;
-  this.loadUsers({ first: 0, rows: this.rowsPerPage });
-}
-
-
-
-updatePagination() {
-  const start = (this.currentPage - 1) * this.rowsPerPage;
-  const end = start + this.rowsPerPage;
-  this.paginatedData = this.data.slice(start, end);
-}
-
-block(id: any) {
-    // Block the user if id is provided
+  // ✅ block user
+  block(id: any) {
     this.api.userblock(id).subscribe(
       (res: any) => {
         console.log(res);
-        setTimeout(() => {
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/users']);
-          });
-        }, 1000);
+        this.loadUsers(this.currentPage, this.rowsPerPage); // refresh list
       },
       (error: any) => {
         console.error(error);
       }
     );
-  
-}
-
-unblock(id:any){
-  this.api.userunblock(id).subscribe(
-    (res: any) => {
-      console.log(res);
-      setTimeout(() => {
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/users']);
-        });
-      }, 1000);
-    },
-    (error: any) => {
-      console.error(error);
-      // Handle error if the unblocking operation fails
-    }
-  );
-}
-
-isEditModalOpen = false;
-
-openEditModal(id: any) {
-  this.selectedUserId = id;
-  this.api.GetUserDataByid(id).subscribe((res: any) => {
-    const user = res?.data[0]; // use [0] if API returns array
-    if (user) {
-      this.form.patchValue({
-        name: user.name || '',
-        phone: user.phone || '',
-        email: user.email || '',
-        password: user.password || '',
-        transpassword: user.transpassword || '',
-        wallet1: user.wallet1 || '',
-      });
-      this.isEditModalOpen = true;
-    }
-  });
-}
-
-
-closeModal() {
-  this.isEditModalOpen = false;
-}
-
-submitUpdate() {
-  if (!this.form.valid) {
-    alert('Please fill all required fields correctly.');
-    return;
   }
 
-  if (this.selectedUserId) {
-    const updatedData = this.form.value;
-
-    this.api.UpdateUserProfile(this.selectedUserId, updatedData).subscribe(
+  // ✅ unblock user
+  unblock(id: any) {
+    this.api.userunblock(id).subscribe(
       (res: any) => {
-        alert('User profile updated successfully.');
-        this.closeModal();
-        setTimeout(() => {
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/users']);
-          });
-        }, 500);
+        console.log(res);
+        this.loadUsers(this.currentPage, this.rowsPerPage); // refresh list
       },
-      (err) => {
-        console.error('Update error:', err);
-        alert('Failed to update user profile.');
+      (error: any) => {
+        console.error(error);
       }
     );
   }
-}
 
+  // ✅ open edit modal
+  openEditModal(id: any) {
+    this.selectedUserId = id;
+    this.api.GetUserDataByid(id).subscribe((res: any) => {
+      const user = res?.data[0];
+      if (user) {
+        this.form.patchValue({
+          name: user.name || '',
+          phone: user.phone || '',
+          email: user.email || '',
+          password: user.password || '',
+          transpassword: user.transpassword || '',
+          wallet_amount: user.wallet_amount || '',
+        });
+        this.isEditModalOpen = true;
+      }
+    });
+  }
 
+  closeModal() {
+    this.isEditModalOpen = false;
+  }
 
+  submitUpdate() {
+    if (!this.form.valid) {
+      alert('Please fill all required fields correctly.');
+      return;
+    }
 
+    if (this.selectedUserId) {
+      const updatedData = this.form.value;
+      this.api.UpdateUserProfile(this.selectedUserId, updatedData).subscribe(
+        (res: any) => {
+          alert('User profile updated successfully.');
+          this.closeModal();
+          this.loadUsers(this.currentPage, this.rowsPerPage); // refresh list
+        },
+        (err) => {
+          console.error('Update error:', err);
+          alert('Failed to update user profile.');
+        }
+      );
+    }
+  }
 }
