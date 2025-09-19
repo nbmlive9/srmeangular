@@ -27,7 +27,7 @@ totalPages: number = 50; // Example: set dynamically after API call
   selectedUserId: any = null;
   form!: FormGroup;
   isEditModalOpen = false;
-
+isLoading: boolean = false; 
   constructor(
     private api: AdminService,
     private router: Router,
@@ -49,16 +49,26 @@ totalPages: number = 50; // Example: set dynamically after API call
 
   // ✅ API call for paginated users
 loadUsers(page: number, rows: number) {
-  this.api.TotalUsers(page, rows).subscribe((res: any) => {
-    console.log('API Response:', res);
+  this.isLoading = true; // Show spinner before API call
 
-    this.data = res.udata?.data || [];
-    this.totalRecords = res.udata?.count || 0;
-    this.totalPages = Math.ceil(this.totalRecords / rows);
+  this.api.TotalUsers(page, rows).subscribe(
+    (res: any) => {
+      console.log('API Response:', res);
 
-    this.gdata = res.gdata || []; // ✅ store gdata
-  });
+      this.data = res.udata?.data || [];
+      this.totalRecords = res.udata?.count || 0;
+      this.totalPages = Math.ceil(this.totalRecords / rows);
+
+      this.gdata = res.gdata || []; // ✅ store gdata
+      this.isLoading = false; // Hide spinner after data load
+    },
+    (error: any) => {
+      console.error('Error loading data:', error);
+      this.isLoading = false; // Hide spinner even on error
+    }
+  );
 }
+
 
 getGdataByRegId(regId: string) {
   return this.gdata.find(item => item.userdata?.reg_id === regId) || {};

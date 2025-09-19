@@ -20,6 +20,8 @@ export class SearchUserComponent {
   data2:any;
   selectedUserId: any = null;
   udata:any;
+   searchData: any = null;
+    loading: boolean = false; 
   constructor(private api:AdminService, private router: Router, private fb:FormBuilder, private activeroute:ActivatedRoute) { 
    
   }
@@ -36,41 +38,33 @@ export class SearchUserComponent {
     });
   }
 
-  
   searchUser(): void {
-    if (this.searchTerm && this.searchTerm.trim() !== '') {
-      console.log('Search Term:', this.searchTerm);
-  
-      this.api.GetUserDataByid(this.searchTerm.trim()).subscribe(
-        (res: any) => {
-          console.log('API Response:', res);
-  
-          // Check if the response contains data and is an array
-          if (res && res.data && Array.isArray(res.data)) {
-            this.data2 = res.data;
-  
-            // Reset error messages
-            this.errorMessage = '';
-            this.idselectmsg = `Found ${res.data.length} result(s).`;
-          } else {
-            this.data2 = []; // Clear the data array if no valid data is returned
-            this.errorMessage = 'No results found for the given search term.';
-            this.idselectmsg = '';
-          }
-        },
-        (err: any) => {
-          // Handle API errors
-          this.errorMessage = err.error?.message || 'An error occurred while searching.';
-          this.data2 = []; // Clear the data array in case of an error
-          this.idselectmsg = '';
-        }
-      );
-    } else {
-      // If no search term is provided
+    if (!this.searchTerm || this.searchTerm.trim() === '') {
       this.errorMessage = 'Please enter a valid search term.';
-      this.data2 = [];
-      this.idselectmsg = '';
+      this.searchData = null;
+      return;
     }
+
+    this.loading = true;  // Show loader
+    this.errorMessage = '';
+    this.searchData = null;
+
+    this.api.GetSearchUserDataByRegid(this.searchTerm.trim()).subscribe(
+      (res: any) => {
+        console.log('API Response:', res);
+        this.loading = false;  // Hide loader
+
+        if (res && res.data) {
+          this.searchData = res.data;
+        } else {
+          this.errorMessage = 'No data found for this user.';
+        }
+      },
+      (err: any) => {
+        this.loading = false; // Hide loader
+        this.errorMessage = err.error?.message || 'Error fetching data.';
+      }
+    );
   }
 
   isEditModalOpen = false;
