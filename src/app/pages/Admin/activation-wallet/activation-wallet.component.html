@@ -1,103 +1,121 @@
+<!-- src/app/pages/dashboard/dashboard.component.html -->
 <app-menu-bar></app-menu-bar>
 
 <div class="page-wrapper bg-wrapper">
-    <div class="content">
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
         <div class="row">
-            <div class="col-md-12">
-                <div class="buy-form">
-                 <h4 class="page-title">Transfer Wallet <small>To User</small></h4>
-                    <form [formGroup]="form" novalidate>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Enter Userid</label>
-                                    <input class="form-control" type="text" formControlName="regid" id="" (keyup)="onRegisterIdSelect($event)" >
-                                     <span class="text-success">{{idselectmsg}}</span>
-                                     <span class="text-danger">{{errorMessage}}</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Enter Amount</label>
-                                    <input class="form-control" type="text" formControlName="amount">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Remark</label>
-                                    <input class="form-control" type="text" formControlName="remark" >
-                                </div>
-                            </div>
-                              <!-- <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Txn Password</label>
-                                    <input class="form-control" type="text" formControlName="transactionpassword" >
-                                </div>
-                            </div> -->
-                        </div>
-                        <div class="mt-2 text-center">
-                            <button class="btn btn-primary submit-btn" (click)="openConfirmModal()" [disabled]="!form.valid">Transfer</button>
-                        </div>
-                    </form>
+          <div class="col-md-12 d-flex wlt">
+            <div class="card chart-card mb-0 flex-fill">
+              <div class="card-body pt-0">
+                
+                <!-- Header Section -->
+                <div class="wallet-sec mb-3">
+                  <div class="usd-sec d-flex align-items-center justify-content-between">
+                    <h4 class="fw-bold text-primary">Wallet Today Payouts</h4>
+                  </div>
                 </div>
-            </div>
-        </div>
-          <div class="card" *ngIf="loading">
-            <p class="text-danger">...Loading Data </p>
-        </div>
-        <div class="row" *ngIf="!loading">
-            <div class="col-md-12">
-                <div class="buy-form">
-                    <h4 class="page-title">Transfer Wallet History</h4>
-                    <div class="table-responsive">
-                        <table class="table table-striped custom-table mb-0">
-                            <thead>
-                                <tr>
-                                    <th> S.No</th> 
-                                    <th> Date</th> 
-                                    <th> Name</th>
-                                    <th> Amount</th>
-                                    <th> Remark</th>
-                                    <th> Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let row of tws; let i=index">
-                                     <td>{{i + 1}}</td>
-                                    <td>{{row.cdate | date:'dd/MMM/YYYY'}} <br> {{row.ctime }} </td>
-                                    <td>{{row.userid}} <br> <small>{{row.rname}}</small></td>
-                                    <td>{{row.amount | currency:'USD':true:'1.0-1'}}</td>
-                                    <td>{{row.remark}}</td>
-                                    <td>
-                                        <span class="btn btn-sm btn-success">Success</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Confirm Modal -->
-<!-- Confirm Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmModalLabel">Confirm Transfer</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to transfer {{ form.value.amount | currency:'USD':true:'1.0-1' }} to {{ regname?.name }} ({{ regname?.phone }}) - {{ regname?.email }} ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="confirmAction()">Yes, Confirm</button>
+                <!-- Action Buttons -->
+                <div class="mb-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+                  <div>
+                    <button 
+                      class="btn btn-success me-2 mb-2 mb-sm-0" 
+                      (click)="exportToExcel(true)" 
+                      [disabled]="loading || !data1.length">
+                      Export All to Excel
+                    </button>
+                    <button 
+                      class="btn btn-primary mb-2 mb-sm-0" 
+                      (click)="exportToExcel(false)" 
+                      [disabled]="selectedRows.length === 0">
+                      Export Selected to Excel
+                    </button>
+                  </div>
+                  <div>
+                    <button 
+                      class="btn btn-warning" 
+                      (click)="openConfirmModal(confirmModal)" 
+                      [disabled]="selectedRows.length === 0">
+                      Confirm Selected Payments
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Table Wrapper -->
+                <div class="table-responsive custom-table-container">
+                  <!-- Loader -->
+                  <div *ngIf="loading" class="text-center my-4">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Fetching data, please wait...</p>
+                  </div>
+
+                  <!-- Data Table -->
+                  <table *ngIf="!loading && data1?.length" class="table table-bordered table-striped align-middle text-center">
+                    <thead class="table-primary">
+                      <tr>
+                        <th>
+                          <input type="checkbox" [checked]="isAllSelected()" (change)="toggleSelectAll($event)">
+                        </th>
+                        <th>S.No</th>
+                        <th>Reg ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Wallet</th>
+                        <th>Account No</th>
+                        <th>IFSC</th>
+                        <th class="p-2">Wallet</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr *ngFor="let row of data1; let i = index" [class.table-active]="isSelected(row)">
+                        <td class="p-2">
+                          <input type="checkbox" [checked]="isSelected(row)" (change)="toggleSelection(row)">
+                        </td>
+                        <td class="p-2">{{ i + 1 }}</td>
+                        <td class="p-2">{{ row.reg_id }}</td>
+                        <td class="p-2">{{ row.name }}</td>
+                        <td class="p-2">{{ row.contact }}</td>
+                        <td class="p-2">{{ row.aadhar }}</td>
+                        <td class="p-2">{{ row.account_no }}</td>
+                        <td class="p-2">{{ row.ifsc }}</td>
+                        <td class="p-2">{{ row.wallet_amount * 0.80 | number:'1.2-2' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <!-- No Data Found -->
+                  <div *ngIf="!loading && !data1?.length" class="text-center text-muted mt-4">
+                    No data found.
+                  </div>
+                </div>
+
+                <!-- Modal -->
+                <ng-template #confirmModal let-modal>
+                  <div class="modal-header">
+                    <h5 class="modal-title">Confirm Payment</h5>
+                    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div *ngIf="selectedRowForModal">
+                      <p>You are about to confirm payments for {{selectedRowForModal.length}} rows.</p>
+                    </div>
+                    <div *ngIf="selectedRowForModal?.length === 1">
+                      <p><strong>Regid:</strong> {{selectedRowForModal[0]?.reg_id}}</p>
+                      <p><strong>Amount:</strong> {{selectedRowForModal[0]?.wallet_amount * 0.80 | number:'1.2-2'}}</p>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+                    <button type="button" class="btn btn-primary" (click)="confirmPayment(modal)">Confirm</button>
+                  </div>
+                </ng-template>
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
