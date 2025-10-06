@@ -60,6 +60,7 @@ import { ReceivedReportComponent } from './pages/User/received-report/received-r
 import { LevelMembersComponent } from './pages/User/level-members/level-members.component';
 import { AwardUsersDataComponent } from './pages/Admin/award-users-data/award-users-data.component';
 import { RoyaltyUsersDataComponent } from './pages/Admin/royalty-users-data/royalty-users-data.component';
+import { HomePageComponent } from './pages/MainHome/home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { RoyaltyUsersDataComponent } from './pages/Admin/royalty-users-data/roya
     ReceivedReportComponent,
     LevelMembersComponent,
     AwardUsersDataComponent,
-    RoyaltyUsersDataComponent
+    RoyaltyUsersDataComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,

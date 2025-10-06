@@ -31,18 +31,27 @@ pack:any;
   errorMessage: string = '';
   form:FormGroup;
   udata:any;
+  password: string = '';
+  showPassword = false;
+  errorMessage3: string = '';
   constructor(private api:UserService, private fb:FormBuilder, private router:Router,  private modalService: NgbModal){
       this.form = this.fb.group({
-          regid: ['', Validators.required], 
-          package: ['', Validators.required], 
+             name: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]], // ✅ min 6 chars
+        sponcerid: [''],
+        position: [''], 
+        placementid: ['',],
+        terms: [false, Validators.requiredTrue]
         });
   }
 
   ngOnInit(){
     //get profile
        this.api.UProfile().subscribe((res: any) => {
-      // console.log('profile', res);
-      this.data2 = res.data;
+      console.log('profile', res);
+      this.data2 = res.data[0];
     });
     //get packages
    this.getPackagesData();
@@ -83,13 +92,18 @@ pack:any;
     // console.log(this.form.value);
     if (this.form.valid) {
       const val = {
-        regid: this.form.value.regid,
-        package:this.form.value.package,
+        sponcerid: this.form.value.sponcerid,
+        name:this.form.value.name,
+        phone:this.form.value.phone,
+        email:this.form.value.email,     
+        password:this.form.value.password,
+        position:this.form.value.position,
+        placementid:this.form.value.placementid,
       };
-      this.api.ActivatePackage(val).subscribe(
+      this.api.UserRegistration(val).subscribe(
         (a:any) => {
           if (a) {
-            // console.log('actdata',a)
+            console.log('actdata',a)
             this.udata = a.data;
             console.log(a);
                this.form.reset();

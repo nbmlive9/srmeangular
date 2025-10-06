@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { TokenStorageService } from './token-storage.service';
 import { Observable } from 'rxjs';
 
-const AUTH_API ='https://iconistar.net/ICON/ICON/User/'
+const AUTH_API ='https://yohanbin.live/S7R18M13E5/S7R18M13E5/User/'
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +12,42 @@ export class UserService {
 
   constructor(private http: HttpClient, public token: TokenStorageService) { }
 
-    UserRegistration(value: any){
+  //   UserRegistration(value: any){
+  //   return this.http.post(
+  //     AUTH_API + 'Register', value, {
+  //       responseType: 'json',
+  //     });
+  // }
+
+  UserRegistration(value: {
+    sponcerid: string;
+    name: string;
+    phone: string;
+    email: string;
+    password: string;
+    position: string;
+    placementid:string;
+  }) {
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    };
     return this.http.post(
-      AUTH_API + 'Register', value, {
-        responseType: 'json',
-      });
+      AUTH_API + 'Register',
+      { 
+        "sponcerid":value.sponcerid, 
+        "name":value.name, 
+        "phone":value.phone, 
+        "email":value.email, 
+        "password":value.password, 
+        "position":value.position, 
+        "placementid":value.placementid, 
+      },
+      httpOptions
+    );
   }
 
   GetusersDataByRegID(id:any){

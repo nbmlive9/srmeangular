@@ -27,7 +27,7 @@
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label class="focus-label">UserID</label>
-                            <input type="text" class="form-control floating" placeholder="{{row.regid}}" readonly>
+                            <input type="text" class="form-control floating" placeholder="{{row.reg_id}}" readonly>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -36,12 +36,7 @@
                             <input type="text" class="form-control floating" [ngModel]="row.password" formControlName="password">
                         </div>
                     </div>
-                       <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="focus-label">Security Key</label>
-                            <input type="text" class="form-control floating" placeholder="{{row.transpassword}}" readonly>
-                        </div>
-                    </div>
+                    
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="focus-label">Name</label>
@@ -58,7 +53,7 @@
                         <div class="form-group ">
                             <label class="focus-label">Wallet Address [USDT (BEP 20)]</label>
                             <!-- <input type="text" class="form-control floating" [ngModel]="row.wallet1" formControlName="wallet1"> -->
-                                 <input class="form-control"  type="text" [readonly]="row.wallet1 !== null && row.wallet1 !== ''" [placeholder]="row.wallet1" formControlName="wallet1" />
+                                 <input class="form-control"  type="text" [readonly]="row.aadhar !== null && row.aadhar !== ''" [placeholder]="row.aadhar" formControlName="aadhar" />
                             <span class="text-primary">Note: Carefully Update if wrong update we are not reposnible, Once Update USDT Wallet Address won't change contact to Admin Support <a routerLink="/support" class="text-danger"> <i class="fa fa-comments"></i> </a> </span>
                         </div>
                     </div>

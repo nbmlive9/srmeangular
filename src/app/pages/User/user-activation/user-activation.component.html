@@ -1,46 +1,119 @@
 <app-menu-bar></app-menu-bar>
 
 <div class="page-wrapper bg-wrapper">
-    <div class="content" style="margin-top: -50px;">
+    <div class="container content" style="margin-top: -50px;">
         <div class="row">
           <div class="card buy-form p-3">
-    <h4 class="page-title text-danger">User Activation</h4>
-       <form [formGroup]="form" novalidate>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group ">
-                                <label class="focus-label">Packages <span class="text-danger">*</span></label>
-                                <select class="select form-control floating" formControlName="package">
-                                    <option value="" selected>Select Package</option>
-                                    <option *ngFor="let pd of pack" value="{{pd.id}}">{{pd.pname}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="focus-label">Enter Userid <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control floating" formControlName="regid" (keyup)="onRegisterIdSelect($event)">
-                                <span class="text-success">{{idselectmsg}}</span>
-                                <span class="text-danger">{{errorMessage}}</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group" *ngFor="let pdata of data2">
-                                <label class="focus-label">Available Wallet ($)</label>
-                                <input type="text" class="form-control floating" value="{{pdata.actwallet}}" readonly>
-                            </div>
-                        </div>
-                        <div class="text-center m-t-20">
-                            <button class="btn btn-primary submit-btn" (click)="openConfirmModal()" [disabled]="!form.valid" type="button">Submit</button>
-                        </div>
-                    </div>
-       </form>
+       <h5 class="text-center mb-4 fw-bold text-success">REGISTER</h5>
+       <h6 class="text-danger">Activation Fund: {{data2.actwallet | currency:'USD':true:'1.0-2'}}</h6>
+          <span class="text-danger">{{errorMessage3}}</span>
+          <form [formGroup]="form" (ngSubmit)="add()">
+            <div class="row g-3">
+              <!-- Full Name -->
+              <div class="col-sm-6">
+                <label class="form-label">Full Name *</label>
+                <div class="input-wrapper">
+                  <input type="text" formControlName="name" placeholder="Enter Name" class="form-control" />
+                </div>
+                <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="text-danger small">
+                  Name is required
+                </div>
+              </div>
+
+                    <div class="col-sm-6">
+                <label class="form-label">Phone *</label>
+                <div class="input-wrapper">
+                  <input type="number" formControlName="phone" placeholder="Enter Phone" class="form-control" />
+                </div>
+                <div *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid" class="text-danger small">
+                  phone number is required
+                </div>
+              </div>
+          
+              <!-- Email -->
+              <div class="col-sm-6">
+                <label class="form-label">Email *</label>
+                <div class="input-wrapper">
+                  <input type="email" formControlName="email" class="form-control" />
+                </div>
+                <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="text-danger small">
+                  <span *ngIf="form.get('email')?.errors?.['required']">Email is required</span>
+                  <span *ngIf="form.get('email')?.errors?.['email']">Invalid email format</span>
+                </div>
+              </div>
+          
+
+              <!-- Password -->
+        <!-- Password -->
+<div class="col-sm-6 mb-3 position-relative">
+  <label class="form-label">Password *</label>
+  <input 
+    [type]="showPassword ? 'text' : 'password'" 
+    formControlName="password" 
+    placeholder="********" 
+    class="form-control pe-5" 
+  />
+  <i class="fa" 
+     [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" 
+     (click)="showPassword = !showPassword"
+     style="position: absolute; top: 70%; right: 15px; transform: translateY(-50%); cursor: pointer;">
+  </i>
+  <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid" class="text-danger small mt-1">
+    <span *ngIf="form.get('password')?.errors?.['required']">Password is required.</span>
+    <span *ngIf="form.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</span>
+  </div>
+</div>
+
+
+
+          
+              <!-- Referral ID -->
+              <div class="col-sm-6">
+                <label class="form-label">Referral ID</label>
+                <div class="input-wrapper">
+                  <input type="text" formControlName="sponcerid" class="form-control" [(ngModel)]="data2.reg_id" readonly />
+                  <input type="text" formControlName="placementid" [(ngModel)]="data2.reg_id" class="form-control" hidden />
+                </div>
+                <small class="text-success">Name: {{ data2.name }}</small>
+              </div>
+          
+              
+              <!-- Position -->
+              <div class="col-sm-6">
+                <label class="form-label">Position</label>
+                <div class="input-wrapper">
+                   <select formControlName="position" class="form-select">
+                                <option value="" disabled>Select Position</option>
+                                <option value="Left">Left</option>
+                                <option value="Right">Right</option>
+                            </select>
+                                <div *ngIf="form.get('position')?.touched && form.get('position')?.invalid" class="text-danger small">
+                                    <div *ngIf="form.get('position')?.errors?.['required']">Position is required.</div>
+                                </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Terms -->
+            <div class="mt-3">
+              <label>
+                <input type="checkbox" formControlName="terms" />
+                I have read and agree to
+                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms & Conditions</a>
+              </label>
+              <div *ngIf="form.get('terms')?.touched && form.get('terms')?.invalid" class="text-danger small">
+                You must accept the terms
+              </div>
+            </div>
+          
+            <button type="submit" class="btn btn-dark w-100 mt-3 rounded-pill" *ngIf="form.valid">Sign Up</button>
+          </form>
     
 </div>
- <div class="col-md-12 ">
+ <!-- <div class="col-md-12 ">
         <app-uactivation-report></app-uactivation-report>
     </div>
-</div>
+</div> -->
 </div>
 </div>
 
@@ -57,19 +130,20 @@
 
   <div class="modal-body text-center py-4">
     <img src="assets/logo1.png" alt="Logo" class="img-fluid mb-3" style="max-height:150px;" />
-    <h4 class="text-success font-weight-bold">Your Package Is Activated!</h4>
-      <p class="mb-2"><strong>Name:</strong> {{ udata?.rname }}</p>
-    <p class="mb-2"><strong>User ID:</strong> {{ udata?.forid }}</p>
-    <p class="mb-3"><strong>Package:</strong> {{ udata?.packagename }}</p>
-       <p class="mb-3"><strong>Amount:</strong> {{ udata?.amount | currency:'USD':true:'1.0-1' }}</p>
+    <h4 class="text-success font-weight-bold">Your ID Is Activated!</h4>
+      <p class="mb-2"><strong>Name:</strong> {{ udata?.Username }}</p>
+    <p class="mb-2"><strong>User ID:</strong> {{ udata?.Registerid }}</p>
+    <p class="mb-3"><strong>Password:</strong> {{ udata?.password }}</p>
+       <p class="mb-3"><strong>Sponsor:</strong> {{ udata?.Sponcerid }}</p>
+              <p class="mb-3"><strong>Sponsor:</strong> {{ udata?.Sponcername }}</p>
     <p class="text-primary font-italic">
-      Let’s start fulfilling your dream with <strong class="text-danger">Iconistar</strong> 🌟
+      Let's start fulfilling your dream with <strong class="text-danger">Yohan Coin</strong> 🌟
     </p>
   </div>
 
   <div class="modal-footer justify-content-center">
     <button type="button" class="btn btn-success px-4" (click)="modal.close('Close click')">
-      Let’s Go!
+      Let's Go!
     </button>
   </div>
 </ng-template>

@@ -44,12 +44,12 @@ export class MenuBarComponent implements OnInit {
       this.model = [
         { label: 'Dashboard', icon: 'fa fa-home', routerLink: ['/mydashboard'] },
         { label: 'Profile', icon: 'fa fa-user-edit', routerLink: ['/myprofile'] },
-        { label: 'Deposite', icon: 'fas fa-landmark', routerLink: ['/despositesreq'] },
+        // { label: 'Deposite', icon: 'fas fa-landmark', routerLink: ['/despositesreq'] },
         { label: 'Activation', icon: 'fa fa-check-circle', routerLink: ['/activation'] },
-        { label: 'Transfer Wallet', icon: 'fa fa-cube', routerLink: ['/transferwallet'] },
-        { label: 'My Team', icon: 'fa fa-users', routerLink: ['/referrals'] },
-        { label: 'Withdraw', icon: 'fab fa-bitcoin', routerLink: ['/walletwithdraw'] },
-        { label: 'My Earnings', icon: 'fa fa-wallet', routerLink: ['/myincomes'] },
+        // { label: 'Transfer Wallet', icon: 'fa fa-cube', routerLink: ['/transferwallet'] },
+        // { label: 'My Team', icon: 'fa fa-users', routerLink: ['/referrals'] },
+        // { label: 'Withdraw', icon: 'fab fa-bitcoin', routerLink: ['/walletwithdraw'] },
+        // { label: 'My Earnings', icon: 'fa fa-wallet', routerLink: ['/myincomes'] },
         { label: 'Support', icon: 'fas fa-comment', routerLink: ['/support'] }
       ];
     }
