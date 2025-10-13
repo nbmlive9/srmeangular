@@ -1,53 +1,97 @@
-<!-- Header with logo -->
-<div class="d-flex align-items-center justify-content-between p-2 border-bottom shadow-sm" style="background-color: #022252;">
-  <!-- Menu Toggle Button for mobile -->
-  <button class="btn btn-outline-warning d-md-none" data-bs-toggle="offcanvas" data-bs-target="#sidebarModal">
-    <i class="fas fa-bars"></i> Menu
-  </button>
+<!-- Top header -->
+<header class="top-header">
+  <div class="container-fluid header-inner d-flex align-items-center justify-content-between">
+    <div class="left-group d-flex align-items-center">
+      <!-- Mobile toggle -->
+      <button class="btn btn-icon d-lg-none" aria-label="Open Menu" (click)="openSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
 
-  <div class="d-flex align-items-center">
-    <a *ngIf="token1.isAdmin()" routerLink="/dashboard" class="logo-link me-3 animate-logo">
-        <img src="assets/logo.png" width="60" height="60" alt="Logo">
-    </a>
-    <a *ngIf="token1.isUser()" routerLink="/mydashboard" class="logo-link me-3 animate-logo">
-      <img src="assets/logo.png" width="60" height="60" alt="Logo">
-    </a>
+      <!-- Logo -->
+      <a [routerLink]="token1.isAdmin() ? '/dashboard' : '/mydashboard'" class="brand d-flex align-items-center ms-2">
+        <img class="brand-logo" src="assets/logo.png" alt="Logo" />
+        <div class="brand-text">
+          <span class="brand-title">Yohan</span>
+          <small class="brand-sub">Admin Panel</small>
+        </div>
+      </a>
+
+      <!-- Search (hide on xs) -->
+      <div class="search-wrap d-none d-md-flex ms-3">
+        <input class="search-input" placeholder="Search users, txid, tokens..." />
+        <button class="btn btn-search" aria-label="Search"><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+
+    <div class="right-group d-flex align-items-center">
+      <!-- Balance card -->
+      <div class="balance-card d-none d-md-flex me-3">
+        <small class="muted">Activation Fund: </small>
+        <div class="amount text-warning">{{pfdata?.actwallet | currency:'USD':true:'1.0-2'}}</div>
+      </div>
+
+      <!-- Avatar dropdown (simple) -->
+      <div class="avatar-wrap dropdown">
+        <button class="avatar-btn" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="assets/logo.png" alt="avatar" class="avatar-img" />
+          <span class="avatar-name d-none d-lg-inline">{{ pdata.name }}</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+          <li><a class="dropdown-item" [routerLink]="token1.isAdmin() ? '/dashboard' : '/mydashboard'">Profile</a></li>
+          <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
-</div>
+</header>
 
-<!-- Desktop Sidebar (Visible on md and up) -->
-<div class="d-none d-md-block position-fixed top-0 start-0 h-100 shadow" style="width: 250px; z-index: 1040; padding-top: 75px; ">
-      <div class="text-center" style="background-color: #022252;">
-         
-      </div> 
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item list-group-item-action" *ngFor="let item of model">
-      <a [routerLink]="item.routerLink" class="text-decoration-none text-dark">
-        <i class="{{ item.icon }} me-2"></i>{{ item.label }}
+<!-- Desktop Sidebar -->
+<nav class="sidebar d-none d-lg-flex flex-column">
+  <div class="sidebar-top text-center p-3">
+    <img src="assets/logo.png" class="sidebar-logo" alt="logo" />
+    <div class="sidebar-brand">Yohan</div>
+  </div>
+
+  <ul class="menu-list">
+    <li *ngFor="let item of model" class="menu-item" routerLinkActive="active">
+      <a [routerLink]="item.routerLink" class="menu-link">
+        <i class="{{ item.icon }}"></i>
+        <span class="label">{{ item.label }}</span>
       </a>
     </li>
-    <li class="list-group-item list-group-item-action text-danger" (click)="logout()">
-      <i class="fa fa-sign-out-alt me-2"></i>Logout
-    </li>
   </ul>
-</div>
 
-<!-- Offcanvas Sidebar (Mobile/Tablet) -->
+  <div class="sidebar-footer mt-auto p-3">
+    <button class="btn btn-logout w-100" (click)="logout()"><i class="fa fa-sign-out-alt me-2"></i> Logout</button>
+  </div>
+</nav>
+
+<!-- Offcanvas for Mobile -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarModal" aria-labelledby="sidebarModalLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Menu</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <h5 id="sidebarModalLabel" class="mb-0">Menu</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
-  <div class="offcanvas-body">
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-action" *ngFor="let item of model" (click)="closeSidebar()">
-        <a [routerLink]="item.routerLink" class="text-decoration-none text-dark">
-          <i class="{{ item.icon }} me-2"></i>{{ item.label }}
+  <div class="offcanvas-body p-0">
+    <div class="offcanvas-profile p-3 d-flex align-items-center gap-2">
+      <img src="assets/avatar.jpg" class="off-avatar" />
+      <div>
+        <div class="fw-bold">{{ pdata.name }}</div>
+        <small class="muted">{{ pdata.reg_id }}</small>
+      </div>
+    </div>
+
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let item of model" class="list-group-item">
+        <a [routerLink]="item.routerLink" (click)="closeSidebar()" class="text-decoration-none text-dark d-flex align-items-center gap-2">
+          <i class="{{ item.icon }}"></i>
+          <span>{{ item.label }}</span>
         </a>
       </li>
-      <li class="list-group-item list-group-item-action text-danger" (click)="logout()">
-        <i class="fa fa-sign-out-alt me-2"></i>Logout
+      <li class="list-group-item">
+        <a class="text-danger d-flex align-items-center gap-2" (click)="logout()"><i class="fa fa-sign-out-alt"></i> Logout</a>
       </li>
     </ul>
   </div>
 </div>
+

@@ -1,10 +1,12 @@
 <app-menu-bar></app-menu-bar>
 
-<div class="page-wrapper bg-wrapper" >
-    <div class="content" style="margin-top: -50px;">
-          <h3>Welcome to <span class="text-danger">{{pdata.name}} </span>({{pdata.reg_id}})</h3>
+<!-- Page content example including welcome -->
+<div class="page-wrapper">
+  <div class="page-content container-fluid">
+    <div class="welcome-card p-4">
+      <h3>Welcome to <span class="text-primary">{{ pdata.name }}</span> ({{ pdata.reg_id }})</h3>
+      <p class="muted">Manage wallets, users, trades and settings from the left menu.</p>
     </div>
+  </div>
 </div>
-
-
 
