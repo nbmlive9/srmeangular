@@ -4,7 +4,7 @@
     <div class="left-group d-flex align-items-center">
       <!-- Mobile toggle -->
       <button class="btn btn-icon d-lg-none" aria-label="Open Menu" (click)="openSidebar()">
-        <i class="fas fa-bars"></i>
+        <i class="fas fa-bars text-white"></i>
       </button>
 
       <!-- Logo -->
@@ -34,7 +34,7 @@
       <div class="avatar-wrap dropdown">
         <button class="avatar-btn" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="assets/logo.png" alt="avatar" class="avatar-img" />
-          <span class="avatar-name d-none d-lg-inline">{{ pdata.name }}</span>
+          <span class="avatar-name d-none d-lg-inline">{{ pfdata.reg_id }}</span>
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
           <li><a class="dropdown-item" [routerLink]="token1.isAdmin() ? '/dashboard' : '/mydashboard'">Profile</a></li>
