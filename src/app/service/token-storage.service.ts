@@ -20,7 +20,7 @@ export class TokenStorageService {
   signOut() {
     this.user = null;
     window.localStorage.clear();
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/auth-login');
   }
 
   public saveToken(token: string): void {

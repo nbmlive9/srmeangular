@@ -1,12 +1,166 @@
 <app-menu-bar></app-menu-bar>
+<div class="page-wrapper bg-wrapper">
+    <div class="container content" style="margin-top: -50px;">
+        <div class="dashboard-container p-3">
 
-<!-- Page content example including welcome -->
-<div class="page-wrapper">
-  <div class="page-content container-fluid">
-    <div class="welcome-card p-4">
-      <h3>Welcome to <span class="text-primary">{{ pdata.name }}</span> ({{ pdata.reg_id }})</h3>
-      <p class="muted">Manage wallets, users, trades and settings from the left menu.</p>
-    </div>
-  </div>
+          <!-- Profile Section -->
+          <div class="profile-card gradient-bg text-white p-4 rounded-4 shadow-sm mb-4">
+            <div class="d-flex align-items-center flex-wrap">
+              <img src="assets/profile.png" alt="Profile" class="profile-img me-3" />
+              <div>
+                <h4 class="mb-1 fw-bold">{{ pdata?.name }}</h4>
+                <p class="mb-0 small opacity-75">User ID: {{ pdata?.reg_id }}</p>
+              </div>
+              <div class="ms-auto text-end">
+                <p class="fw-bold mb-0">Wallet Balance</p>
+                <h5 class="mb-0 text-warning">{{ pdata?.wallet_amount | currency:'USD':'symbol':'1.0-2' }}</h5>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Section -->
+          <div class="row g-3">
+
+              <!-- Activation Fund -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-purple">
+                <h6>Activation Fund</h6>
+                <h4>{{ pdata?.actwallet | currency:'USD':'symbol':'1.0-2' }}</h4>
+              </div>
+            </div>
+
+            <!-- Credit -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-blue">
+                <h6>Credit</h6>
+                <h4>{{ data2?.credit | currency:'USD':'symbol':'1.0-2' }}</h4>
+              </div>
+            </div>
+
+            <!-- Debit -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-red">
+                <h6>Debit</h6>
+                <h4>{{ data2?.debit | currency:'USD':'symbol':'1.0-2' }}</h4>
+              </div>
+            </div>
+
+            <!-- Active Sponsors -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-green">
+                <h6>Active Sponsors</h6>
+                <h4>{{ data2?.activesponsors }}</h4>
+              </div>
+            </div>
+            
+            <!-- Silver -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-silver">
+                <h6>Silver Left / Right</h6>
+                <h4>{{ data2?.silverleft }} / {{ data2?.silverright }}</h4>
+              </div>
+            </div>
+
+            <!-- Gold -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-gold">
+                <h6>Gold Left / Right</h6>
+                <h4>{{ data2?.goldleft }} / {{ data2?.goldright }}</h4>
+              </div>
+            </div>
+
+            <!-- Diamond -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-diamond">
+                <h6>Diamond Left / Right</h6>
+                <h4>{{ data2?.diamondleft }} / {{ data2?.diamondright }}</h4>
+              </div>
+            </div>
+
+            <!-- Level -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-cyan">
+                <h6>Level Left / Right</h6>
+                <h4>{{ data2?.levelleft }} / {{ data2?.levelright }}</h4>
+              </div>
+            </div>
+          </div>
+          
+        
+        <!-- Today's Income & Pairs -->
+        <div class="mt-5">
+          <h5 class="fw-bold mb-3 text-dark">Today's Performance</h5>
+          <div class="row g-4">
+            <div
+              class="col-md-3 col-6"
+              *ngFor="let item of [
+                {label:'Silver Pairs', value:data2?.todaysilverpairs, color1:'#00C9FF', color2:'#92FE9D'},
+                {label:'Gold Pairs', value:data2?.todaygoldpairs, color1:'#F7971E', color2:'#FFD200'},
+                {label:'Diamond Pairs', value:data2?.todaydiamondpairs, color1:'#654EA3', color2:'#EAAFC8'},
+                {label:'Level Pairs', value:data2?.todaylevelpairs, color1:'#2193b0', color2:'#6dd5ed'}
+              ]"
+            >
+              <div
+                class="pair-card p-4 rounded-4 text-center text-white shadow-sm"
+                [ngStyle]="{'background': 'linear-gradient(135deg,' + item.color1 + ',' + item.color2 + ')'}"
+              >
+                <h6 class="fw-semibold">{{ item.label }}</h6>
+                <h2 class="fw-bold">{{ item.value || 0 | currency:'USD':'symbol':'1.0-2'}}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Today's Incomes -->
+        <div class="mt-5">
+          <h5 class="fw-bold mb-3 text-dark">Today's Incomes</h5>
+          <div class="row g-4">
+            <div
+              class="col-md-3 col-6"
+              *ngFor="let income of [
+                {label:'Silver Income', value:data2?.todaysilverincome, color1:'#1D976C', color2:'#93F9B9'},
+                {label:'Gold Income', value:data2?.todaygoldincome, color1:'#f7971e', color2:'#ffd200'},
+                {label:'Diamond Income', value:data2?.todaydiamondincome, color1:'#8360c3', color2:'#2ebf91'},
+                {label:'Level Binary', value:data2?.levelbinary, color1:'#4776E6', color2:'#8E54E9'}
+              ]"
+            >
+              <div
+                class="income-card p-4 rounded-4 text-center text-white shadow-sm"
+                [ngStyle]="{'background': 'linear-gradient(135deg,' + income.color1 + ',' + income.color2 + ')'}"
+              >
+                <h6 class="fw-semibold">{{ income.label }}</h6>
+                <h2 class="fw-bold"> {{ income.value || 0 | currency:'USD':'symbol':'1.0-2'}}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lifetime Incomes -->
+        <div class="mt-5">
+          <h5 class="fw-bold mb-3 text-dark">Total Incomes</h5>
+          <div class="row g-4">
+            <div
+              class="col-md-3 col-6"
+              *ngFor="let total of [
+                {label:'Silver Income', value:data2?.silverincome, color1:'#6a11cb', color2:'#2575fc'},
+                {label:'Gold Income', value:data2?.goldincome, color1:'#FDC830', color2:'#F37335'},
+                {label:'Diamond Income', value:data2?.diamondincome, color1:'#DA4453', color2:'#89216B'},
+                {label:'Sponcer Income', value:data2?.sponcerincome, color1:'#56ab2f', color2:'#a8e063'}
+              ]"
+            >
+              <div
+                class="total-card p-4 rounded-4 text-center text-white shadow-sm"
+                [ngStyle]="{'background': 'linear-gradient(135deg,' + total.color1 + ',' + total.color2 + ')'}"
+              >
+                <h6 class="fw-semibold">{{ total.label }}</h6>
+                <h2 class="fw-bold"> {{ total.value || 0 | currency:'USD':'symbol':'1.0-2'}}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+</div>
 </div>
 

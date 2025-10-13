@@ -9,6 +9,7 @@ declare var $: any;
   styleUrls: ['./transfer-wallet.component.css']
 })
 export class TransferWalletComponent {
+  pfdata: any;
   openConfirmModal() {
     if (this.form.valid) {
     $('#confirmModal').modal('show');
@@ -21,8 +22,8 @@ export class TransferWalletComponent {
     console.log('Action confirmed!');
   }
 
- selftransfer: boolean = true;
-  usertransfer: boolean = false;
+ selftransfer: boolean = false;
+  usertransfer: boolean = true;
   showSection(section: string) {
     this.selftransfer = section === 'selftransfer';
     this.usertransfer = section === 'usertransfer';
@@ -45,7 +46,7 @@ export class TransferWalletComponent {
       this.form = this.fb.group({
               regid: ['', Validators.required], 
               amount: ['', Validators.required], 
-              transactionpassword: ['', Validators.required], 
+              wallettyoe: ['', Validators.required], 
               remark: ['', Validators.required], 
             });
   }
@@ -54,7 +55,7 @@ export class TransferWalletComponent {
     //get profile
        this.api.UProfile().subscribe((res: any) => {
       // console.log('profile', res);
-      this.data2 = res.data;
+      this.pfdata = res.data[0];
     });
     //transferreport
        this.api.TransferWalletData().subscribe((res: any) => {
@@ -93,7 +94,7 @@ export class TransferWalletComponent {
       const val = {
         regid: this.form.value.regid,
         amount:this.form.value.amount,
-        transactionpassword: this.form.value.transactionpassword,
+        wallettyoe: this.form.value.wallettyoe,
         remark:this.form.value.remark,
       };
       this.api.UserTransferUserWallet(val).subscribe(

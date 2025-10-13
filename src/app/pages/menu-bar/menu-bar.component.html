@@ -3,16 +3,22 @@
   <div class="container-fluid header-inner d-flex align-items-center justify-content-between">
     <div class="left-group d-flex align-items-center">
       <!-- Mobile toggle -->
-      <button class="btn btn-icon d-lg-none" aria-label="Open Menu" (click)="openSidebar()">
-        <i class="fas fa-bars text-white"></i>
-      </button>
+      <!-- Mobile toggle -->
+<button class="btn btn-icon d-lg-none" aria-label="Toggle Menu" (click)="toggleSidebar()">
+  <i class="fas" [ngClass]="isSidebarOpen ? 'fa-times text-white' : 'fa-bars text-white'"></i>
+</button>
+
 
       <!-- Logo -->
       <a [routerLink]="token1.isAdmin() ? '/dashboard' : '/mydashboard'" class="brand d-flex align-items-center ms-2">
         <img class="brand-logo" src="assets/logo.png" alt="Logo" />
-        <div class="brand-text">
+        <div class="brand-text" *ngIf="token1.isAdmin()">
           <span class="brand-title">Yohan</span>
           <small class="brand-sub">Admin Panel</small>
+        </div>
+        <div class="brand-text" *ngIf="token1.isUser()">
+          <span class="brand-title">Yohan</span>
+          <small class="brand-sub">User Panel</small>
         </div>
       </a>
 
@@ -37,7 +43,7 @@
           <span class="avatar-name d-none d-lg-inline">{{ pfdata.reg_id }}</span>
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-          <li><a class="dropdown-item" [routerLink]="token1.isAdmin() ? '/dashboard' : '/mydashboard'">Profile</a></li>
+          <li><a class="dropdown-item" [routerLink]="token1.isAdmin() ? '/dashboard' : '/myprofile'">Profile</a></li>
           <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
         </ul>
       </div>
@@ -76,8 +82,8 @@
     <div class="offcanvas-profile p-3 d-flex align-items-center gap-2">
       <img src="assets/avatar.jpg" class="off-avatar" />
       <div>
-        <div class="fw-bold">{{ pdata.name }}</div>
-        <small class="muted">{{ pdata.reg_id }}</small>
+        <div class="fw-bold">{{ pfdata.name }}</div>
+        <small class="muted">{{ pfdata.reg_id }}</small>
       </div>
     </div>
 

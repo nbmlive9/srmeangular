@@ -17,6 +17,8 @@ successMessage: string = '';
 errorMessage: string = '';
   constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr: ToastrService){
       this.form = this.fb.group({
+        name: [''], 
+        email: [''], 
       password: [''], 
       wallet1: [''],
     });
@@ -40,6 +42,8 @@ errorMessage: string = '';
    edit() {
     if (this.form.valid) {
       const val =  {
+            name: this.form.value.name,
+                email: this.form.value.email,
         password: this.form.value.password,
         wallet1: this.form.value.wallet1,
       }    

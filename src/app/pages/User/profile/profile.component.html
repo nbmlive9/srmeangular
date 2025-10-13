@@ -40,20 +40,20 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="focus-label">Name</label>
-                            <input type="text" class="form-control floating" placeholder="{{row.name}}" readonly>
+                            <input type="text" class="form-control floating" formControlName="name" [(ngModel)]="row.name" >
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label class="focus-label">Email</label>
-                            <input type="text" class="form-control floating" placeholder="{{row.email}}" readonly>
+                            <input type="text" class="form-control floating" formControlName="email" [(ngModel)]="row.email" >
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label class="focus-label">Wallet Address [USDT (BEP 20)]</label>
                             <!-- <input type="text" class="form-control floating" [ngModel]="row.wallet1" formControlName="wallet1"> -->
-                                 <input class="form-control"  type="text" [readonly]="row.aadhar !== null && row.aadhar !== ''" [placeholder]="row.aadhar" formControlName="aadhar" />
+                                 <input class="form-control"  type="text" [readonly]="row.aadhar !== null && row.aadhar !== ''" [(ngModel)]="row.aadhar" formControlName="aadhar" />
                             <span class="text-primary">Note: Carefully Update if wrong update we are not reposnible, Once Update USDT Wallet Address won't change contact to Admin Support <a routerLink="/support" class="text-danger"> <i class="fa fa-comments"></i> </a> </span>
                         </div>
                     </div>

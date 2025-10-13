@@ -1,130 +1,144 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
 import { UserService } from 'src/app/service/user.service';
 declare var $: any;
+declare var bootstrap: any;
 @Component({
   selector: 'app-deposit-request',
   templateUrl: './deposit-request.component.html',
   styleUrls: ['./deposit-request.component.css']
 })
 export class DepositRequestComponent {
- selectedImageUrl: string = '';
-  @ViewChild('imageModal') imageModal!: TemplateRef<any>;
+  @ViewChild('successModal') successModal!: ElementRef;
 
-  badgeValue = "0x3d6C45E12E800DcA3ef8712cA005A1Ab8D11990F";
-  copyValue() {
-    const el = document.createElement('textarea');
-    el.value = this.badgeValue;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-  }
+  form: FormGroup;
+  submitting = false;
+  qrDataUrl: SafeUrl = '';
+  qrCodeDataUrl: SafeUrl = '';
+  paymentInfo: any = null;
+  paymentAddress: string = '';
+  checkingStatus = false;
 
-  showModal: boolean = false;
-modalImage: string = '';
+  payments: any[] = [];
+  ddata: any[] = [];
+  ypdata: any;
+  idData: any;
 
-openImage(imageUrl: string) {
-  this.modalImage = imageUrl;
-  this.showModal = true;
-}
+  alertMessage: string = '';
+  alertType: string = '';
+  errorMessage: string = '';
 
-closeImage() {
-  this.showModal = false;
-}
+  coinValue: number = 0;
+  calculatedCoins: number = 0;
 
-  openConfirmModal() {
-  if (this.form.valid) {
-    $('#confirmModal').modal('show');
-  }
-}
-
-confirmAction() {
-  $('#confirmModal').modal('hide');
-  this.add(); // Call the actual transfer logic here
-}
-  form:FormGroup;
-  data1:any;
-  loading: boolean = true;
-  file?: File;
-  constructor(private api:UserService, private fb:FormBuilder, private router: Router, private activeroute:ActivatedRoute, private modalService:NgbModal) { 
+  constructor(
+    private api: UserService,
+    private http: HttpClient,
+    private token: TokenStorageService,
+    private router: Router,
+    private fb: FormBuilder,
+    private sanitizer: DomSanitizer
+  ) {
     this.form = this.fb.group({
-      amount: ['', Validators.required], 
-      note: ['', Validators.required],
-      addtype: ['typedep',],
-      image: [null, Validators.required],  
+      amount: ['', [Validators.required, Validators.min(10)]],
+      transno: [''],
+      note: ['Yohan Coins']
     });
   }
 
-  openImageModal(imgUrl: string) {
-    this.selectedImageUrl = imgUrl;
-    this.modalService.open(this.imageModal, { centered: true });
+  ngOnInit() {
+    (window as any).depositFundComponent = this; // expose to global
+    this.DepositeData();
+    this.YohanPriceData();
   }
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.loading = false; // Set loading to false after data is loaded
-    }, 500); // Adjust this delay based on your data fetching process
-  
-    this.getdepositedata();
+  DepositeData() {
+    this.api.DepositeUserData().subscribe({
+      next: (res: any) => {
+        this.ddata = res.data || [];
+      },
+      error: (err) => {
+        console.error('Error fetching deposit data:', err);
+        this.ddata = [];
+      }
+    });
   }
 
-  getdepositedata(){
-    this.api.DepositeUserData().subscribe((res:any)=>{
-      // console.log(res);
-      this.data1 = res.data;
-    })
+  YohanPriceData() {
+    this.api.YohanPrice().subscribe({
+      next: (res: any) => {
+        this.ypdata = res.data;
+        this.coinValue = parseFloat(this.ypdata.coinvalue);
+      },
+      error: (err) => {
+        console.error('Error fetching Yohan price:', err);
+      }
+    });
   }
 
-  fileChange(event: any) {
-    const fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      const file: File = fileList[0];
-      const maxSizeInBytes = 300 * 1024; // 500 KB
-  
-      if (file.size > maxSizeInBytes) {
-        // File size exceeds the limit, display an error message or take appropriate action.
-        console.error('File size exceeds the limit (300 KB)');
-        // You can also reset the file input to clear the selected file.
-        event.target.value = null;
-      } else {
-        this.file = file;
+  formatAmount(event: any) {
+    let value = event.target.value;
+    value = value.replace(/[^0-9.]/g, '');
+
+    if ((value.match(/\./g) || []).length > 1) {
+      value = value.substring(0, value.length - 1);
+    }
+
+    if (value.includes('.')) {
+      const [intPart, decPart] = value.split('.');
+      if (decPart.length > 2) {
+        value = intPart + '.' + decPart.substring(0, 2);
       }
     }
+
+    event.target.value = value;
+    this.form.get('amount')?.setValue(value, { emitEvent: false });
+
+    const amount = parseFloat(value);
+    this.calculatedCoins = (!isNaN(amount) && this.coinValue > 0) ? amount / this.coinValue : 0;
   }
-  
 
-  add(){
-    // console.log(this.form.value);
-  if (this.form.valid) {
-    const formData = new FormData();
-    formData.append('amount', this.form.value.amount);
-    formData.append('note', this.form.value.note);
+  onSubmit() {
+    if (!this.form.valid) return;
 
-    if (this.file) {
-      formData.append('image', this.file);
-    }
-    
-      this.api.UserDeposite(formData).subscribe(
-        (a:any) => {
-          if (a) {
-            // console.log(a);
-               this.form.reset(); 
-               setTimeout(() => {
-                this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                  this.router.navigate(['/despositesreq']);
-                });
-              }, 500);
-          } else {
-          }
-        },
-        (err: any) => {
-        },
-      );
-    }
-}
+    const payload = {
+      amount: this.form.value.amount,
+      transno: this.form.value.transno,
+      note: this.form.value.note
+    };
+
+    console.log('🛠 Payload:', payload);
+
+    this.api.DepositWallet(payload).subscribe({
+      next: (res: any) => {
+         this.form.reset();
+        this.idData = null;
+
+        const modalElement = new bootstrap.Modal(this.successModal.nativeElement);
+        modalElement.show();
+
+        setTimeout(() => {
+          modalElement.hide();
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/deposit']);
+          });
+        }, 2000);
+      },
+      error: (err) => {
+        this.errorMessage = err?.error?.message || 'Deposit failed.';
+      }
+    });
+  }
+
+  updateTxHashFromOutside(hash: string) {
+    this.form.get('transno')?.setValue(hash);
+    console.log('Transaction Hash updated in form:', hash);
+  }
 
 }

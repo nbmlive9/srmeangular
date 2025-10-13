@@ -17,7 +17,7 @@ loading:boolean=true;
 
   getActivationReport(){
         this.api.ActivationData().subscribe((res:any)=>{
-      // console.log('act data',res);
+      console.log('act data',res);
       this.data1=res.data;
       this.loading = false;
     },

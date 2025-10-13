@@ -20,6 +20,7 @@ errorMessage = '';
 
  direct: boolean = true;
   indirect: boolean = false;
+  tdata: any;
   showSection(section: string) {
     this.direct = section === 'direct';
     this.indirect = section === 'indirect';
@@ -29,6 +30,10 @@ errorMessage = '';
 
   ngOnInit() {
  this.loadUsers({ first: 0, rows: this.rowsPerPage });
+ this.api.DirectReferrals().subscribe((res:any)=>{
+console.log('team',res);
+this.tdata=res.data;
+ })
   }
   
  loadUsers(event: any) {

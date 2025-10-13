@@ -18,7 +18,7 @@ export class MenuBarComponent implements OnInit {
   sidebarId = 'sidebarModal';
   pdata: any = { name: 'Admin', reg_id: 'ADMIN001' }; // sample static profile data
   pfdata: any;
-
+  isSidebarOpen = false;
   constructor(
     private token: TokenStorageService,
     private api: AdminService, private uapi:UserService,
@@ -39,7 +39,12 @@ export class MenuBarComponent implements OnInit {
       this.model = [
         { label: 'Dashboard', icon: 'fa fa-home', routerLink: ['/mydashboard'] },
         { label: 'Profile', icon: 'fa fa-user-edit', routerLink: ['/myprofile'] },
+        { label: 'Deposit', icon: 'fa fa-cube', routerLink: ['/despositesreq'] },
         { label: 'Activation', icon: 'fa fa-check-circle', routerLink: ['/activation'] },
+         { label: 'Transfer', icon: 'fa fa-retweet', routerLink: ['/transferwallet'] },
+        { label: 'Referrals', icon: 'fa fa-user', routerLink: ['/referrals'] },
+         { label: 'My Team', icon: 'fa fa-users', routerLink: ['/team'] },
+        { label: 'Withdraw', icon: 'fa fa-wallet', routerLink: ['/walletwithdraw'] },
         { label: 'Support', icon: 'fas fa-comment', routerLink: ['/support'] }
       ];
       this.uapi.UProfile().subscribe((res:any)=>{
@@ -50,6 +55,14 @@ export class MenuBarComponent implements OnInit {
 // jkk
     // Example: load profile data if API available (commented)
     // this.api.getProfile().subscribe(res => this.pdata = res.data);
+
+        const sidebarModal = document.getElementById(this.sidebarId);
+    if (sidebarModal) {
+      sidebarModal.addEventListener('hidden.bs.offcanvas', () => {
+        this.isSidebarOpen = false;
+      });
+    }
+
   }
 
   @HostListener('window:resize', [])
@@ -62,19 +75,30 @@ export class MenuBarComponent implements OnInit {
     // optionally route to login
   }
 
-  openSidebar() {
+  toggleSidebar() {
     const sidebarModal = document.getElementById(this.sidebarId);
-    if (sidebarModal) {
-      const offcanvas = new bootstrap.Offcanvas(sidebarModal);
+    if (!sidebarModal) return;
+
+    let offcanvas = bootstrap.Offcanvas.getInstance(sidebarModal);
+    if (!offcanvas) offcanvas = new bootstrap.Offcanvas(sidebarModal);
+
+    if (this.isSidebarOpen) {
+      offcanvas.hide();
+    } else {
       offcanvas.show();
     }
+
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 
   closeSidebar() {
     const sidebarModal = document.getElementById(this.sidebarId);
-    if (sidebarModal) {
-      const offcanvas = bootstrap.Offcanvas.getInstance(sidebarModal);
-      if (offcanvas) offcanvas.hide();
-    }
+    if (!sidebarModal) return;
+
+    const offcanvas = bootstrap.Offcanvas.getInstance(sidebarModal);
+    if (offcanvas) offcanvas.hide();
+    this.isSidebarOpen = false;
   }
+
+
 }

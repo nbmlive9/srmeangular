@@ -1,0 +1,118 @@
+/* General Layout */
+.dashboard-container {
+  background: #f9f9fb;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* Profile Section */
+.profile-card {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.profile-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+}
+
+/* Info Cards */
+.info-card {
+  border-radius: 18px;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+/* Gradient Themes */
+.bg-gradient-blue {
+  background: linear-gradient(135deg, #1e90ff, #00bfff);
+}
+.bg-gradient-red {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+}
+.bg-gradient-green {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+.bg-gradient-purple {
+  background: linear-gradient(135deg, #8e2de2, #4a00e0);
+}
+.bg-gradient-silver {
+  background: linear-gradient(135deg, #bdc3c7, #2c3e50);
+}
+.bg-gradient-gold {
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+}
+.bg-gradient-diamond {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+.bg-gradient-cyan {
+  background: linear-gradient(135deg, #06beb6, #48b1bf);
+}
+
+/* News Section */
+.news-card {
+  background: #fff;
+  border-left: 5px solid #1e3c72;
+}
+
+h5 {
+  letter-spacing: 0.5px;
+  font-size: 1.2rem;
+}
+
+.pair-card,
+.income-card,
+.total-card {
+  border: none;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
+  color: #fff;
+}
+
+.pair-card:hover,
+.income-card:hover,
+.total-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+h6 {
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+.text-dark {
+  color: #1b1b1b !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.3rem;
+  }
+  h6 {
+    font-size: 0.85rem;
+  }
+}
+

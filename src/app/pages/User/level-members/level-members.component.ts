@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -7,25 +8,32 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./level-members.component.css']
 })
 export class LevelMembersComponent {
-data1: any = {};
 
-constructor(private api: UserService) {}
+   left: boolean = true;
+  right: boolean = false;
+  tree: boolean = false;
+  pfdata: any;
+  showSection(section: string) {
+    this.left = section === 'left';
+    this.right = section === 'right';
+     this.tree = section === 'tree';
+  }
+
+constructor(private api: UserService, private router: Router) {}
 
 ngOnInit() {
-  this.api.LevelMembersData().subscribe((res: any) => {
-    // console.log(res);
-    this.data1 = res.data;
-  });
+  this.api.UProfile().subscribe((res:any)=>{
+    console.log('profile',res);
+    this.pfdata=res.data[0];
+  })
 }
 
-isArray(value: any): boolean {
-  return Array.isArray(value);
-}
 
-// This method returns all available level keys (e.g., level1, level2...)
-getLevels(): string[] {
-  return Object.keys(this.data1).filter(key => key.startsWith('level'));
-}
+  mytree(regid: string) {
+    // Navigate to treeview route with regid
+    this.router.navigate(['/treeview', regid]);
+  }
+
 
 
 }

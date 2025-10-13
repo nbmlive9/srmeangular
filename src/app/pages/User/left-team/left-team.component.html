@@ -1,0 +1,31 @@
+<div class="table-responsive p-4">
+    <h6 class="text-success">Left Team</h6>
+                    <!-- Table -->
+                      <table class="table table-striped custom-table mb-0">
+                        <thead>
+                          <tr>
+                            <th>S.No</th>
+                            <th>Date</th>
+                            <th>Userid</th>
+                            <th>Level</th>
+                            <th>Status</th>
+                            <!-- <th>Action</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of ldata; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ item.crdate }}</td>
+                            <td>{{ item.ref_id }} </td>
+                            <td> {{ item.level }}  </td>
+                            <td>
+                              <span class="badge badge-danger" *ngIf="item.status === '0'">Not Activated</span>
+                              <span class="badge badge-success" *ngIf="item.status === '1'">Activated</span>
+                            </td>
+                            <!-- <td>
+                              <span class="btn btn-sm btn-success" *ngIf="item.topupstatus === '0'" >Activate Now</span>
+                            </td> -->
+                          </tr>
+                        </tbody>
+                      </table>
+                      </div>

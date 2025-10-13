@@ -29,11 +29,14 @@ import { UserActivationComponent } from './pages/User/user-activation/user-activ
 import { LevelMembersComponent } from './pages/User/level-members/level-members.component';
 import { AwardUsersDataComponent } from './pages/Admin/award-users-data/award-users-data.component';
 import { RoyaltyUsersDataComponent } from './pages/Admin/royalty-users-data/royalty-users-data.component';
+import { ForgotPasswordComponent } from './pages/User/forgot-password/forgot-password.component';
+import { TreeViewComponent } from './pages/User/tree-view/tree-view.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent },
   {path:"",component:UloginComponent },
   {path:"auth-login",component:UloginComponent },
+  {path:"forgot",component:ForgotPasswordComponent },
 //   {path:"auth-signup",component:RegistrationComponent },
 // { path: "auth-sponsorsignup/:regid", component: SponsorRegistrationComponent },
 
@@ -61,7 +64,8 @@ const routes: Routes = [
   {path:"walletwithdraw",component:MyWalletComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   {path:"myprofile",component:ProfileComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   {path:"support",component:UserSupportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
-    {path:"levelmembers",component:LevelMembersComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+    {path:"team",component:LevelMembersComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+    {path:"treeview/:regid",component:TreeViewComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   // {path:"activation/:regid",component:UserActivation, canActivate: [AuthGuard], data: { roles: ['user'] } },
 
 ];

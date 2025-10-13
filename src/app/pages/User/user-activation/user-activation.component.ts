@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/service/user.service';
+import { Modal } from 'bootstrap';
 declare var $: any;
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-user-activation',
   templateUrl: './user-activation.component.html',
@@ -18,6 +19,17 @@ export class UserActivationComponent {
     $('#confirmModal').modal('show');
   }
 }
+
+@ViewChild('activationReportModal') activationReportModal!: TemplateRef<any>;
+
+openActivationReport() {
+  this.modalService.open(this.activationReportModal, {
+    centered: true,
+    size: 'lg',
+    backdrop: 'static',
+  });
+}
+
 
 confirmAction() {
   $('#confirmModal').modal('hide');
@@ -43,6 +55,10 @@ pack:any;
         sponcerid: [''],
         position: [''], 
         placementid: ['',],
+         regtype: ['', Validators.required],
+  product: [''], // new
+  address: [''], // new
+  pincode: [''], // new
         terms: [false, Validators.requiredTrue]
         });
   }
@@ -88,44 +104,64 @@ pack:any;
     );
   }
 
-  add(){
-    // console.log(this.form.value);
-    if (this.form.valid) {
-      const val = {
-        sponcerid: this.form.value.sponcerid,
-        name:this.form.value.name,
-        phone:this.form.value.phone,
-        email:this.form.value.email,     
-        password:this.form.value.password,
-        position:this.form.value.position,
-        placementid:this.form.value.placementid,
-      };
-      this.api.UserRegistration(val).subscribe(
-        (a:any) => {
-          if (a) {
-            console.log('actdata',a)
-            this.udata = a.data;
-            console.log(a);
-               this.form.reset();
-              //  this.reloadPage();
-                 this.modalService.open(this.activationModal, { centered: true });
-               setTimeout(() => {
-                 this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                   this.router.navigate(['/activation']);
-                 });
-                 }, 500);
-          } else {
-            console.log(a);
-            // this.errorMessage = a.msg.message;
-         
-          }
-        },
-        (err: any) => {
-          // this.errorMessage = err.error.message;
-        },
-      );
+  add() {
+  if (this.form.valid) {
+    const val: any = {
+      sponcerid: this.form.value.sponcerid,
+      name: this.form.value.name,
+      phone: this.form.value.phone,
+      email: this.form.value.email,
+      password: this.form.value.password,
+      position: this.form.value.position,
+      placementid: this.form.value.placementid,
+      regtype: this.form.value.regtype,
+    };
+
+    // Include product details if selected
+    if (this.form.value.regtype === 'withproduct') {
+      val.product = this.form.value.product;
+      val.address = this.form.value.address;
+      val.pincode = this.form.value.pincode;
     }
+
+    // Clear old error message before API call
+    this.errorMessage3 = '';
+
+    this.api.UserRegistration(val).subscribe(
+      (res: any) => {
+        console.log('Response:', res);
+
+        // ✅ If backend returns insufficient funds
+        if (res.status === 0) {
+          this.errorMessage3 = res.message || 'You Have Low Credits';
+          return; // stop further actions
+        }
+
+        // ✅ Successful activation
+        if (res.status === 1 || res.data) {
+          this.udata = res.data;
+          this.form.reset();
+          this.modalService.open(this.activationModal, { centered: true });
+
+          setTimeout(() => {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/activation']);
+            });
+          }, 500);
+        } else {
+          // Handle unexpected structure
+          this.errorMessage3 = 'Something went wrong, please try again.';
+        }
+      },
+      (err: any) => {
+        console.error('Registration error:', err);
+        this.errorMessage3 = err?.error?.message || 'Server error occurred';
+      }
+    );
   }
+}
+
+
 
 
 

@@ -19,36 +19,41 @@ export class UserService {
   //     });
   // }
 
-  UserRegistration(value: {
-    sponcerid: string;
-    name: string;
-    phone: string;
-    email: string;
-    password: string;
-    position: string;
-    placementid:string;
-  }) {
-    const token1 = this.token.getToken();
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token1
-      })
-    };
-    return this.http.post(
-      AUTH_API + 'Register',
-      { 
-        "sponcerid":value.sponcerid, 
-        "name":value.name, 
-        "phone":value.phone, 
-        "email":value.email, 
-        "password":value.password, 
-        "position":value.position, 
-        "placementid":value.placementid, 
-      },
-      httpOptions
-    );
-  }
+  UserRegistration(value: any) {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+
+  return this.http.post(
+    AUTH_API + 'Register',
+    {
+      "sponcerid": value.sponcerid,
+      "name": value.name,
+      "phone": value.phone,
+      "email": value.email,
+      "password": value.password,
+      "position": value.position,
+      "placementid": value.placementid,
+      "regtype": value.regtype,
+      "product": value.product || null,
+      "address": value.address || null,
+      "pincode": value.pincode || null,
+    },
+    httpOptions
+  );
+}
+
+forgotPassword(value: { regid: string; email: string }): Observable<any> {
+  return this.http.post(AUTH_API + 'Forget_password', {
+    regid: value.regid,
+    email: value.email
+  });
+}
+
 
   GetusersDataByRegID(id:any){
     return this.http.get(
@@ -85,6 +90,8 @@ export class UserService {
   }
 
   UpdateUserProfile(value: {
+        name: string;
+    email: string;
     password: string;
     wallet1: string;
   }) {
@@ -96,8 +103,10 @@ export class UserService {
       })
     };
     return this.http.post(
-      AUTH_API + 'Profile_Update',
+      AUTH_API + 'Profileiupdate',
       { 
+          "name":value.name, 
+        "email":value.email, 
         "password":value.password, 
         "wallet1":value.wallet1, 
       },
@@ -183,7 +192,7 @@ UserWithdraw(value: {
     regid:string;
     amount: number;
     remark: string;
-    transactionpassword:string;
+    wallettyoe:string;
   }){
     const token1 = this.token.getToken();
     const httpOptions = {
@@ -198,7 +207,7 @@ UserWithdraw(value: {
       "regid":value.regid, 
       "amount":value.amount, 
       "remark":value.remark,
-      "transactionpassword":value.transactionpassword
+      "wallettyoe":value.wallettyoe
     },
        httpOptions 
     );
@@ -246,6 +255,49 @@ UserWithdraw(value: {
   );
 }
 
+
+withdrawToBlockchain(value: {
+  recipient: string;
+  amount:number;
+  flag:number;
+}) {
+
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    AUTH_API + 'Yohanpayout', 
+
+   {
+    recipient:value.recipient,
+        amount: value.amount,
+        flag:value.flag,
+      },
+    httpOptions
+  );
+
+}
+
+
+YohanPrice(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Get_ROidynamicpaymentout',
+    httpOptions
+  );   
+}
+
   WalletReport(page: number, perPage: number) {
   const token1 = this.token.getToken();
   const httpOptions = {
@@ -257,6 +309,76 @@ UserWithdraw(value: {
   const pageDetails = `page=${page}&per_page=${perPage}`;
   return this.http.get(
     AUTH_API + `Wallet_Report?${pageDetails}`,
+    httpOptions
+  );
+}
+
+UserTreeView(id:any): Observable<any>{
+const token1 = this.token.getToken();
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + token1
+  })
+}
+return this.http.get(
+  AUTH_API +`Tree_view/${id}` ,
+  httpOptions
+);
+}
+
+UserTreeViewDataById(id:any): Observable<any>{
+const token1 = this.token.getToken();
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + token1
+  })
+}
+return this.http.get(
+  AUTH_API + 'Treedata/'+id,
+  httpOptions
+);
+}
+
+ LeftTeamData() {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+  return this.http.get(
+    AUTH_API + `Left_members`,
+    httpOptions
+  );
+}
+
+ RightTeamData() {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+  return this.http.get(
+    AUTH_API + `Right_members`,
+    httpOptions
+  );
+}
+
+ DirectReferrals() {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+  return this.http.get(
+    AUTH_API + `Directteam`,
     httpOptions
   );
 }
@@ -395,16 +517,22 @@ GetSupportTickets(){
 
 //deposites api
 
-  UserDeposite(formData: FormData): Observable<any> {
-  const token1 = this.token.getToken();
+  DepositWallet(value: { amount: string, note: string, transno: string }) {
+  const token = this.token.getToken();
   const httpOptions = {
     headers: new HttpHeaders({
-      'Authorization': 'Bearer ' + token1
-    })
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
   };
 
   return this.http.post(
-    AUTH_API + 'Deposite',formData,
+    AUTH_API + 'Deposite',
+    {
+      amount: value.amount,
+      note: value.note,
+      transno: value.transno,
+    },
     httpOptions
   );
 }

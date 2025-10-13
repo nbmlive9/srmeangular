@@ -2,10 +2,30 @@
 
 <div class="page-wrapper bg-wrapper">
     <div class="container content" style="margin-top: -50px;">
-        <div class="row">
+        <div class="row p-4">
+
+    <!-- Activation Report Modal -->
+<ng-template #activationReportModal let-modal>
+  <div class="modal-header bg-primary text-white">
+    <h5 class="modal-title">Activation Report</h5>
+    <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <app-uactivation-report></app-uactivation-report>
+  </div>
+</ng-template>
+
+<!-- Trigger button -->
+<div class="text-end">
+  <button class="btn btn-sm btn-primary" (click)="openActivationReport()">Activation Report</button>
+</div>
+
+
+
           <div class="card buy-form p-3">
        <h5 class="text-center mb-4 fw-bold text-success">REGISTER</h5>
-       <h6 class="text-danger">Activation Fund: {{data2.actwallet | currency:'USD':true:'1.0-2'}}</h6>
+
+       <h6 class="text-success">Activation Fund: {{data2.actwallet | currency:'USD':true:'1.0-2'}}</h6>
           <span class="text-danger">{{errorMessage3}}</span>
           <form [formGroup]="form" (ngSubmit)="add()">
             <div class="row g-3">
@@ -92,6 +112,44 @@
                                 </div>
                 </div>
               </div>
+
+               <!-- Product Type -->
+<div class="col-sm-6">
+  <label class="form-label">Product Type</label>
+  <div class="input-wrapper">
+    <select formControlName="regtype" class="form-select">
+      <option value="" disabled>Select Product</option>
+      <option value="noproduct">No Product</option>
+      <option value="withproduct">With Product</option>
+    </select>
+    <div *ngIf="form.get('regtype')?.touched && form.get('regtype')?.invalid" class="text-danger small">
+      <div *ngIf="form.get('regtype')?.errors?.['required']">Product Type is required.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Extra fields only if "With Product" selected -->
+<div *ngIf="form.value.regtype === 'withproduct'" class="row mt-2">
+
+  <div class="col-sm-6">
+    <label class="form-label">Product Name *</label>
+    <input type="text" formControlName="product" placeholder="Enter Product Name" class="form-control" />
+  </div>
+
+  <div class="col-sm-6">
+    <label class="form-label">Address *</label>
+    <input type="text" formControlName="address" placeholder="Enter Address" class="form-control" />
+  </div>
+
+  <div class="col-sm-6">
+    <label class="form-label">Pincode *</label>
+    <input type="number" formControlName="pincode" placeholder="Enter Pincode" class="form-control" />
+  </div>
+
+</div>
+
+
+
             </div>
           
             <!-- Terms -->

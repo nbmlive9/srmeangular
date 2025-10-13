@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -61,6 +61,10 @@ import { LevelMembersComponent } from './pages/User/level-members/level-members.
 import { AwardUsersDataComponent } from './pages/Admin/award-users-data/award-users-data.component';
 import { RoyaltyUsersDataComponent } from './pages/Admin/royalty-users-data/royalty-users-data.component';
 import { HomePageComponent } from './pages/MainHome/home-page/home-page.component';
+import { ForgotPasswordComponent } from './pages/User/forgot-password/forgot-password.component';
+import { LeftTeamComponent } from './pages/User/left-team/left-team.component';
+import { RightTeamComponent } from './pages/User/right-team/right-team.component';
+import { TreeViewComponent } from './pages/User/tree-view/tree-view.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +120,11 @@ import { HomePageComponent } from './pages/MainHome/home-page/home-page.componen
     LevelMembersComponent,
     AwardUsersDataComponent,
     RoyaltyUsersDataComponent,
-    HomePageComponent
+    HomePageComponent,
+    ForgotPasswordComponent,
+    LeftTeamComponent,
+    RightTeamComponent,
+    TreeViewComponent
   ],
   imports: [
     BrowserModule,
@@ -129,6 +137,7 @@ import { HomePageComponent } from './pages/MainHome/home-page/home-page.componen
     }), ClipboardModule, 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
