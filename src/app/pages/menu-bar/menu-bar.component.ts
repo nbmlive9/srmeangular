@@ -47,7 +47,7 @@ export class MenuBarComponent implements OnInit {
           this.pfdata=res.data[0];
       })
     }
-
+// jkk
     // Example: load profile data if API available (commented)
     // this.api.getProfile().subscribe(res => this.pdata = res.data);
   }
