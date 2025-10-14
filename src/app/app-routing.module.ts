@@ -32,6 +32,10 @@ import { RoyaltyUsersDataComponent } from './pages/Admin/royalty-users-data/roya
 import { ForgotPasswordComponent } from './pages/User/forgot-password/forgot-password.component';
 import { TreeViewComponent } from './pages/User/tree-view/tree-view.component';
 import { TreeViewDataComponent } from './pages/User/tree-view-data/tree-view-data.component';
+import { MyIncomeReportComponent } from './pages/User/my-income-report/my-income-report.component';
+import { AdminDashboardComponent } from './pages/Admin/admin-dashboard/admin-dashboard.component';
+import { AddProductsComponent } from './pages/Admin/add-products/add-products.component';
+import { TreeRegistrationComponent } from './pages/User/tree-registration/tree-registration.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent },
@@ -43,7 +47,9 @@ const routes: Routes = [
 
   //Admin Routings
   { path: "dashboard", component: DashboardComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
+    { path: "adashboard", component: AdminDashboardComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
   {path:"packages",component:PackagesComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
+    { path: "addproduct", component: AddProductsComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
   {path:"activationwallet",component:ActivationWalletComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
   {path:"deposites",component:DepositesComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
   {path:"users",component:TotalUsersComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
@@ -67,6 +73,8 @@ const routes: Routes = [
   {path:"support",component:UserSupportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     {path:"team",component:LevelMembersComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     {path:"treeview/:regid",component:TreeViewDataComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+    {path:"income",component:MyIncomeReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+      { path: 'treeregister/:regid/:position', component: TreeRegistrationComponent, canActivate: [AuthGuard], data: { usertype: ['user'] } },
   // {path:"activation/:regid",component:UserActivation, canActivate: [AuthGuard], data: { roles: ['user'] } },
 
 ];

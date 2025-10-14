@@ -13,9 +13,9 @@ export class ReferralIncomeComponent {
 
   ngOnInit() {
       //get pending report
-       this.api.DirectReferralClubIncome().subscribe((res: any) => {
+       this.api.WalletSponsorReport().subscribe((res: any) => {
       // console.log('income', res);
-      this.data1 = res.data.directdata;
+      this.data1 = res.data;
     });
   }
   

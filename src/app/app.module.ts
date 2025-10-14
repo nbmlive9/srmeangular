@@ -67,6 +67,10 @@ import { RightTeamComponent } from './pages/User/right-team/right-team.component
 import { TreeViewComponent } from './pages/User/tree-view/tree-view.component';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { TreeViewDataComponent } from './pages/User/tree-view-data/tree-view-data.component';
+import { MyIncomeReportComponent } from './pages/User/my-income-report/my-income-report.component';
+import { AddProductsComponent } from './pages/Admin/add-products/add-products.component';
+import { AdminDashboardComponent } from './pages/Admin/admin-dashboard/admin-dashboard.component';
+import { TreeRegistrationComponent } from './pages/User/tree-registration/tree-registration.component';
 
 @NgModule({
   declarations: [
@@ -127,7 +131,11 @@ import { TreeViewDataComponent } from './pages/User/tree-view-data/tree-view-dat
     LeftTeamComponent,
     RightTeamComponent,
     TreeViewComponent,
-    TreeViewDataComponent
+    TreeViewDataComponent,
+    MyIncomeReportComponent,
+    AddProductsComponent,
+    AdminDashboardComponent,
+    TreeRegistrationComponent
   ],
   imports: [
     BrowserModule,

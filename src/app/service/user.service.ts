@@ -255,6 +255,48 @@ UserWithdraw(value: {
   );
 }
 
+ WalletTodayReport() {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+  return this.http.get(
+    AUTH_API + `Wallet_TodayReport`,
+    httpOptions
+  );
+}
+
+WalletMatchingReport() {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+  return this.http.get(
+    AUTH_API + `Wallet_Matching`,
+    httpOptions
+  );
+}
+
+WalletSponsorReport() {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+  return this.http.get(
+    AUTH_API + `Wallet_Sponsor`,
+    httpOptions
+  );
+}
+
 
 withdrawToBlockchain(value: {
   recipient: string;
@@ -497,7 +539,7 @@ AddSupport(value: {
     })
   };
   return this.http.post(
-    AUTH_API + 'Add_Supporttoken',
+    AUTH_API + 'Add_Query',
     { "query":value.query,
     "subject":value.subject,   
    },
@@ -514,7 +556,7 @@ GetSupportTickets(){
     })
   }
   return this.http.get(
-    AUTH_API + 'User_Supporttokens',
+    AUTH_API + 'User_querydata',
     httpOptions
   );
 }

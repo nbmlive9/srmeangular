@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from './token-storage.service';
 import { Observable } from 'rxjs';
 
-const AUTH_API ='https://srme.us/SRMEBNK/SRMEBNK/Admin/'
+const AUTH_API ='https://yohanbin.live/S7R18M13E5/S7R18M13E5/Admin/'
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,20 @@ const AUTH_API ='https://srme.us/SRMEBNK/SRMEBNK/Admin/'
 export class AdminService {
 
     constructor(private http: HttpClient, private router:Router, public token: TokenStorageService) { }
+
+    AdminDashboard() {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+  return this.http.get(
+    AUTH_API + 'Home',
+    httpOptions
+  );
+}
 
       AdminHome(){
     const token1 = this.token.getToken();
@@ -108,6 +122,85 @@ export class AdminService {
     },
      httpOptions 
   );
+}
+//add products
+ GetProducts(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'Get_Products',
+      httpOptions
+    );
+  }
+
+  AddProducts(value:{
+  name: string;
+  price: number;
+   gst: number;
+    info: string;
+}){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+  return this.http.post(
+    AUTH_API + 'Add_Product',  { 
+      "name":value.name, 
+      "price":value.price,  
+         "gst":value.gst, 
+      "info":value.info,   
+    },
+     httpOptions 
+  );
+}
+
+UpdateUserProduct(id: any, value: {
+ product_title: string;
+  price: number;
+   gst: number;
+    info: string;
+    status:string;
+}) {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+  return this.http.put(
+    AUTH_API + 'Productupdate/' + id,
+    {
+        "product_title":value.product_title, 
+      "price":value.price,  
+         "gst":value.gst, 
+      "info":value.info,   
+       "status":value.status, 
+    },
+    httpOptions
+  );
+}
+
+GetProductByid(id:any){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Get_Productdata/'+id,
+    httpOptions
+  );   
 }
 
 //members users api
@@ -320,7 +413,7 @@ GetWalletCompletedWithdraw(){
     })
   }
   return this.http.get(
-    AUTH_API + 'Complete_withdrawRequests',
+    AUTH_API + 'Withdraw_Paid',
     httpOptions
   );   
 }
@@ -429,8 +522,7 @@ UpdateUserProfile(id: any, value: {
   phone:string;
   email:string;
   password:string;
-  transpassword:string;
-  wallet1:string;
+  aadhar:string;
 }) {
   const token1 = this.token.getToken();
   const httpOptions = {
@@ -440,14 +532,13 @@ UpdateUserProfile(id: any, value: {
     })
   };
   return this.http.put(
-    AUTH_API + 'UpdateUserprofile/' + id,
+    AUTH_API + 'Userprofile_Update/' + id,
     {
       "name":value.name,
       "phone":value.phone,
       "email":value.email,
       "password":value.password,
-      "transpassword":value.transpassword,
-      "wallet1":value.wallet1,
+      "aadhar":value.aadhar,
     },
     httpOptions
   );
@@ -514,7 +605,7 @@ QueryUpdate(id: any, value: {
     })
   };
   return this.http.put(
-    AUTH_API + 'Supporttoken_update/'+id,
+    AUTH_API + 'Query_update/'+id,
     { "reply":value.reply, 
   },
     httpOptions
@@ -530,7 +621,7 @@ PendingQuerys(){
     })
   }
   return this.http.get(
-    AUTH_API + 'Pending_Supporttokens',
+    AUTH_API + 'Pending_queries',
     httpOptions
   );
 }
@@ -544,11 +635,38 @@ CompleteQuerys(){
     })
   }
   return this.http.get(
-    AUTH_API + 'Completed_Supporttokens',
+    AUTH_API + 'Completed_queries',
     httpOptions
   );
 }
 
+AdminTreeView(id:any): Observable<any>{
+const token1 = this.token.getToken();
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + token1
+  })
+}
+return this.http.get(
+  AUTH_API +`Tree_view/${id}` ,
+  httpOptions
+);
+}
+
+AdminTreeViewDataById(id:any): Observable<any>{
+const token1 = this.token.getToken();
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + token1
+  })
+}
+return this.http.get(
+  AUTH_API + 'Treedata/'+id,
+  httpOptions
+);
+}
 
 //deposites apis
 GetPendingDeposites(){

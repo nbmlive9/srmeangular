@@ -18,7 +18,7 @@ errorMessage = '';
   currentPage = 1;
   totalPages = 0;
  totalRecords: number = 0;
-wdata:any;
+  wdata:any;
   constructor(private api:UserService){}
 
   ngOnInit() {
@@ -37,7 +37,6 @@ wdata:any;
     this.totalPages = Math.ceil(this.totalRecords / rows);
   });
 }
-
 
 
 onPageChange(page: number) {

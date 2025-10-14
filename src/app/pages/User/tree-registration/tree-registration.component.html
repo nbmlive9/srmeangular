@@ -1,0 +1,230 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="container content" style="margin-top: -50px;">
+        <div class="row p-4">
+
+    <!-- Activation Report Modal -->
+<ng-template #activationReportModal let-modal>
+  <div class="modal-header bg-primary text-white">
+    <h5 class="modal-title">Activation Report</h5>
+    <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <app-uactivation-report></app-uactivation-report>
+  </div>
+</ng-template>
+
+<!-- Trigger button -->
+<div class="text-end">
+  <button class="btn btn-sm btn-primary" (click)="openActivationReport()">Activation Report</button>
+</div>
+
+
+
+          <div class="card buy-form p-3">
+       <h5 class="text-center mb-4 fw-bold text-success">REGISTER</h5>
+
+       <h6 class="text-success">Activation Fund: {{data2.actwallet | currency:'USD':true:'1.0-2'}}</h6>
+          <span class="text-danger">{{errorMessage3}}</span>
+          <form [formGroup]="form" (ngSubmit)="add()">
+            <div class="row g-3">
+              <!-- Full Name -->
+              <div class="col-sm-6">
+                <label class="form-label">Full Name *</label>
+                <div class="input-wrapper">
+                  <input type="text" formControlName="name" placeholder="Enter Name" class="form-control" />
+                </div>
+                <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="text-danger small">
+                  Name is required
+                </div>
+              </div>
+
+                    <div class="col-sm-6">
+                <label class="form-label">Phone *</label>
+                <div class="input-wrapper">
+                  <input type="number" formControlName="phone" placeholder="Enter Phone" class="form-control" />
+                </div>
+                <div *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid" class="text-danger small">
+                  phone number is required
+                </div>
+              </div>
+          
+              <!-- Email -->
+              <div class="col-sm-6">
+                <label class="form-label">Email *</label>
+                <div class="input-wrapper">
+                  <input type="email" formControlName="email" class="form-control" />
+                </div>
+                <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="text-danger small">
+                  <span *ngIf="form.get('email')?.errors?.['required']">Email is required</span>
+                  <span *ngIf="form.get('email')?.errors?.['email']">Invalid email format</span>
+                </div>
+              </div>
+          
+
+              <!-- Password -->
+        <!-- Password -->
+<div class="col-sm-6 mb-3 position-relative">
+  <label class="form-label">Password *</label>
+  <input 
+    [type]="showPassword ? 'text' : 'password'" 
+    formControlName="password" 
+    placeholder="********" 
+    class="form-control pe-5" 
+  />
+  <i class="fa" 
+     [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" 
+     (click)="showPassword = !showPassword"
+     style="position: absolute; top: 70%; right: 15px; transform: translateY(-50%); cursor: pointer;">
+  </i>
+  <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid" class="text-danger small mt-1">
+    <span *ngIf="form.get('password')?.errors?.['required']">Password is required.</span>
+    <span *ngIf="form.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</span>
+  </div>
+</div>
+
+
+
+          
+              <!-- Referral ID -->
+              <div class="col-sm-6">
+                <label class="form-label">Referral ID</label>
+                <div class="input-wrapper">
+                   <input type="text" formControlName="sponcerid" class="form-control" [(ngModel)]="data2.reg_id" readonly />
+                      <input type="text" formControlName="placementid" [(ngModel)]="this.regid" class="form-control" hidden />
+                </div>
+                <small class="text-success">Name: {{ data2.name }}</small>
+              </div>
+
+                <div class="col-sm-6">
+                <label class="form-label">Placement ID</label>
+                <div class="input-wrapper">
+                      <input type="text" formControlName="placementid" [(ngModel)]="this.regid" class="form-control" readonly />
+                </div>
+                <!-- <small class="text-success">Name: {{ data3.name }}</small> -->
+              </div>
+          
+              
+              <!-- Position -->
+              <div class="col-sm-6">
+                <label class="form-label">Position</label>
+                <div class="input-wrapper">
+                   <input formControlName="position" class="form-control" [(ngModel)]="this.position" readonly />
+                </div>
+              </div>
+
+               <!-- Product Type -->
+<div class="col-sm-6">
+  <label class="form-label">Product Type</label>
+  <div class="input-wrapper">
+    <select formControlName="regtype" class="form-select">
+      <option value="" disabled>Select Product</option>
+      <option value="noproduct">No Product</option>
+      <option value="withproduct">With Product</option>
+    </select>
+    <div *ngIf="form.get('regtype')?.touched && form.get('regtype')?.invalid" class="text-danger small">
+      <div *ngIf="form.get('regtype')?.errors?.['required']">Product Type is required.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Extra fields only if "With Product" selected -->
+<div *ngIf="form.value.regtype === 'withproduct'" class="row mt-2">
+
+  <div class="col-sm-6">
+    <label class="form-label">Product Name *</label>
+    <input type="text" formControlName="product" placeholder="Enter Product Name" class="form-control" />
+  </div>
+
+  <div class="col-sm-6">
+    <label class="form-label">Address *</label>
+    <input type="text" formControlName="address" placeholder="Enter Address" class="form-control" />
+  </div>
+
+  <div class="col-sm-6">
+    <label class="form-label">Pincode *</label>
+    <input type="number" formControlName="pincode" placeholder="Enter Pincode" class="form-control" />
+  </div>
+
+</div>
+
+
+
+            </div>
+          
+            <!-- Terms -->
+            <div class="mt-3">
+              <label>
+                <input type="checkbox" formControlName="terms" />
+                I have read and agree to
+                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms & Conditions</a>
+              </label>
+              <div *ngIf="form.get('terms')?.touched && form.get('terms')?.invalid" class="text-danger small">
+                You must accept the terms
+              </div>
+            </div>
+          
+            <button type="submit" class="btn btn-dark w-100 mt-3 rounded-pill" *ngIf="form.valid">Sign Up</button>
+          </form>
+    
+</div>
+ <!-- <div class="col-md-12 ">
+        <app-uactivation-report></app-uactivation-report>
+    </div>
+</div> -->
+</div>
+</div>
+
+<ng-template #activationModal let-modal>
+  <div class="modal-header bg-success text-white position-relative">
+    <h5 class="modal-title">
+      <i class="fa fa-check-circle"></i> Activation Successful!
+    </h5>
+    <button type="button" class="close text-white" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="fireworks-bg"></div>
+  </div>
+
+  <div class="modal-body text-center py-4">
+    <img src="assets/logo1.png" alt="Logo" class="img-fluid mb-3" style="max-height:150px;" />
+    <h4 class="text-success font-weight-bold">Your ID Is Activated!</h4>
+      <p class="mb-2"><strong>Name:</strong> {{ udata?.Username }}</p>
+    <p class="mb-2"><strong>User ID:</strong> {{ udata?.Registerid }}</p>
+    <p class="mb-3"><strong>Password:</strong> {{ udata?.password }}</p>
+       <p class="mb-3"><strong>Sponsor:</strong> {{ udata?.Sponcerid }}</p>
+              <p class="mb-3"><strong>Sponsor:</strong> {{ udata?.Sponcername }}</p>
+    <p class="text-primary font-italic">
+      Let's start fulfilling your dream with <strong class="text-danger">Yohan Coin</strong> 🌟
+    </p>
+  </div>
+
+  <div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-success px-4" (click)="modal.close('Close click')">
+      Let's Go!
+    </button>
+  </div>
+</ng-template>
+
+
+<!-- MODAL -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Activation</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to Confirm Activation?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="confirmAction()">Yes, Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>

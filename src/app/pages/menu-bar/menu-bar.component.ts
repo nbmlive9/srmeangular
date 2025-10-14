@@ -30,7 +30,11 @@ export class MenuBarComponent implements OnInit {
     // Build menu model depending on role
     if (this.token.isAdmin && this.token.isAdmin()) {
       this.model = [
-        { label: 'Dashboard', icon: 'fa fa-home', routerLink: ['/dashboard'] },
+        { label: 'Dashboard', icon: 'fa fa-users', routerLink: ['/adashboard'] },
+        { label: 'Add Product', icon: 'fa fa-users', routerLink: ['/addproduct'] },
+         { label: 'Despoist', icon: 'fa fa-users', routerLink: ['/deposites'] },
+          { label: 'Withdraw', icon: 'fa fa-users', routerLink: ['/wallet'] },
+        { label: 'Wallet A/C', icon: 'fa fa-home', routerLink: ['/dashboard'] },
         { label: 'Wallet Payments', icon: 'fab fa-bitcoin', routerLink: ['/activationwallet'] },
         { label: 'Users', icon: 'fa fa-users', routerLink: ['/users'] },
         { label: 'Settings', icon: 'fa fa-cog', routerLink: ['/settings'] }
@@ -41,10 +45,11 @@ export class MenuBarComponent implements OnInit {
         { label: 'Profile', icon: 'fa fa-user-edit', routerLink: ['/myprofile'] },
         { label: 'Deposit', icon: 'fa fa-cube', routerLink: ['/despositesreq'] },
         { label: 'Activation', icon: 'fa fa-check-circle', routerLink: ['/activation'] },
-         { label: 'Transfer', icon: 'fa fa-retweet', routerLink: ['/transferwallet'] },
+        { label: 'Transfer', icon: 'fa fa-retweet', routerLink: ['/transferwallet'] },
         { label: 'Referrals', icon: 'fa fa-user', routerLink: ['/referrals'] },
-         { label: 'My Team', icon: 'fa fa-users', routerLink: ['/team'] },
+        { label: 'My Team', icon: 'fa fa-users', routerLink: ['/team'] },
         { label: 'Withdraw', icon: 'fa fa-wallet', routerLink: ['/walletwithdraw'] },
+        { label: 'My Earning', icon: 'fa fa-wallet', routerLink: ['/income'] },
         { label: 'Support', icon: 'fas fa-comment', routerLink: ['/support'] }
       ];
       this.uapi.UProfile().subscribe((res:any)=>{
@@ -72,6 +77,11 @@ export class MenuBarComponent implements OnInit {
 
   logout() {
     this.token1.signOut();
+    // optionally route to login
+  }
+
+   logout1() {
+    this.token1.signOut1();
     // optionally route to login
   }
 

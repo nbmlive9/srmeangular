@@ -40,8 +40,7 @@ isLoading: boolean = false;
       phone: [''],
       email: [''],
       password: [''],
-      transpassword: [''],
-      wallet_amount: [''],
+      aadhar: [''],
     });
 
     this.loadUsers(this.currentPage, this.rowsPerPage);
@@ -49,25 +48,28 @@ isLoading: boolean = false;
 
   // ✅ API call for paginated users
 loadUsers(page: number, rows: number) {
-  this.isLoading = true; // Show spinner before API call
+  this.isLoading = true;
 
   this.api.TotalUsers(page, rows).subscribe(
     (res: any) => {
       console.log('API Response:', res);
 
-      this.data = res.udata?.data || [];
-      this.totalRecords = res.udata?.count || 0;
+      // Adjust depending on your backend
+      const udata = res.udata || res.data; 
+      this.data = udata?.data || udata || [];
+      this.totalRecords = udata?.count || res.count || this.data.length;
       this.totalPages = Math.ceil(this.totalRecords / rows);
 
-      this.gdata = res.gdata || []; // ✅ store gdata
-      this.isLoading = false; // Hide spinner after data load
+      this.gdata = res.gdata || [];
+      this.isLoading = false;
     },
     (error: any) => {
       console.error('Error loading data:', error);
-      this.isLoading = false; // Hide spinner even on error
+      this.isLoading = false;
     }
   );
 }
+
 
 
 getGdataByRegId(regId: string) {
@@ -166,8 +168,7 @@ goToPrevGroup() {
           phone: user.phone || '',
           email: user.email || '',
           password: user.password || '',
-          transpassword: user.transpassword || '',
-          wallet_amount: user.wallet_amount || '',
+          aadhar: user.aadhar || '',
         });
         this.isEditModalOpen = true;
       }

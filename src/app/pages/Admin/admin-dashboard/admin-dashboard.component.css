@@ -1,0 +1,39 @@
+.page-wrapper {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.card.stat-card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: #fff;
+}
+
+.card.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.card-body i {
+  display: block;
+}
+
+h6 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+h4 {
+  margin: 5px 0 0 0;
+  font-size: 22px;
+}
+
+@media (max-width: 576px) {
+  h4 {
+    font-size: 18px;
+  }
+  .card-body i {
+    font-size: 1.5rem !important;
+  }
+}

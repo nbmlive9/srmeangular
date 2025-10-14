@@ -31,19 +31,30 @@
 
     <div class="right-group d-flex align-items-center">
       <!-- Balance card -->
-      <div class="balance-card d-none d-md-flex me-3">
+      <div class="balance-card d-none d-md-flex me-3"  *ngIf="token1.isUser()">
         <small class="muted">Activation Fund: </small>
         <div class="amount text-warning">{{pfdata?.actwallet | currency:'USD':true:'1.0-2'}}</div>
       </div>
 
+        <div class="avatar-wrap dropdown"  *ngIf="token1.isAdmin()">
+        <button class="avatar-btn" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="assets/logo.png" alt="avatar" class="avatar-img" />
+          <span class="avatar-name d-none d-lg-inline">Admin</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+          <li><a class="dropdown-item" routerLink="/updateprofile">Profile</a></li>
+          <li><a class="dropdown-item" (click)="logout1()">Logout</a></li>
+        </ul>
+      </div>
+
       <!-- Avatar dropdown (simple) -->
-      <div class="avatar-wrap dropdown">
+      <div class="avatar-wrap dropdown"  *ngIf="token1.isUser()">
         <button class="avatar-btn" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="assets/logo.png" alt="avatar" class="avatar-img" />
           <span class="avatar-name d-none d-lg-inline">{{ pfdata.reg_id }}</span>
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-          <li><a class="dropdown-item" [routerLink]="token1.isAdmin() ? '/dashboard' : '/myprofile'">Profile</a></li>
+          <li><a class="dropdown-item" routerLink="/myprofile">Profile</a></li>
           <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
         </ul>
       </div>
@@ -67,8 +78,12 @@
     </li>
   </ul>
 
-  <div class="sidebar-footer mt-auto p-3">
+  <div class="sidebar-footer mt-auto p-3" *ngIf="token1.isUser()">
     <button class="btn btn-logout w-100" (click)="logout()"><i class="fa fa-sign-out-alt me-2"></i> Logout</button>
+  </div>
+
+    <div class="sidebar-footer mt-auto p-3" *ngIf="token1.isAdmin()">
+    <button class="btn btn-logout w-100" (click)="logout1()"><i class="fa fa-sign-out-alt me-2"></i> Logout</button>
   </div>
 </nav>
 
@@ -79,10 +94,17 @@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body p-0">
-    <div class="offcanvas-profile p-3 d-flex align-items-center gap-2">
+     <div class="offcanvas-profile p-3 d-flex align-items-center gap-2" *ngIf="token1.isAdmin()">
       <img src="assets/avatar.jpg" class="off-avatar" />
       <div>
-        <div class="fw-bold">{{ pfdata.name }}</div>
+        <div class="fw-bold">Admin</div> 
+      </div>
+    </div>
+
+    <div class="offcanvas-profile p-3 d-flex align-items-center gap-2"  *ngIf="token1.isUser()">
+      <img src="assets/avatar.jpg" class="off-avatar" />
+      <div>
+        <div class="fw-bold">{{ pfdata.name }}</div> 
         <small class="muted">{{ pfdata.reg_id }}</small>
       </div>
     </div>
@@ -96,6 +118,9 @@
       </li>
       <li class="list-group-item">
         <a class="text-danger d-flex align-items-center gap-2" (click)="logout()"><i class="fa fa-sign-out-alt"></i> Logout</a>
+      </li>
+        <li class="list-group-item">
+        <a class="text-danger d-flex align-items-center gap-2" (click)="logout1()"><i class="fa fa-sign-out-alt"></i> Logout</a>
       </li>
     </ul>
   </div>

@@ -2,7 +2,7 @@
 
 <div class="page-wrapper bg-wrapper">
     <div class="content">
-        <div class="row">
+        <div class="row p-4">
             <div class="col-sm-12">
                 <h4 class="page-title">Edit Profile</h4>
             </div>
@@ -20,25 +20,25 @@
                 <div class="col-md-6">
                     <div class="form-group ">
                         <label class="focus-label">Username</label>
-                        <input type="text" class="form-control floating" [(ngModel)]="data.user">
+                        <input type="text" class="form-control floating" [(ngModel)]="data.username" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="focus-label">Paswword</label>
-                        <input type="text" class="form-control floating" [(ngModel)]="data.password">
+                        <input type="password" class="form-control floating" [(ngModel)]="data.password" readonly>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <div class="form-group">
                         <label class="focus-label">Name</label>
-                        <input type="text" class="form-control floating" value="Icon Istar" readonly>
+                        <input type="text" class="form-control floating" [(ngModel)]="data.password" readonly>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-md-6">
                     <div class="form-group ">
                         <label class="focus-label">Email</label>
-                        <input type="text" class="form-control floating" [(ngModel)]="data.email">
+                        <input type="text" class="form-control floating" [(ngModel)]="data.email" readonly>
                     </div>
                 </div>
                 <div class="text-center m-t-20">

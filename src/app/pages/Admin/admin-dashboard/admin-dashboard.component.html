@@ -1,0 +1,117 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+  <div class="content">
+    <div class="row g-4 p-4">
+      <!-- Total Users -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card stat-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="fa fa-users fa-2x text-primary mb-2"></i>
+            <h6 class="text-muted">Total Users</h6>
+            <h4 class="fw-bold">{{ data1?.totalusers || 0 }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Today's Join -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card stat-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="fa fa-user-plus fa-2x text-success mb-2"></i>
+            <h6 class="text-muted">Today Join</h6>
+            <h4 class="fw-bold">{{ data1?.todayjoin || 0 }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Today Active -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card stat-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="fa fa-bolt fa-2x text-warning mb-2"></i>
+            <h6 class="text-muted">Today Active</h6>
+            <h4 class="fw-bold">{{ data1?.todayactive || 0 }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paid Amount -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card stat-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="fa fa-wallet fa-2x text-info mb-2"></i>
+            <h6 class="text-muted">Paid Amount</h6>
+            <h4 class="fw-bold">{{ data1?.paidamount || 0 | currency:'USD' }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Level -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card stat-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="fa fa-layer-group fa-2x text-secondary mb-2"></i>
+            <h6 class="text-muted">Total Level</h6>
+            <h4 class="fw-bold">{{ data1?.totallevel || 0 }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Silver -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card stat-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="fa fa-medal fa-2x text-secondary mb-2"></i>
+            <h6 class="text-muted">Silver</h6>
+            <h4 class="fw-bold">{{ data1?.totalsilver || 0 }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Gold -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card stat-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="fa fa-trophy fa-2x text-warning mb-2"></i>
+            <h6 class="text-muted">Gold</h6>
+            <h4 class="fw-bold">{{ data1?.totalgold || 0 }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Diamond -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card stat-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="fa fa-gem fa-2x text-info mb-2"></i>
+            <h6 class="text-muted">Diamond</h6>
+            <h4 class="fw-bold">{{ data1?.totaldiamond || 0 }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Platinum -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card stat-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="fa fa-crown fa-2x text-primary mb-2"></i>
+            <h6 class="text-muted">Platinum</h6>
+            <h4 class="fw-bold">{{ data1?.totalplatinum || 0 }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Crown -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card stat-card shadow-sm border-0">
+          <div class="card-body text-center">
+            <i class="fa fa-star fa-2x text-danger mb-2"></i>
+            <h6 class="text-muted">Crown</h6>
+            <h4 class="fw-bold">{{ data1?.totalcrown || 0 }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

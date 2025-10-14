@@ -23,6 +23,12 @@ export class TokenStorageService {
     this.router.navigateByUrl('/auth-login');
   }
 
+   signOut1() {
+    this.user = null;
+    window.localStorage.clear();
+    this.router.navigateByUrl('/login');
+  }
+
   public saveToken(token: string): void {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);

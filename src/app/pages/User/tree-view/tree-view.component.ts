@@ -32,11 +32,13 @@ modalInstance: any;
   rdata: any;
   allData: any;
   isMobile = false;
-isModalVisible = false; 
-  showNodeModal(nodeData: any) {
+  
+isModalVisible = false;
+
+showNodeModal(nodeData: any) {
   this.repd = nodeData;
-  this.isModalVisible = true; // show modal
-  this.getTreeViewData(nodeData.id); // or nodeData.title depending on backend
+  this.isModalVisible = true;
+  this.getTreeViewData(nodeData.title || nodeData.id);
 }
 
 hideNodeModal() {

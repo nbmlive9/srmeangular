@@ -1,3 +1,9 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="content" style="margin-top: -50px;">
+        <div class="row p-4">
+
 <div class="card shadow-sm border-0 p-4" style="border-radius: 12px;">
 
   <!-- Header / Genealogy Tag -->
@@ -153,8 +159,19 @@
   </div>
 </div>
 
+</div>
+</div>
+</div>
 
-<div *ngIf="isModalVisible" class="custom-modal-backdrop">
+<!-- modal -->
+
+
+ <!-- Remove `fade` and Bootstrap auto behavior -->
+<div
+  class="modal"
+  tabindex="-1"
+  *ngIf="isModalVisible"
+>
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content shadow-lg border-0 rounded-4">
       <div class="modal-header bg-primary text-white rounded-top-4">
@@ -162,40 +179,70 @@
         <button type="button" class="btn-close btn-close-white" (click)="hideNodeModal()"></button>
       </div>
 
+      <!-- Loader -->
       <div *ngIf="loading" class="modal-body text-center py-4">
         <div class="spinner-border text-primary" role="status"></div>
         <p class="mt-3 text-muted">Loading data, please wait...</p>
       </div>
 
+      <!-- Modal content -->
       <div *ngIf="!loading && repd" class="modal-body">
-          <div class="text-center">
+        <div class="text-center">
           <img [src]="repd.image || 'assets/default-user.png'" class="rounded-circle border border-3 shadow-sm mb-3" width="100" height="100" />
           <h4 class="fw-bold">{{ repd.name }}</h4>
           <p class="text-muted mb-0">{{ repd.title }}</p>
         </div>
 
         <div class="table-responsive mt-4">
-          <table class="table table-bordered align-middle text-center">
-            <thead class="table-light">
-              <tr>
-                <th></th>
-                <th>Left</th>
-                <th>Right</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="fw-bold text-primary">Team</td>
-                <td>{{ tdata?.mleft || 0 }}</td>
-                <td>{{ tdata?.mright || 0 }}</td>
-              </tr>
-              <tr>
-                <td class="fw-bold text-secondary">Business</td>
-                <td>{{ tdata?.mleftbusiness || 0 | currency:'USD':true:'1.0-2' }}</td>
-                <td>{{ tdata?.mrightbusiness || 0 | currency:'USD':true:'1.0-2' }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive mt-4">
+  <table class="table table-bordered align-middle text-center">
+    <thead class="table-light">
+      <tr>
+        <th>Rank</th>
+        <th>Left</th>
+        <th>Right</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="fw-bold text-primary">Team</td>
+        <td>{{ tdata?.mleft || 0 }}</td>
+        <td>{{ tdata?.mright || 0 }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold text-secondary">Level</td>
+        <td>{{ tdata?.mlevelleft || 0 }}</td>
+        <td>{{ tdata?.mlevelright || 0 }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold text-muted">Silver</td>
+        <td>{{ tdata?.msilverleft || 0 }}</td>
+        <td>{{ tdata?.msilverright || 0 }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold text-warning">Gold</td>
+        <td>{{ tdata?.mgoldleft || 0 }}</td>
+        <td>{{ tdata?.mgoldright || 0 }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold text-info">Platinum</td>
+        <td>{{ tdata?.mplatinumleft || 0 }}</td>
+        <td>{{ tdata?.mplatinumright || 0 }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold text-success">Diamond</td>
+        <td>{{ tdata?.mdiamondleft || 0 }}</td>
+        <td>{{ tdata?.mdiamondright || 0 }}</td>
+      </tr>
+      <tr>
+        <td class="fw-bold text-danger">Crown</td>
+        <td>{{ tdata?.mcrownleft || 0 }}</td>
+        <td>{{ tdata?.mcrownright || 0 }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
         </div>
       </div>
 
@@ -205,4 +252,7 @@
     </div>
   </div>
 </div>
+
+<!-- Custom backdrop -->
+<div *ngIf="isModalVisible" class="modal-backdrop show"></div>
 
