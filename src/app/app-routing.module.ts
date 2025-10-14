@@ -31,6 +31,7 @@ import { AwardUsersDataComponent } from './pages/Admin/award-users-data/award-us
 import { RoyaltyUsersDataComponent } from './pages/Admin/royalty-users-data/royalty-users-data.component';
 import { ForgotPasswordComponent } from './pages/User/forgot-password/forgot-password.component';
 import { TreeViewComponent } from './pages/User/tree-view/tree-view.component';
+import { TreeViewDataComponent } from './pages/User/tree-view-data/tree-view-data.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent },
@@ -65,7 +66,7 @@ const routes: Routes = [
   {path:"myprofile",component:ProfileComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   {path:"support",component:UserSupportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     {path:"team",component:LevelMembersComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
-    {path:"treeview/:regid",component:TreeViewComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+    {path:"treeview/:regid",component:TreeViewDataComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   // {path:"activation/:regid",component:UserActivation, canActivate: [AuthGuard], data: { roles: ['user'] } },
 
 ];

@@ -341,7 +341,8 @@ return this.http.get(
 );
 }
 
- LeftTeamData() {
+
+LeftTeamData(page: number, perPage: number) {
   const token1 = this.token.getToken();
   const httpOptions = {
     headers: new HttpHeaders({
@@ -349,13 +350,15 @@ return this.http.get(
       'Authorization': 'Bearer ' + token1
     })
   };
+  const pageDetails = `page=${page}&per_page=${perPage}`;
   return this.http.get(
-    AUTH_API + `Left_members`,
+    AUTH_API + `Left_members?${pageDetails}`,
     httpOptions
   );
 }
 
- RightTeamData() {
+
+RightTeamData(page: number, perPage: number) {
   const token1 = this.token.getToken();
   const httpOptions = {
     headers: new HttpHeaders({
@@ -363,8 +366,9 @@ return this.http.get(
       'Authorization': 'Bearer ' + token1
     })
   };
+  const pageDetails = `page=${page}&per_page=${perPage}`;
   return this.http.get(
-    AUTH_API + `Right_members`,
+    AUTH_API + `Right_members?${pageDetails}`,
     httpOptions
   );
 }
