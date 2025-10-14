@@ -1,31 +1,46 @@
 <div class="table-responsive p-4">
-    <h6 class="text-success">Left Team</h6>
-                    <!-- Table -->
-                      <table class="table table-striped custom-table mb-0">
-                        <thead>
-                          <tr>
-                            <th>S.No</th>
-                            <th>Date</th>
-                            <th>Userid</th>
-                            <th>Level</th>
-                            <th>Status</th>
-                            <!-- <th>Action</th> -->
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of ldata; let i = index">
-                            <td>{{ i + 1 }}</td>
-                            <td>{{ item.crdate }}</td>
-                            <td>{{ item.ref_id }} </td>
-                            <td> {{ item.level }}  </td>
-                            <td>
-                              <span class="badge badge-danger" *ngIf="item.status === '0'">Not Activated</span>
-                              <span class="badge badge-success" *ngIf="item.status === '1'">Activated</span>
-                            </td>
-                            <!-- <td>
-                              <span class="btn btn-sm btn-success" *ngIf="item.topupstatus === '0'" >Activate Now</span>
-                            </td> -->
-                          </tr>
-                        </tbody>
-                      </table>
-                      </div>
+  <h6 class="text-success">Left Team</h6>
+
+  <table class="table table-striped custom-table mb-0">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Date</th>
+        <th>Userid</th>
+        <th>Level</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data1; let i = index">
+        <td>{{ getStartIndex() + i }}</td>
+        <td>{{ item.crdate }}</td>
+        <td>{{ item.ref_id }}</td>
+        <td>{{ item.level }}</td>
+        <td>
+          <span class="badge badge-danger" *ngIf="item.status === '0'">Not Activated</span>
+          <span class="badge badge-success" *ngIf="item.status === '1'">Activated</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <nav *ngIf="totalPages > 1" class="mt-3">
+  <ul class="pagination justify-content-center flex-wrap">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" (click)="previousPage()">Previous</a>
+    </li>
+
+    <li class="page-item" *ngFor="let page of getPageNumbers()" [class.active]="currentPage === page">
+      <a class="page-link" (click)="goToPage(page)">
+        {{ (page - 1) * rowsPerPage + 1 }} - 
+        {{ Math.min(page * rowsPerPage, totalRecords) }}
+      </a>
+    </li>
+
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" (click)="nextPage()">Next</a>
+    </li>
+  </ul>
+</nav>
+</div>

@@ -65,6 +65,8 @@ import { ForgotPasswordComponent } from './pages/User/forgot-password/forgot-pas
 import { LeftTeamComponent } from './pages/User/left-team/left-team.component';
 import { RightTeamComponent } from './pages/User/right-team/right-team.component';
 import { TreeViewComponent } from './pages/User/tree-view/tree-view.component';
+import { OrganizationChartModule } from 'primeng/organizationchart';
+import { TreeViewDataComponent } from './pages/User/tree-view-data/tree-view-data.component';
 
 @NgModule({
   declarations: [
@@ -124,17 +126,18 @@ import { TreeViewComponent } from './pages/User/tree-view/tree-view.component';
     ForgotPasswordComponent,
     LeftTeamComponent,
     RightTeamComponent,
-    TreeViewComponent
+    TreeViewComponent,
+    TreeViewDataComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule, FormsModule, ReactiveFormsModule, HttpClientModule, BrowserAnimationsModule, 
+    NgbModule, FormsModule, ReactiveFormsModule, HttpClientModule, BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 1500,
       positionClass: 'toast-bottom-center',
       preventDuplicates: true,
-    }), ClipboardModule, 
+    }), ClipboardModule, OrganizationChartModule
   ],
   providers: [],
   bootstrap: [AppComponent],

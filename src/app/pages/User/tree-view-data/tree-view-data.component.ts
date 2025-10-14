@@ -1,18 +1,19 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { jsPDF } from 'jspdf';
 import { UserService } from 'src/app/service/user.service';
 import { TreeNode } from 'primeng/api';
 declare var bootstrap: any;
+
 @Component({
-  selector: 'app-tree-view',
-  templateUrl: './tree-view.component.html',
-  styleUrls: ['./tree-view.component.css']
+  selector: 'app-tree-view-data',
+  templateUrl: './tree-view-data.component.html',
+  styleUrls: ['./tree-view-data.component.css']
 })
-export class TreeViewComponent {
-@Input() regid!: string;
-  @ViewChild('nodeModal') nodeModal!: ElementRef;
+export class TreeViewDataComponent {
+
+   @ViewChild('nodeModal') nodeModal!: ElementRef;
   @ViewChild('tableToPrint') tableToPrint!: ElementRef;
 modalInstance: any;
   id: any;
@@ -49,11 +50,6 @@ hideNodeModal() {
   }
 
   ngOnInit(): void {
-       if (this.regid) {
-      this.loadUserTreeData(this.regid);
-    } else {
-      this.errorMessage = 'No User ID provided.';
-    }
     
       this.isMobile = window.innerWidth < 768;
     this.activeroute.params.subscribe((params) => {
@@ -123,7 +119,7 @@ mytree1(regid: string) {
   buildTree() {
   if (this.data2) {
     const mainId = this.data2.main?.reg_id || 'No User';
-// hh
+
     this.data = [
       {
         expanded: true,
