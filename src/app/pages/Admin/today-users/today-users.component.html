@@ -17,11 +17,11 @@
             <tbody>
              <tr *ngFor="let item of tjdata; let i = index">
                 <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
-                <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
+                <td>{{ item.crdate | date:'dd/MMM/YYYY' }}</td>
                 <td>{{ item.name }}<br /><small>{{ item.regid }}</small></td>
                 <td>{{ item.email }}</td>
-                <td>{{ item.sponcerid }}</td>
-                <td>{{ item.walletamount }}</td>
+                <td>{{ item.sponsor }}</td>
+                <td>{{ item.wallet_amount }}</td>
                 <td>
                     <span style="cursor: pointer">
                                     <ng-container *ngIf="item.status=='1'">
