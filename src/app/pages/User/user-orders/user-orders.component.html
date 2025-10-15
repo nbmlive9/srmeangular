@@ -22,6 +22,8 @@
                             <th>Date</th>
                             <th>Product</th>
                             <th>Type</th>
+                            <th>Address</th>
+                            <th>Delivery Date</th>
                             <th>Status</th>
                             <!-- <th>Action</th> -->
                           </tr>
@@ -29,12 +31,15 @@
                         <tbody>
                           <tr *ngFor="let item of data1; let i = index">
                             <td>{{ i + 1 }}</td>
-                            <td>{{ item.crdate }}</td>
-                            <td> {{ item.name }}</td>
-                            <td> {{ item.type }}  </td>
+                            <td>{{ item.cdate }}</td>
+                            <td> {{ item.product }}</td>
+                            <td> <span class="text-primary" *ngIf="item.deliverytype == 'leader'">Leader To Delivery</span>
+                               <span class="text-success" *ngIf="item.deliverytype == 'home'">Home Delivery</span></td>       
+                            <td> {{ item.shiippingaddress }} - {{item.pincode}} </td>
+                            <td>{{item.deliverdate}}</td>
                             <td>
-                              <span class="badge badge-danger" *ngIf="item.status === '0'">Pending</span>
-                              <span class="badge badge-success" *ngIf="item.status === '1'">Delivered</span>
+                              <span class="badge badge-danger" *ngIf="item.transstatus === '0'">Pending</span>
+                              <span class="badge badge-success" *ngIf="item.transstatus === '2'">Delivered</span>
                             </td>
                             <!-- <td>
                               <span class="btn btn-sm btn-success" *ngIf="item.topupstatus === '0'" >Activate Now</span>

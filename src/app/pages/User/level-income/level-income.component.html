@@ -1,45 +1,60 @@
 <div class="col-md-12">
-    <div class="buy-form">
-        <div class="row">
-            <!-- Rows per page selector -->
-                <div class="col-md-12">
-                    <h4 class="page-title text-success">Matching Income</h4>
-                </div>
-                <div class="container">
-                    <div class="row g-3">
-
-                         <div class="table-responsive">
-        <table class="table table-striped custom-table mb-0">
-          <thead>
-            <tr>
-              <th>S.No</th>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Userid</th>
-              <th>Remark</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of data1; let i = index">
-              <td>{{  i + 1 }}</td>
-              <td>{{ item.cdate | date:'dd/MMM/YYY' }}</td>
-              <td>{{ item.amount | currency:'USD':true:'1.0-1' }}</td>
-              <td>{{ item.forid }} </td>
-              <td>Matching Income</td>
-              <td>
-                <span class="badge badge-success">Credit</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <div class="buy-form">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="page-title text-success">Matching Income</h4>
       </div>
 
-                    </div>
-                  </div>
+      <!-- 🔽 Filter Dropdown -->
+      <div class="col-md-4 mb-3">
+        <label for="typeFilter" class="form-label fw-bold">Filter by Type:</label>
+        <select id="typeFilter" class="form-select" [(ngModel)]="selectedType" (change)="filterByType()">
+          <option value="all">All Types</option>
+          <option value="level">Level Binary</option>
+          <option value="level2">Silver Binary</option>
+          <option value="level3">Gold Binary</option>
+          <option value="level4">Platinum Binary</option>
+          <option value="level5">Diamond Binary</option>
+          <option value="level6">Crown Binary</option>
+        </select>
+      </div>
 
+      <!-- Table -->
+      <div class="container">
+        <div class="row g-3">
+          <div class="table-responsive">
+            <table class="table table-striped custom-table mb-0">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Remark</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of filteredData; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.crdate | date:'dd/MMM/yyyy' }} <br> {{ item.crtime }}</td>
+                  <td>{{ item.amount | currency:'USD':true:'1.0-1' }}</td>
+                  <td>{{ item.remark }}</td>
+                  <td>{{ getTypeLabel(item.ttype) }}</td>
+                  <td>
+                    <span class="badge bg-success" *ngIf="item.payment_type === 'credit'">Credit</span>
+                    <span class="badge bg-danger" *ngIf="item.payment_type === 'debit'">Debit</span>
+                  </td>
+                </tr>
+                <tr *ngIf="filteredData.length === 0">
+                  <td colspan="6" class="text-center text-muted">No records found</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-  
-      
+        </div>
+      </div>
+
     </div>
   </div>
+</div>

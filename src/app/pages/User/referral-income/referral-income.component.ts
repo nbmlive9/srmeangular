@@ -12,10 +12,9 @@ export class ReferralIncomeComponent {
   constructor(private api:UserService){}
 
   ngOnInit() {
-      //get pending report
-       this.api.WalletSponsorReport().subscribe((res: any) => {
-      // console.log('income', res);
-      this.data1 = res.data;
+    this.api.WalletMatchingReport().subscribe((res: any) => {
+      console.log('inner matching', res);
+      this.data1 = res.data.itype=='inner';
     });
   }
   
