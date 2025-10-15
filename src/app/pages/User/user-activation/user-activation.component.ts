@@ -12,6 +12,7 @@ declare var bootstrap: any;
   styleUrls: ['./user-activation.component.css']
 })
 export class UserActivationComponent {
+  @ViewChild('loadingModal') loadingModal!: TemplateRef<any>;
   @ViewChild('activationModal') activationModal!: TemplateRef<any>;
 
   openConfirmModal() {
@@ -72,6 +73,11 @@ pack:any;
     });
     //get packages
    this.getPackagesData();
+
+         this.form.get('regtype')?.valueChanges.subscribe((value) => {
+    this.updateProductValidators(value);
+  });
+
   }
 
   getPackagesData(){
@@ -105,63 +111,95 @@ pack:any;
     );
   }
 
-  add() {
-  if (this.form.valid) {
-    const val: any = {
-      sponcerid: this.form.value.sponcerid,
-      name: this.form.value.name,
-      phone: this.form.value.phone,
-      email: this.form.value.email,
-      password: this.form.value.password,
-      position: this.form.value.position,
-      placementid: this.form.value.placementid,
-      regtype: this.form.value.regtype,
-      deliverytype: this.form.value.deliverytype,
-    };
+   updateProductValidators(regtype: string) {
+    const product = this.form.get('product');
+    const address = this.form.get('address');
+    const pincode = this.form.get('pincode');
+    const deliverytype = this.form.get('deliverytype');
 
-    // Include product details if selected
-    if (this.form.value.regtype === 'withproduct') {
-      val.product = this.form.value.product;
-      val.address = this.form.value.address;
-      val.pincode = this.form.value.pincode;
-      val.deliverytype = this.form.value.deliverytype;
+    if (regtype === 'withproduct') {
+      product?.setValidators([Validators.required]);
+      address?.setValidators([Validators.required]);
+      pincode?.setValidators([Validators.required]);
+      deliverytype?.setValidators([Validators.required]);
+    } else {
+      product?.clearValidators();
+      address?.clearValidators();
+      pincode?.clearValidators();
+      deliverytype?.clearValidators();
     }
 
-    // Clear old error message before API call
-    this.errorMessage3 = '';
-
-    this.api.UserRegistration(val).subscribe(
-      (res: any) => {
-        console.log('Response:', res);
-
-        // ✅ If backend returns insufficient funds
-        if (res.status === 0) {
-          this.errorMessage3 = res.message || 'You Have Low Credits';
-          return; // stop further actions
-        }
-
-        // ✅ Successful activation
-        if (res.status === 1 || res.data) {
-          this.udata = res.data;
-          this.form.reset();
-          this.modalService.open(this.activationModal, { centered: true });
-
-          setTimeout(() => {
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-              this.router.navigate(['/activation']);
-            });
-          }, 500);
-        } else {
-          // Handle unexpected structure
-          this.errorMessage3 = 'Something went wrong, please try again.';
-        }
-      },
-      (err: any) => {
-        console.error('Registration error:', err);
-        this.errorMessage3 = err?.error?.message || 'Server error occurred';
-      }
-    );
+    product?.updateValueAndValidity();
+    address?.updateValueAndValidity();
+    pincode?.updateValueAndValidity();
+    deliverytype?.updateValueAndValidity();
   }
+
+  
+  
+   add() {
+  if (this.form.invalid) return;
+
+  const val: any = {
+    sponcerid: this.form.value.sponcerid,
+    name: this.form.value.name,
+    phone: this.form.value.phone,
+    email: this.form.value.email,
+    password: this.form.value.password,
+    position: this.form.value.position,
+    placementid: this.form.value.placementid,
+    regtype: this.form.value.regtype,
+    deliverytype: this.form.value.deliverytype,
+  };
+
+  if (this.form.value.regtype === 'withproduct') {
+    val.product = this.form.value.product;
+    val.address = this.form.value.address;
+    val.pincode = this.form.value.pincode;
+    val.deliverytype = this.form.value.deliverytype;
+  }
+
+  this.errorMessage3 = '';
+
+  // 1️⃣ Open the loading modal (disable closing)
+  const loadingRef = this.modalService.open(this.loadingModal, {
+    centered: true,
+    backdrop: 'static', // prevent closing
+    keyboard: false,    // disable ESC
+  });
+
+  // 2️⃣ Call backend
+  this.api.UserRegistration(val).subscribe(
+    (res: any) => {
+      // 3️⃣ Close loading modal when API returns
+      loadingRef.close();
+
+      if (res.status === 0) {
+        this.errorMessage3 = res.message || 'You Have Low Credits';
+        return;
+      }
+
+      if (res.status === 1 || res.data) {
+        this.udata = res.data;
+        this.form.reset();
+
+        // 4️⃣ Open activation modal
+        this.modalService.open(this.activationModal, { centered: true });
+
+        setTimeout(() => {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/activation']);
+          });
+        }, 500);
+      } else {
+        this.errorMessage3 = 'Something went wrong, please try again.';
+      }
+    },
+    (err: any) => {
+      loadingRef.close();
+      this.errorMessage3 = err?.error?.message || 'Server error occurred';
+    }
+  );
 }
 
 
