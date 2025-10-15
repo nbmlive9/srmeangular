@@ -1,46 +1,35 @@
-<h4 class="page-title text-success">$306 Package Users</h4>
+<h4 class="page-title text-success">Leader Delivery Orders</h4>
 <div class="table-responsive">
      <table class="table table-striped custom-table mb-0">
             <thead>
               <tr>
-                <th>S.No</th>
+               <th>S.No</th>
                 <th>Date</th>
+                <th>userid</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Sponsor</th>
-                <th>Wallet</th>
+                <th>Address</th>
+                <th>Pincode</th>
+                <th>Product</th>
+                <!-- <th>Delivery</th> -->
                 <th>Status</th>
-                <th>Action</th>
               </tr>
             </thead>
             <tbody>
              <tr *ngFor="let item of data1; let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
-                <td>{{ item.name }}<br /><small>{{ item.regid }}</small></td>
-                <td>{{ item.email }}</td>
-                <td>{{ item.sponcerid }}</td>
-                <td>{{ item.walletamount }}</td>
-                <td>
-                    <span style="cursor: pointer">
-                                    <ng-container *ngIf="item.status=='1'">
-                                        <span class="badge badge-success"> Active</span> 
-                                    </ng-container>
-                                    <ng-container *ngIf="item.status=='0'">
-                                        <span class="badge badge-danger">InActive</span>
-                                    </ng-container>
-                                </span>
-                </td>
-                <td class="text-center">
-                  <div class="dropdown">
-                    <i class="fa fa-ellipsis-v" id="actionMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer;"></i>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="actionMenu">
-                      <a class="dropdown-item" >View Profile</a>
-                      <a class="dropdown-item" href="#">Wallet Transfer</a>
-                      <!-- <a class="dropdown-item" (click)="block(item.regid)" style="cursor: pointer;">Block User</a>
-                      <a class="dropdown-item" (click)="unblock(item.regid)" style="cursor: pointer;">Unblock User</a> -->
-                    </div>
-                  </div>
+                <td>{{ item.regid }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.shiippingaddress }}</td>
+                <td>{{ item.pincode }}</td>
+                <td>{{ item.product }}</td>
+                <!-- <td>
+                  <span class="text-primary" *ngIf="item.deliverytype=='leader'">Leader To Delivery</span>
+                   <span class="text-success" *ngIf="item.deliverytype=='home'">Home Delivery</span>
+                </td> -->
+                    <td>
+                 <span class="text-danger" *ngIf="item.transstatus=='0'">Pending</span>
+                   <span class="text-success" *ngIf="item.transstatus=='2'">Delivered</span>
                 </td>
               </tr>
             </tbody>

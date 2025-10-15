@@ -16,10 +16,8 @@ export class RightTeamComponent {
   totalRecords = 0;
   totalPages = 0;
 
-  // For dynamic page range
-  pageRangeStart = 1;
-  pageRangeEnd = 5; // Show 5 page buttons at a time
- Math = Math;
+  Math = Math;
+
   constructor(private api: UserService) {}
 
   ngOnInit() {
@@ -30,12 +28,15 @@ export class RightTeamComponent {
     this.loading = true;
     const page = this.currentPage;
 
-    this.api.RightTeamData(page, this.rowsPerPage).subscribe((res: any) => {
-      this.data1 = res.data.data;
-      this.totalRecords = res.data.count;
-      this.totalPages = Math.ceil(this.totalRecords / this.rowsPerPage);
-      this.loading = false;
-    }, () => this.loading = false);
+    this.api.RightTeamData(page, this.rowsPerPage).subscribe(
+      (res: any) => {
+        this.data1 = res.data.data;
+        this.totalRecords = res.data.count;
+        this.totalPages = Math.ceil(this.totalRecords / this.rowsPerPage);
+        this.loading = false;
+      },
+      () => (this.loading = false)
+    );
   }
 
   goToPage(page: number) {
@@ -59,13 +60,28 @@ export class RightTeamComponent {
     }
   }
 
+  // ✅ Jump to first page
+  firstPage() {
+    if (this.currentPage !== 1) {
+      this.currentPage = 1;
+      this.loadUsers();
+    }
+  }
+
+  // ✅ Jump to last page
+  lastPage() {
+    if (this.currentPage !== this.totalPages) {
+      this.currentPage = this.totalPages;
+      this.loadUsers();
+    }
+  }
+
   getPageNumbers(): number[] {
     const pages: number[] = [];
-    let start = Math.floor((this.currentPage - 1) / this.rowsPerPage) * this.rowsPerPage + 1;
-    let end = Math.min(start + this.rowsPerPage - 1, this.totalPages);
-    for (let i = start; i <= end; i++) {
-      pages.push(i);
-    }
+    const maxVisible = 5; // show 5 page buttons
+    let start = Math.floor((this.currentPage - 1) / maxVisible) * maxVisible + 1;
+    let end = Math.min(start + maxVisible - 1, this.totalPages);
+    for (let i = start; i <= end; i++) pages.push(i);
     return pages;
   }
 

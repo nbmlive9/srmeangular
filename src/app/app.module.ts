@@ -71,6 +71,8 @@ import { MyIncomeReportComponent } from './pages/User/my-income-report/my-income
 import { AddProductsComponent } from './pages/Admin/add-products/add-products.component';
 import { AdminDashboardComponent } from './pages/Admin/admin-dashboard/admin-dashboard.component';
 import { TreeRegistrationComponent } from './pages/User/tree-registration/tree-registration.component';
+import { UserOrdersComponent } from './pages/User/user-orders/user-orders.component';
+import { PendingOrdersDataComponent } from './pages/Admin/pending-orders-data/pending-orders-data.component';
 
 @NgModule({
   declarations: [
@@ -135,7 +137,9 @@ import { TreeRegistrationComponent } from './pages/User/tree-registration/tree-r
     MyIncomeReportComponent,
     AddProductsComponent,
     AdminDashboardComponent,
-    TreeRegistrationComponent
+    TreeRegistrationComponent,
+    UserOrdersComponent,
+    PendingOrdersDataComponent
   ],
   imports: [
     BrowserModule,

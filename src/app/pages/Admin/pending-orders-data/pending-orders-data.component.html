@@ -1,0 +1,95 @@
+<h4 class="page-title text-danger">Pending Orders</h4>
+
+<div class="mb-3 text-end">
+  <button class="btn btn-outline-success btn-sm me-2" (click)="exportToExcel('all')">
+    <i class="bi bi-file-earmark-excel"></i> Excel (All)
+  </button>
+  <button class="btn btn-outline-primary btn-sm me-2" (click)="exportToExcel('selected')" [disabled]="selectedIds.length === 0">
+    <i class="bi bi-file-earmark-excel"></i> Excel (Selected)
+  </button>
+  <button class="btn btn-outline-danger btn-sm me-2" (click)="exportToPDF('all')">
+    <i class="bi bi-file-earmark-pdf"></i> PDF (All)
+  </button>
+  <button class="btn btn-outline-warning btn-sm" (click)="exportToPDF('selected')" [disabled]="selectedIds.length === 0">
+    <i class="bi bi-file-earmark-pdf"></i> PDF (Selected)
+  </button>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped custom-table mb-0">
+    <thead>
+      <tr>
+        <th>
+          <input type="checkbox" (change)="toggleSelectAll($event)" [checked]="isAllSelected()" />
+        </th>
+        <th>S.No</th>
+        <th>Date</th>
+        <th>Userid</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Pincode</th>
+        <th>Product</th>
+        <th>Delivery</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of data1; let i = index">
+        <td>
+          <input
+            type="checkbox"
+            [value]="item.id"
+            (change)="toggleSelection(item.id, $event)"
+            [checked]="selectedIds.includes(item.id)"
+          />
+        </td>
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.cdate | date: 'dd/MMM/YYYY' }}</td>
+        <td>{{ item.regid }}</td>
+         <td>{{ item.name }}</td>
+        <td>{{ item.shiippingaddress }}</td>
+        <td>{{ item.pincode }}</td>
+        <td>{{ item.product }}</td>
+        <td>
+          <span class="text-primary" *ngIf="item.deliverytype === 'leader'">Leader To Delivery</span>
+          <span class="text-success" *ngIf="item.deliverytype === 'home'">Home Delivery</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Deliver Selected Button -->
+<div class="mt-3 text-center">
+  <button
+    class="btn btn-success"
+    (click)="openConfirmModal()"
+    [disabled]="selectedIds.length === 0"
+  >
+    Deliver Selected ({{ selectedIds.length }})
+  </button>
+</div>
+
+<!-- Bootstrap Modal -->
+<div
+  class="modal fade"
+  id="confirmDeliverModal"
+  tabindex="-1"
+  aria-labelledby="confirmDeliverModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-warning text-dark">
+        <h5 class="modal-title" id="confirmDeliverModalLabel">Confirm Delivery</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Are you sure you want to deliver <strong>{{ selectedIds.length }}</strong> selected orders?</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="confirmDeliver()">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>

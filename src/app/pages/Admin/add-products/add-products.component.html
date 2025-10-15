@@ -1,1 +1,162 @@
-<p>add-products works!</p>
+<app-menu-bar></app-menu-bar>
+<div class="page-wrapper bg-wrapper p-4">
+    <div class="content">
+        <div class="row ">
+           
+                    <div class="card-body">
+                        <h5>Add Product</h5>
+                         <form [formGroup]="form" novalidate>
+                    <div class="container mb-5">
+                        <div class="row">
+                            <div class="field col-md-6">
+                                <label for="lastname2">Product Name *</label>
+                                <input class="form-control" pInputText id="userid" type="text" formControlName="name" placeholder="Product Name" required />
+                            </div>
+                            <div class="field col-md-6">
+                                <label for="lastname2">Amount *</label>
+                                <input class="form-control" pInputText id="address" type="number" placeholder="Product Amount" formControlName="price" required />
+                            </div>
+                             <div class="field col-md-6">
+                                <label for="lastname2">GST *</label>
+                                <input class="form-control" pInputText id="address" type="number" placeholder="Product GST" formControlName="gst" required />
+                            </div>
+                             <div class="field col-md-6">
+                                <label for="lastname2">Product Info *</label>
+                                <input class="form-control" pInputText id="userid" type="text" formControlName="info" placeholder="Product Info" required />
+                            </div>
+                        </div>
+                        
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-sm btn-danger" (click)="add()" [disabled]="!form.valid">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                    </div>
+
+                    <div class="card-body mt-2 pt-0 pb-0">
+                        <div class="table table-responsive">
+                            <table class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Name</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>            
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of data; let i=index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{row.product_title}}</td>
+                                        <td>{{row.price | currency:'USD':true:'1.0-1' }}</td>
+                                        <td> <button class="btn btn-sm btn-success" (click)="openEditModal(row)" data-bs-toggle="modal" data-bs-target="#editModal">  Edit </button> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="col-md-12 d-flex">
+                <div class="card chart-card mb-0 flex-fill">
+                    <div class="card-header">
+                        <h2>Products</h2>                      
+                    </div>
+                    <div class="card-body">
+                       <button class="btn btn-outline-primary m-1" (click)="showSection('pending')">Pending Orders</button>
+                          <button class="btn btn-outline-primary m-1" (click)="showSection('user54')">Home Orders</button>
+                        <button class="btn btn-outline-danger m-1" (click)="showSection('user306')"> Leader Orders</button>
+                          <button class="btn btn-outline-primary m-1" (click)="showSection('user45')">Success Orders</button>
+                    </div>
+
+                    <div class="card-body">
+                       <div *ngIf="pending" class="p-2"><app-pending-orders-data></app-pending-orders-data> </div>
+                          <div *ngIf="user54" class="p-2"><app-package54-users></app-package54-users> </div>
+                          <div *ngIf="user306" class="p-2"> <app-package306-users></app-package306-users> </div>
+                            <div *ngIf="user45" class="p-2"> <app-package45-users></app-package45-users>  </div>
+                    </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+  <!-- 🟢 Bootstrap Edit Modal -->
+  <div
+    class="modal fade"
+    id="editModal"
+    tabindex="-1"
+    aria-labelledby="editModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="editModalLabel">Edit Product</h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="form1">
+            <div class="mb-3">
+              <label>Product Name</label>
+              <input
+                class="form-control"
+                formControlName="product_title"
+                type="text"
+              />
+            </div>
+            <div class="mb-3">
+              <label>Amount</label>
+              <input class="form-control" formControlName="price" type="number" />
+            </div>
+            <div class="mb-3">
+              <label>GST</label>
+              <input class="form-control" formControlName="gst" type="number" />
+            </div>
+            <div class="mb-3">
+              <label>Product Info</label>
+              <input class="form-control" formControlName="info" type="text" />
+            </div>
+            <div class="mb-3">
+              <label>Status</label>
+              <select class="form-control" formControlName="status">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="updateProduct()"
+            data-bs-dismiss="modal"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

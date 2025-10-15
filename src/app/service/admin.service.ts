@@ -873,6 +873,79 @@ diamondaward(id:any){
   );   
 }
 
+PendingOrders(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Get_Deliverypending',
+    httpOptions
+  );   
+}
+
+HomeDeliveryOrders(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Get_DeliveryHome',
+    httpOptions
+  );   
+}
+
+LeaderDeliveryOrders(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Get_DeliveryLeader',
+    httpOptions
+  );   
+}
+
+CompletedOrders(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Get_Deliverysuccess',
+    httpOptions
+  );   
+}
+
+ProductDeliveryById(value: { ids: number[] }): Observable<any> {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+
+  return this.http.post(
+    AUTH_API + 'Delivery_updateMultiple',
+    value, // { ids: [...] }
+    httpOptions
+  );
+}
+
+
 
 
 }

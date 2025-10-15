@@ -30,8 +30,8 @@ export class MenuBarComponent implements OnInit {
     // Build menu model depending on role
     if (this.token.isAdmin && this.token.isAdmin()) {
       this.model = [
-        { label: 'Dashboard', icon: 'fa fa-users', routerLink: ['/adashboard'] },
-        { label: 'Add Product', icon: 'fa fa-users', routerLink: ['/addproduct'] },
+        { label: 'Dashboard', icon: 'fa fa-database', routerLink: ['/adashboard'] },
+        { label: 'Add Product', icon: '	fa fa-cube', routerLink: ['/addproduct'] },
          { label: 'Despoist', icon: 'fa fa-users', routerLink: ['/deposites'] },
           { label: 'Withdraw', icon: 'fa fa-users', routerLink: ['/wallet'] },
         { label: 'Wallet A/C', icon: 'fa fa-home', routerLink: ['/dashboard'] },
@@ -49,6 +49,7 @@ export class MenuBarComponent implements OnInit {
         { label: 'Referrals', icon: 'fa fa-user', routerLink: ['/referrals'] },
         { label: 'My Team', icon: 'fa fa-users', routerLink: ['/team'] },
         { label: 'Withdraw', icon: 'fa fa-wallet', routerLink: ['/walletwithdraw'] },
+         { label: 'My Orders', icon: 'fa fa-shopping-cart', routerLink: ['/myorders'] },
         { label: 'My Earning', icon: 'fa fa-wallet', routerLink: ['/income'] },
         { label: 'Support', icon: 'fas fa-comment', routerLink: ['/support'] }
       ];

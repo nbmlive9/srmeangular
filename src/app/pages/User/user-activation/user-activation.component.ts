@@ -59,6 +59,7 @@ pack:any;
   product: [''], // new
   address: [''], // new
   pincode: [''], // new
+  deliverytype:[''],
         terms: [false, Validators.requiredTrue]
         });
   }
@@ -75,7 +76,7 @@ pack:any;
 
   getPackagesData(){
       this.api.GetPackages().subscribe((res: any) => {
-      // console.log('packages', res);
+      console.log('packages', res);
       this.pack = res.data;
     });
   }
@@ -115,6 +116,7 @@ pack:any;
       position: this.form.value.position,
       placementid: this.form.value.placementid,
       regtype: this.form.value.regtype,
+      deliverytype: this.form.value.deliverytype,
     };
 
     // Include product details if selected
@@ -122,6 +124,7 @@ pack:any;
       val.product = this.form.value.product;
       val.address = this.form.value.address;
       val.pincode = this.form.value.pincode;
+      val.deliverytype = this.form.value.deliverytype;
     }
 
     // Clear old error message before API call

@@ -10,7 +10,7 @@ export class Package54UsersComponent {
  data1:any;
   constructor(private api:AdminService){}
   ngOnInit(){
-    this.api.Get54PackageUsers().subscribe((res:any)=>{
+    this.api.HomeDeliveryOrders().subscribe((res:any)=>{
       console.log(res);
       this.data1=res.data;
     })

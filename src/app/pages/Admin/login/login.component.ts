@@ -10,19 +10,20 @@ import { TokenStorageService } from 'src/app/service/token-storage.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  showPassword = false;
+
   password = '';
 
-  togglePassword() {
-    this.showPassword = !this.showPassword;
-  }
-
+  showPassword: boolean = false;
+errorMessage='';
+togglePasswordVisibility(): void {
+  this.showPassword = !this.showPassword;
+}
   form:FormGroup;
     isLoggedIn: boolean = false;
-  errorMessage = '';
+
   constructor(private router:Router, private authService:AuthService, private tokenStorage:TokenStorageService) {
         this.form = new FormGroup({
-      username: new FormControl('admin'),
+      username: new FormControl('', Validators.required),
       password: new FormControl('', [
         Validators.required,
         Validators.maxLength(50),
@@ -43,7 +44,7 @@ export class LoginComponent {
         this.reloadPage();
         setTimeout(() => {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/adashboard']);
           });
         }, 500);
       },
@@ -55,7 +56,7 @@ export class LoginComponent {
   }
   
   reloadPage(): void {
-    this.router.navigateByUrl('/dashboard');
+    this.router.navigateByUrl('/adashboard');
   }
  
    

@@ -59,10 +59,11 @@ export class TreeRegistrationComponent {
           sponcerid: [''],
           position: [''], 
           placementid: ['',],
-           regtype: ['', Validators.required],
+          regtype: ['', Validators.required],
           product: [''], // new
           address: [''], // new
           pincode: [''], // new
+          deliverytype:[''],
           terms: [false, Validators.requiredTrue]
           });
     }
@@ -123,6 +124,8 @@ export class TreeRegistrationComponent {
         position: this.form.value.position,
         placementid: this.form.value.placementid,
         regtype: this.form.value.regtype,
+        deliverytype: this.form.value.deliverytype,
+        
       };
   
       // Include product details if selected
@@ -130,6 +133,7 @@ export class TreeRegistrationComponent {
         val.product = this.form.value.product;
         val.address = this.form.value.address;
         val.pincode = this.form.value.pincode;
+        val.deliverytype = this.form.value.deliverytype;
       }
   
       // Clear old error message before API call

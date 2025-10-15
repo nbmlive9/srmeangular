@@ -116,10 +116,10 @@
           <span>{{ item.label }}</span>
         </a>
       </li>
-      <li class="list-group-item">
+      <li class="list-group-item" *ngIf="token1.isUser()">
         <a class="text-danger d-flex align-items-center gap-2" (click)="logout()"><i class="fa fa-sign-out-alt"></i> Logout</a>
       </li>
-        <li class="list-group-item">
+        <li class="list-group-item" *ngIf="token1.isAdmin()">
         <a class="text-danger d-flex align-items-center gap-2" (click)="logout1()"><i class="fa fa-sign-out-alt"></i> Logout</a>
       </li>
     </ul>

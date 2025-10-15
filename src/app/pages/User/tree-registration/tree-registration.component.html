@@ -134,7 +134,11 @@
 
   <div class="col-sm-6">
     <label class="form-label">Product Name *</label>
-    <input type="text" formControlName="product" placeholder="Enter Product Name" class="form-control" />
+    <!-- <input type="text" formControlName="product" placeholder="Enter Product Name" class="form-control" /> -->
+        <select formControlName="product" class="form-select">
+      <option value="" disabled>Select Product</option>
+      <option *ngFor="let pk of pack" value="{{pk.id}}">{{pk.product_title}} ({{pk.price}})</option>
+    </select>
   </div>
 
   <div class="col-sm-6">
@@ -146,6 +150,20 @@
     <label class="form-label">Pincode *</label>
     <input type="number" formControlName="pincode" placeholder="Enter Pincode" class="form-control" />
   </div>
+
+  <div class="col-sm-6">
+  <label class="form-label">Delivery Type</label>
+  <div class="input-wrapper">
+    <select formControlName="deliverytype" class="form-select">
+      <option value="" disabled>Select Delivery Type</option>
+      <option value="home">Home Delivery</option>
+      <option value="leader">Delivery To Leader</option>
+    </select>
+    <div *ngIf="form.get('deliverytype')?.touched && form.get('deliverytype')?.invalid" class="text-danger small">
+      <div *ngIf="form.get('deliverytype')?.errors?.['required']">Delivery Type is required.</div>
+    </div>
+  </div>
+</div>
 
 </div>
 

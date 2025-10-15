@@ -42,6 +42,7 @@ export class UserService {
       "product": value.product || null,
       "address": value.address || null,
       "pincode": value.pincode || null,
+      "deliverytype": value.deliverytype || null,
     },
     httpOptions
   );
@@ -794,6 +795,53 @@ UpdateAutoLevel2(value: {
        httpOptions 
     );
   }
+
+   UserOrders() {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+  return this.http.get(
+    AUTH_API + `User_Delivery`,
+    httpOptions
+  );
+}
+
+GenerateOtp() {
+    const token = this.token.getToken(); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      }),
+    };
+      return this.http.get(AUTH_API + 'GenerateOtp', httpOptions);
+  }
+
+  VerifyOtp(value: {
+  otp: string;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    AUTH_API + 'Verify_Otp', 
+   {
+        otp: value.otp,
+      },
+    httpOptions
+  );
+}
+
+
 
 
 }

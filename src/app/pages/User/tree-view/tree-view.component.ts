@@ -237,9 +237,17 @@ getImageByBoardStatus(boardstatus: string): string {
     case '0':
       return 'assets/logo.png'; // Path to image for Free Package
     case '1':
-      return 'assets/logo.png'; // Path to image for subcried Package
+      return 'assets/smart.png'; // Path to image for subcried Package
         case '2':
-      return 'assets/logo.png'; // Path to image for subcried Package
+      return 'assets/silver.png'; 
+           case '3':
+      return 'assets/gold.png'; 
+           case '4':
+      return 'assets/platinum.png'; 
+           case '5':
+      return 'assets/diamond.png'; 
+           case '6':
+      return 'assets/crown.png'; 
     default:
       return 'assets/logo.png'; // Default image path
   }

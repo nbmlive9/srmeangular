@@ -1,0 +1,61 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="content" style="margin-top: -50px;">
+        <div class="row p-4">
+            <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="buy-form">
+                    <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="page-title text-success">My Orders</h4>
+                            </div>
+                      </div>
+              
+                  <!-- Table -->
+                  <div class="table-responsive">
+                    <!-- Table -->
+                      <table class="table table-striped custom-table mb-0">
+                        <thead>
+                          <tr>
+                            <th>S.No</th>
+                            <th>Date</th>
+                            <th>Product</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <!-- <th>Action</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of data1; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ item.crdate }}</td>
+                            <td> {{ item.name }}</td>
+                            <td> {{ item.type }}  </td>
+                            <td>
+                              <span class="badge badge-danger" *ngIf="item.status === '0'">Pending</span>
+                              <span class="badge badge-success" *ngIf="item.status === '1'">Delivered</span>
+                            </td>
+                            <!-- <td>
+                              <span class="btn btn-sm btn-success" *ngIf="item.topupstatus === '0'" >Activate Now</span>
+                            </td> -->
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      
+
+                  </div>
+              
+                  <!-- Pagination -->
+                  
+                </div>
+              </div>
+
+              
+
+        </div>
+    </div>
+</div>
+
+  

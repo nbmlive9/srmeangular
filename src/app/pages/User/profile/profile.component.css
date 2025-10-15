@@ -1,0 +1,65 @@
+a {
+    text-decoration: none;
+}
+
+.profile-header {
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.personal-info {
+  list-style: none;
+  padding: 0;
+}
+.personal-info li {
+  margin-bottom: 10px;
+}
+.personal-info .title {
+  font-weight: 600;
+  color: #555;
+  width: 120px;
+  display: inline-block;
+}
+
+.loader-wrapper {
+  min-height: 50vh;
+}
+
+.modal-content input {
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.profile-list {
+  list-style: none;       /* remove bullet */
+  padding: 0;
+  margin: 0;
+}
+
+.profile-list li {
+  display: flex;          /* align horizontally */
+  align-items: center;
+  margin-bottom: 8px;     /* spacing between rows */
+  border-bottom: 1px solid #eee; /* optional line */
+  padding: 6px 0;
+}
+
+.profile-list .title {
+  width: 160px;           /* fixed width so all align */
+  font-weight: 600;
+  color: #333;
+}
+
+.profile-list .text {
+  flex: 1;                /* take remaining space */
+  color: #555;
+  word-break: break-word; /* handle long wallet address */
+}
+

@@ -36,6 +36,7 @@ import { MyIncomeReportComponent } from './pages/User/my-income-report/my-income
 import { AdminDashboardComponent } from './pages/Admin/admin-dashboard/admin-dashboard.component';
 import { AddProductsComponent } from './pages/Admin/add-products/add-products.component';
 import { TreeRegistrationComponent } from './pages/User/tree-registration/tree-registration.component';
+import { UserOrdersComponent } from './pages/User/user-orders/user-orders.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent },
@@ -74,6 +75,7 @@ const routes: Routes = [
     {path:"team",component:LevelMembersComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     {path:"treeview/:regid",component:TreeViewDataComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     {path:"income",component:MyIncomeReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+       {path:"myorders",component:UserOrdersComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
       { path: 'treeregister/:regid/:position', component: TreeRegistrationComponent, canActivate: [AuthGuard], data: { usertype: ['user'] } },
   // {path:"activation/:regid",component:UserActivation, canActivate: [AuthGuard], data: { roles: ['user'] } },
 
