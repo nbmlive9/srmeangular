@@ -1,3 +1,9 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+    <div class="container content" style="margin-top: -50px;">
+        <div class="row p-2"> 
+ 
  <div class="card" *ngIf="loading">
             <p class="text-danger">...Loading Data </p>
         </div>
@@ -19,7 +25,7 @@
             <tr>
               <th>S.No</th>
               <th>Date</th>
-              <th>Package</th>
+              <th>Product</th>
               <th>Amount</th>
               <th>Userid</th>
               <th>Status</th>
@@ -29,7 +35,10 @@
             <tr *ngFor="let item of data1; let i = index">
               <td>{{  i + 1 }}</td>
               <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
-              <td>{{ item.packagename }}</td>
+              <td>
+                <span class="text-success fw-bold" *ngIf="item.product=='withproduct'">Product Purchased</span>
+                <span class="text-primary fw-bold" *ngIf="item.product=='withoutproduct'">Yohan Coins Purchased</span>
+              </td>
               <td>{{ item.amount | currency:'USD':true:'1.0-1' }}</td>
               <td>{{ item.forid }} <br><small>{{item.rname}}</small></td>
               <td>
@@ -43,4 +52,8 @@
       <!-- Pagination -->
       
     </div>
+  </div>
+
+  </div>
+  </div>
   </div>

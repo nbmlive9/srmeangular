@@ -37,6 +37,7 @@ import { AdminDashboardComponent } from './pages/Admin/admin-dashboard/admin-das
 import { AddProductsComponent } from './pages/Admin/add-products/add-products.component';
 import { TreeRegistrationComponent } from './pages/User/tree-registration/tree-registration.component';
 import { UserOrdersComponent } from './pages/User/user-orders/user-orders.component';
+import { UactivationReportComponent } from './pages/User/uactivation-report/uactivation-report.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent },
@@ -66,6 +67,7 @@ const routes: Routes = [
   {path:"mydashboard",component:UserDashboardComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   {path:"despositesreq",component:DepositRequestComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   {path:"activation",component:UserActivationComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+    {path:"activationreport",component:UactivationReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   {path:"referrals",component:ReferralsComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   {path:"transferwallet",component:TransferWalletComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   {path:"myincomes",component:IncomesReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },

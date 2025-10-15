@@ -5,7 +5,7 @@
         <div class="row p-4">
 
     <!-- Activation Report Modal -->
-<ng-template #activationReportModal let-modal>
+<!-- <ng-template #activationReportModal let-modal>
   <div class="modal-header bg-primary text-white">
     <h5 class="modal-title">Activation Report</h5>
     <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="modal.dismiss()"></button>
@@ -13,11 +13,11 @@
   <div class="modal-body">
     <app-uactivation-report></app-uactivation-report>
   </div>
-</ng-template>
+</ng-template> -->
 
 <!-- Trigger button -->
 <div class="text-end">
-  <button class="btn btn-sm btn-primary" (click)="openActivationReport()">Activation Report</button>
+  <button class="btn btn-sm btn-primary" routerLink="/activationreport">Activation Report</button>
 </div>
 
 
