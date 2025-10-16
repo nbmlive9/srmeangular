@@ -21,6 +21,36 @@
                                 <input class="form-control" pInputText id="address" type="number" placeholder="Delivery Fee" formControlName="dfee" required />
                                 <span class="text-danger"> Note: Enter Value Only Home Delivery</span>
                             </div>
+                            
+                         <div class="field col-md-6">
+  <label>Delivery Option *</label>
+
+  <div class="form-check">
+    <input 
+      type="checkbox"
+      id="home"
+      class="form-check-input"
+      [value]="1"
+      [checked]="form.get('home')?.value === 1"
+      (change)="onCheckboxChange('home', $event)" formControlName="home">
+    <label for="home" class="form-check-label">Home Delivery</label>
+  </div>
+
+  <div class="form-check">
+    <input 
+      type="checkbox"
+      id="leader"
+      class="form-check-input"
+      [value]="1"
+      [checked]="form.get('leader')?.value === 1"
+      (change)="onCheckboxChange('leader', $event)" formControlName="leader">
+    <label for="leader" class="form-check-label">Leader Delivery</label>
+  </div>
+</div>
+
+
+
+
                              <!-- <div class="field col-md-6">
                                 <label for="lastname2">GST *</label>
                                 <input class="form-control" pInputText id="address" type="number" placeholder="Product GST" formControlName="gst" required />

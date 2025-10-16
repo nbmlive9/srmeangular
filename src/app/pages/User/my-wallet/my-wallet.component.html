@@ -9,7 +9,7 @@
           <div class="sell-buy-list">
             <h6 class="text-success">Withdraw Funds</h6>
           </div>
-            <h4 class="text-success">Wallet: {{pfdata?.wallet_amount | currency:'USD':true:'1.0-2'}} </h4>
+            <h4 class="text-success">Wallet: {{pfdata?.wallet_amount | currency:'USD':true:'1.2-2'}} </h4>
           <div class="buy-crypto-group">
             <span class="text-danger">{{errorMessage1}}</span> 
          <form [formGroup]="form" (ngSubmit)="Withdraw()">
@@ -46,11 +46,11 @@
         <div *ngIf="form.value.amount && form.value.amount >= 10" class="mt-2">
           <p class="text-danger mb-0">
             Charges (10%):
-            <strong>{{ charges | currency:'USD':true:'1.0-2' }}</strong>
+            <strong>{{ charges | currency:'USD':true:'1.2-2' }}</strong>
           </p>
           <p class="text-success mb-0">
             Net Amount:
-            <strong>{{ netAmount | currency:'USD':true:'1.0-2' }}</strong>
+            <strong>{{ netAmount | currency:'USD':true:'1.2-2' }}</strong>
           </p>
         </div>
       </div>
@@ -123,7 +123,7 @@
                         <tr *ngFor="let row of cdata; let i=index">
                           <td>{{i+1}}</td>
                           <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
-                          <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
+                          <td class="pay-clr">{{row.amount | currency:'USD':true:'1.2-2'}}</td>
                              <td>{{row.note}}</td>
                           <td>
                             <span class="custom-status active-green">
@@ -160,7 +160,7 @@
                         <tr *ngFor="let row of adata; let i=index">
                           <td>{{i+1}}</td>
                           <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
-                          <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
+                          <td class="pay-clr">{{row.amount | currency:'USD':true:'1.2-2'}}</td>
                           <td>{{row.note}}</td>
                           <td>
                             <span class="custom-status active-danger">

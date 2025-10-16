@@ -138,13 +138,14 @@ export class AdminService {
     );
   }
 
-  AddProducts(value:{
+  AddProducts(value: {
   name: string;
   price: number;
-  //  gst: number;
-    info: string;
-    dfee:number;
-}){
+  info: string;
+  dfee: number;
+  home: number;
+  leader: number;
+}) {
   const token1 = this.token.getToken();
   const httpOptions = {
     headers: new HttpHeaders({
@@ -152,17 +153,21 @@ export class AdminService {
       'Authorization': 'Bearer ' + token1
     })
   };
+
   return this.http.post(
-    AUTH_API + 'Add_Product',  { 
-      "name":value.name, 
-      "price":value.price,  
-        //  "gst":value.gst, 
-      "info":value.info,  
-      "dfee":value.dfee, 
+    AUTH_API + 'Add_Product',
+    {
+      name: value.name,
+      price: value.price,
+      info: value.info,
+      dfee: value.dfee,
+      home: value.home,      
+      leader: value.leader,  
     },
-     httpOptions 
+    httpOptions
   );
 }
+
 
 UpdateUserProduct(id: any, value: {
  product_title: string;
@@ -949,7 +954,40 @@ ProductDeliveryById(value: { ids: number[] }): Observable<any> {
   );
 }
 
+GetDynamicData(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'Get_ROidynamicpayment',
+      httpOptions
+    );
+  }
 
+  UpdateDynamicData(value: {
+  coinvalue:number;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    AUTH_API + 'Roivalue_Update', 
+
+   {
+        coinvalue:value.coinvalue,
+      },
+    httpOptions
+  );
+}
 
 
 }

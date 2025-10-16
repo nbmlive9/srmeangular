@@ -54,18 +54,31 @@ deliveryFee: string = '';
              name: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         phone: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(6)]], // ✅ min 6 chars
+        password: ['', [Validators.required, Validators.minLength(6)]], 
+        confirmPassword: ['', Validators.required],
         sponcerid: [''],
         position: [''], 
         placementid: ['',],
-         regtype: ['', Validators.required],
-  product: [''], // new
-  address: [''], // new
-  pincode: [''], // new
-  deliverytype:[''],
+        regtype: ['', Validators.required],
+        product: [''], 
+        address: [''], 
+        pincode: [''], 
+        deliverytype:[''],
         terms: [false, Validators.requiredTrue]
-        });
+        }, { validators: this.passwordMatchValidator });
   }
+
+  passwordMatchValidator(form: FormGroup) {
+  const password = form.get('password')?.value;
+  const confirmPassword = form.get('confirmPassword')?.value;
+
+  if (password !== confirmPassword) {
+    form.get('confirmPassword')?.setErrors({ passwordMismatch: true });
+  } else {
+    form.get('confirmPassword')?.setErrors(null);
+  }
+  return null;
+}
 
   ngOnInit(){
     //get profile
@@ -85,7 +98,8 @@ deliveryFee: string = '';
   getPackagesData(){
       this.api.GetPackages().subscribe((res: any) => {
       console.log('packages', res);
-      this.pack = res.data;
+      // this.pack = res.data;
+       this.pack = res.data.filter((p: any) => p.home == 1 || p.leader == 1);
     });
   }
 
@@ -96,12 +110,32 @@ deliveryFee: string = '';
 
 onDeliveryChange(event: any) {
   const deliveryType = event.target.value;
+  this.form.get('deliverytype')?.setValue(deliveryType);
+
   if (deliveryType === 'home' && this.selectedProduct) {
-    this.deliveryFee = this.selectedProduct.dfee;
+    this.deliveryFee = this.selectedProduct.dfee; // optional
   } else {
     this.deliveryFee = '';
   }
 }
+
+get totalCost(): number {
+  if (!this.selectedProduct) return 0;
+
+  let cost = Number(this.selectedProduct.price);
+  
+  // Add delivery fee only if "home" is selected
+  if (this.form.value.deliverytype === 'home') {
+    cost += Number(this.selectedProduct.dfee || 0);
+  }
+
+  return cost;
+}
+
+get isFundSufficient(): boolean {
+  return this.data2?.actwallet >= this.totalCost;
+}
+
 
   onRegisterIdSelect(event: any) {
     const id = event.target.value;

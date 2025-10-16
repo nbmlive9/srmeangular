@@ -32,6 +32,8 @@ export class AddProductsComponent {
         // gst: ['', Validators.required],
         info: ['', Validators.required],
         dfee: ['', ],
+        home: [0],
+       leader: [0],
       });
          this.form1 = this.fb.group({
         product_title: ['', ],
@@ -60,35 +62,38 @@ export class AddProductsComponent {
         this.pdata = res.data;
       });
     }
+
+    onCheckboxChange(controlName: string, event: any) {
+  const isChecked = event.target.checked;
+  this.form.get(controlName)?.setValue(isChecked ? 1 : 0);
+}
   
     add() {
-      console.log(this.form.value);
-      if (this.form.valid) {  
-        const val: any = {
-          name: this.form.value.name,
-          price: this.form.value.price,
-          //  gst: this.form.value.gst,
-            info: this.form.value.info,
-            dfee:this.form.value.dfee,
-        };
-    
-        this.api.AddProducts(val).subscribe(
-          (response: any) => {
-            console.log('Response:', response);
-            this.form.reset();
-               setTimeout(() => {
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/addproduct']);
-          });
-        }, 500);
-          },
-          (error: any) => {
-            console.error('Error:', error);
-          }
-        );
-      }
-      return false;
+    if (this.form.valid) {
+      const val = {
+        name: this.form.value.name,
+        price: this.form.value.price,
+        info: this.form.value.info,
+        dfee: this.form.value.dfee,
+        // ✅ If checkbox selected → send 1, else 0
+        home: this.form.value.home ? 1 : 0,
+        leader: this.form.value.leader ? 1 : 0,
+      };
+
+      console.log("➡️ Sending payload:", val);
+
+      this.api.AddProducts(val).subscribe({
+        next: (response: any) => {
+          console.log('✅ Product added successfully:', response);
+          this.form.reset();
+          this.getproducts();
+        },
+        error: (error: any) => {
+          console.error('❌ Error adding product:', error);
+        }
+      });
     }
+  }
 
    openEditModal(row: any) {
     this.editId = row.id;

@@ -52,6 +52,14 @@
                 <h4>{{ data2?.activesponsors }}</h4>
               </div>
             </div>
+
+            <!-- Level -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-cyan">
+                <h6>Level Left / Right</h6>
+                <h4>{{ data2?.levelleft }} / {{ data2?.levelright }}</h4>
+              </div>
+            </div>
             
             <!-- Silver -->
             <div class="col-6 col-md-4 col-lg-3">
@@ -69,6 +77,14 @@
               </div>
             </div>
 
+             <!-- Platinum -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-gold">
+                <h6>Platinum Left / Right</h6>
+                <h4>{{ data2?.platinumleft }} / {{ data2?.platinumright }}</h4>
+              </div>
+            </div>
+
             <!-- Diamond -->
             <div class="col-6 col-md-4 col-lg-3">
               <div class="info-card bg-gradient-diamond">
@@ -77,13 +93,23 @@
               </div>
             </div>
 
-            <!-- Level -->
+               <!-- Crown -->
             <div class="col-6 col-md-4 col-lg-3">
-              <div class="info-card bg-gradient-cyan">
-                <h6>Level Left / Right</h6>
-                <h4>{{ data2?.levelleft }} / {{ data2?.levelright }}</h4>
+              <div class="info-card bg-gradient-diamond">
+                <h6>Crown Left / Right</h6>
+                <h4>{{ data2?.crownleft }} / {{ data2?.crownright }}</h4>
               </div>
             </div>
+
+                  <!-- Inner Trash  -->
+            <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-diamond">
+                <h6>Inner Trash</h6>
+                <h4>{{ data2?.innertrash }} </h4>
+              </div>
+            </div>
+
+            
           </div>
           
         
@@ -94,10 +120,13 @@
             <div
               class="col-md-3 col-6"
               *ngFor="let item of [
+                {label:'Level Pairs', value:data2?.todaylevelpairs, color1:'#2193b0', color2:'#6dd5ed'},
                 {label:'Silver Pairs', value:data2?.todaysilverpairs, color1:'#00C9FF', color2:'#92FE9D'},
                 {label:'Gold Pairs', value:data2?.todaygoldpairs, color1:'#F7971E', color2:'#FFD200'},
+                {label:'Platinum Pairs', value:data2?.todayplatinumpairs, color1:'#2193b0', color2:'#6dd5ed'},
                 {label:'Diamond Pairs', value:data2?.todaydiamondpairs, color1:'#654EA3', color2:'#EAAFC8'},
-                {label:'Level Pairs', value:data2?.todaylevelpairs, color1:'#2193b0', color2:'#6dd5ed'}
+                 {label:'Crown Pairs', value:data2?.todaycrownpairs, color1:'#2193b0', color2:'#6dd5ed'},
+                
               ]"
             >
               <div
@@ -105,7 +134,7 @@
                 [ngStyle]="{'background': 'linear-gradient(135deg,' + item.color1 + ',' + item.color2 + ')'}"
               >
                 <h6 class="fw-semibold">{{ item.label }}</h6>
-                <h2 class="fw-bold">{{ item.value || 0 | currency:'USD':'symbol':'1.0-2'}}</h2>
+                <h2 class="fw-bold">{{ item.value || 0 }}</h2>
               </div>
             </div>
           </div>
@@ -118,10 +147,12 @@
             <div
               class="col-md-3 col-6"
               *ngFor="let income of [
+                {label:'Level Binary', value:data2?.todaylevelincome, color1:'#4776E6', color2:'#8E54E9'},
                 {label:'Silver Income', value:data2?.todaysilverincome, color1:'#1D976C', color2:'#93F9B9'},
                 {label:'Gold Income', value:data2?.todaygoldincome, color1:'#f7971e', color2:'#ffd200'},
+                {label:'Platinum Income', value:data2?.todayplatinumincome, color1:'#f7971e', color2:'#ffd200'},
                 {label:'Diamond Income', value:data2?.todaydiamondincome, color1:'#8360c3', color2:'#2ebf91'},
-                {label:'Level Binary', value:data2?.levelbinary, color1:'#4776E6', color2:'#8E54E9'}
+                {label:'Crown Income', value:data2?.todaycrownincome, color1:'#f7971e', color2:'#ffd200'},
               ]"
             >
               <div
@@ -135,6 +166,33 @@
           </div>
         </div>
 
+        <!-- Total Pairs -->
+         <div class="mt-5">
+          <h5 class="fw-bold mb-3 text-dark">Total Pairs</h5>
+          <div class="row g-4">
+            <div
+              class="col-md-3 col-6"
+              *ngFor="let total of [
+                {label:'Level Pairs', value:data2?.levelpay, color1:'#6a11cb', color2:'#2575fc'},
+                  {label:'Inner Pairs', value:data2?.innerpay, color1:'#DA4453', color2:'#89216B'},
+                {label:'Silver Pairs', value:data2?.silverpay, color1:'#6a11cb', color2:'#2575fc'},
+                {label:'Gold Pairs', value:data2?.goldpay, color1:'#FDC830', color2:'#F37335'},
+                {label:'Platinum Pairs', value:data2?.platinumpay, color1:'#DA4453', color2:'#89216B'},
+                {label:'Diamond Pairs', value:data2?.diamondpay, color1:'#DA4453', color2:'#89216B'},
+                {label:'Crown Pairs', value:data2?.crownpay, color1:'#56ab2f', color2:'#a8e063'}
+              ]"
+            >
+              <div
+                class="total-card p-4 rounded-4 text-center text-white shadow-sm"
+                [ngStyle]="{'background': 'linear-gradient(135deg,' + total.color1 + ',' + total.color2 + ')'}"
+              >
+                <h6 class="fw-semibold">{{ total.label }}</h6>
+                <h2 class="fw-bold"> {{ total.value || 0}}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Lifetime Incomes -->
         <div class="mt-5">
           <h5 class="fw-bold mb-3 text-dark">Total Incomes</h5>
@@ -142,10 +200,14 @@
             <div
               class="col-md-3 col-6"
               *ngFor="let total of [
+                {label:'Level Income', value:data2?.levelbinary, color1:'#6a11cb', color2:'#2575fc'},
+                  {label:'Inner Income', value:data2?.innerbinary, color1:'#DA4453', color2:'#89216B'},
                 {label:'Silver Income', value:data2?.silverincome, color1:'#6a11cb', color2:'#2575fc'},
                 {label:'Gold Income', value:data2?.goldincome, color1:'#FDC830', color2:'#F37335'},
+                {label:'Platinum Income', value:data2?.platinumincome, color1:'#DA4453', color2:'#89216B'},
                 {label:'Diamond Income', value:data2?.diamondincome, color1:'#DA4453', color2:'#89216B'},
-                {label:'Sponcer Income', value:data2?.sponcerincome, color1:'#56ab2f', color2:'#a8e063'}
+                {label:'Crown Income', value:data2?.crownincome, color1:'#56ab2f', color2:'#a8e063'},
+                
               ]"
             >
               <div

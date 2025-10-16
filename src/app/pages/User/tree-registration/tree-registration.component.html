@@ -25,7 +25,7 @@
           <div class="card buy-form p-3">
        <h5 class="text-center mb-4 fw-bold text-success">REGISTER</h5>
 
-       <h6 class="text-success">Activation Fund: {{data2.actwallet | currency:'USD':true:'1.0-2'}}</h6>
+       <h6 class="text-success">Activation Fund: {{data2.actwallet | currency:'USD':true:'1.2-2'}}</h6>
           <span class="text-danger">{{errorMessage3}}</span>
           <form [formGroup]="form" (ngSubmit)="add()">
             <div class="row g-3">
@@ -81,6 +81,20 @@
   <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid" class="text-danger small mt-1">
     <span *ngIf="form.get('password')?.errors?.['required']">Password is required.</span>
     <span *ngIf="form.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</span>
+  </div>
+</div>
+
+<div class="col-sm-6 mb-3 position-relative">
+  <label class="form-label">Confirm Password *</label>
+  <input 
+    [type]="showPassword ? 'text' : 'password'" 
+    formControlName="confirmPassword" 
+    placeholder="********" 
+    class="form-control pe-5" 
+  />
+  <div *ngIf="form.get('confirmPassword')?.touched && form.get('confirmPassword')?.invalid" class="text-danger small mt-1">
+    <span *ngIf="form.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</span>
+    <span *ngIf="form.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match.</span>
   </div>
 </div>
 
@@ -157,30 +171,56 @@
   </div>
 
   <!-- Delivery Type -->
-  <div class="col-sm-6">
-    <label class="form-label">Delivery Type *</label>
-    <select formControlName="deliverytype" class="form-select" (change)="onDeliveryChange($event)">
-      <option value="" disabled>Select Delivery Type</option>
-      <option value="home">Home Delivery</option>
-      <option value="leader">Delivery To Leader</option>
-    </select>
-  </div>
+ <div class="col-sm-6" *ngIf="selectedProduct">
+  <label class="form-label">Delivery Type *</label>
+  <select formControlName="deliverytype" class="form-select" (change)="onDeliveryChange($event)">
+    <option value="" disabled>Select Delivery Type</option>
+    <option *ngIf="selectedProduct.home == 1" value="home">Home Delivery</option>
+    <option *ngIf="selectedProduct.leader == 1" value="leader">Delivery To Leader</option>
+  </select>
+</div>
+
+<div *ngIf="form.value.deliverytype === 'home' && selectedProduct" class="mt-2 text-danger">
+  Product will be delivered in 10 days to your address given.
+</div>
+
+<div *ngIf="form.value.deliverytype === 'leader' && selectedProduct" class="mt-2 text-danger">
+  Product request will be taken every month 1st, request will be processed by 5th 
+  and product will be delivered to your leader by 20th.
+</div>
 
   <!-- Selected Product Info -->
-  <div *ngIf="selectedProduct" class="col-12 mt-3">
-    <div class="card border-success p-3">
-      <div class="d-flex align-items-center">
-        <div>
-          <h6 class="mb-1">{{ selectedProduct.product_title }}</h6>
-          <p class="mb-1">Price: <strong>{{ selectedProduct.price }} USDT</strong></p>
-          <p class="mb-1" *ngIf="form.value.deliverytype === 'home'">
-            Delivery Fee: <strong>{{ selectedProduct.dfee }} USDT</strong>
-          </p>
-          <p class="mb-1 text-muted">Info: {{ selectedProduct.info }}</p>
-        </div>
+<div *ngIf="selectedProduct" class="col-12 mt-3">
+  <div class="card border-success p-3">
+    <div class="d-flex align-items-center">
+      <div>
+        <h6 class="mb-1">{{ selectedProduct.product_title }}</h6>
+        <p class="mb-1">Price: <strong>{{ selectedProduct.price }} USDT</strong></p>
+        <p class="mb-1" *ngIf="form.value.deliverytype === 'home'">
+          Delivery Fee: <strong>{{ selectedProduct.dfee }} USDT</strong>
+        </p>
+
+        <!-- Fund check -->
+        <p *ngIf="!isFundSufficient" class="text-danger mt-2">
+          Insufficient fund. You need {{ totalCost }} USDT to proceed.
+        </p>
+
+        <!-- Delivery message -->
+        <p *ngIf="isFundSufficient && form.value.deliverytype === 'home'" class="text-info mt-2">
+          Product will be delivered in 10 days to your address given.
+        </p>
+        <p *ngIf="isFundSufficient && form.value.deliverytype === 'leader'" class="text-info mt-2">
+          Product request will be taken every month 1st, request will be processed by 5th 
+          and product will be delivered to your leader by 20th.
+        </p>
+
       </div>
     </div>
   </div>
+</div>
+
+
+
 </div>
 
 <!-- Message for "No Product" -->

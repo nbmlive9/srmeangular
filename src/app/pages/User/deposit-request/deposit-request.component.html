@@ -26,7 +26,7 @@
             <tr *ngFor="let row of ddata; let i=index;">
                 <td><span class="transaction">{{i+1}}</span></td>
                 <td> {{row.cdate | date:'dd/MM/YYYY'}} </td>
-                <td><span class="value">{{row.amount | currency:'USD':true:'1.0-2' }}</span></td>
+                <td><span class="value">{{row.amount | currency:'USD':true:'1.2-2' }}</span></td>
                 <td>{{row.transno}}</td>
                 <td>Success</td>
             </tr>

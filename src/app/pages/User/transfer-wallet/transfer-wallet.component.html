@@ -26,6 +26,9 @@
                                     <input type="text" class="form-control floating" formControlName="regid" (keyup)="onRegisterIdSelect($event)">
                                       <span class="text-success">{{idselectmsg}}</span>
                                     <span class="text-danger">{{errorMessage}}</span>
+                                     <span class="text-danger" *ngIf="form.get('regid')?.touched && form.get('regid')?.hasError('required')">
+      Enter Userid
+    </span>
                                 </div>
                             </div>
                              <div class="col-md-6">
@@ -39,8 +42,8 @@
                                     <label class="focus-label">Select Type*</label>
                                     <select class="form-control select" formControlName="wallettyoe">
                       <option value="" disabled>Select Type</option>
-                      <option value="dwallet">Activation Fund ({{pfdata?.actwallet | currency:'USD':true:'1.0-2'}})</option>
-                      <option value="ewallet">Main Wallet ({{pfdata?.wallet_amount | currency:'USD':true:'1.0-2'}})</option>
+                      <option value="dwallet">Activation Fund ({{pfdata?.actwallet | currency:'USD':true:'1.2-2'}})</option>
+                      <option value="ewallet">Main Wallet ({{pfdata?.wallet_amount | currency:'USD':true:'1.2-2'}})</option>
                     </select>
                                 </div>
                             </div>

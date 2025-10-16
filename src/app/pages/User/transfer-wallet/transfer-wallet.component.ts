@@ -65,28 +65,40 @@ export class TransferWalletComponent {
   }
 
   onRegisterIdSelect(event: any) {
-    const id = event.target.value;
-    this.api.GetusersDataByRegID(id).subscribe(
-      (res4: any) => {
-        if (res4) {
-          // console.log(res4);
-          this.regname = res4.data[0];
-          this.idselectmsg = `User Name: ${this.regname.name}`;
-          this.errorMessage = ''; // Reset the error message when data is correct
-        } else {
-          // console.log(res4);
-          this.regname = null; // Reset the regname object when data is incorrect
-          this.errorMessage = 'Error fetching user data';
-          this.idselectmsg = 'User Not Available';
-        }
-      },
-      (err: any) => {
-        this.errorMessage = err.error.message;
-        this.regname = null; // Reset the regname object when there's an error
-        this.idselectmsg = '';
-      }
-    );
+  const regid = event.target.value.trim();
+
+  // If empty, reset messages and stop here
+  if (!regid) {
+    this.idselectmsg = '';
+    this.errorMessage = 'Enter Userid';
+    return;
   }
+
+  this.api.GetusersDataByRegID(regid).subscribe(
+    (res: any) => {
+      if (res && res.success) {
+        // success response
+        this.idselectmsg = 'Valid User ID';
+        this.errorMessage = '';
+      } else {
+        // backend says user not found
+        this.idselectmsg = '';
+        this.errorMessage = 'Enter valid Userid';
+      }
+    },
+    (err: any) => {
+      // backend route error or invalid userid
+      if (err.error && err.error.message?.includes("Can't find a route")) {
+        this.idselectmsg = '';
+        this.errorMessage = 'Enter valid Userid';
+      } else {
+        this.idselectmsg = '';
+        this.errorMessage = 'Enter valid Userid';
+      }
+    }
+  );
+}
+
 
   add(){
     console.log(this.form.value);
@@ -115,6 +127,7 @@ export class TransferWalletComponent {
           }
         },
         (err: any) => {
+          console.error(err);
           // this.errorMessage = err.error.message;
         },
       );

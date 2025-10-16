@@ -96,6 +96,8 @@
   box-shadow: 6px 0 25px rgba(2,12,23,0.6);
   overflow-y: auto; /* Enable vertical scroll */
   scroll-behavior: smooth; /* smooth scrolling */
+   scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.7) rgba(255, 255, 255, 0.05);
 }
 
 

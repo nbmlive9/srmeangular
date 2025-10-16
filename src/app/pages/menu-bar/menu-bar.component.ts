@@ -32,7 +32,7 @@ export class MenuBarComponent implements OnInit {
       this.model = [
         { label: 'Dashboard', icon: 'fa fa-database', routerLink: ['/adashboard'] },
         { label: 'Add Product', icon: '	fa fa-cube', routerLink: ['/addproduct'] },
-         { label: 'Despoist', icon: 'fa fa-diamond', routerLink: ['/deposites'] },
+         { label: 'Despoist', icon: 'fa fa-check-circle', routerLink: ['/deposites'] },
           { label: 'Withdraw', icon: 'fa fa-wallet', routerLink: ['/wallet'] },
         { label: 'Wallet A/C', icon: 'fa fa-home', routerLink: ['/dashboard'] },
         { label: 'Wallet Payments', icon: 'fab fa-bitcoin', routerLink: ['/activationwallet'] },
