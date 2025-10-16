@@ -131,40 +131,62 @@
 <!-- Extra fields only if "With Product" selected -->
 <div *ngIf="form.value.regtype === 'withproduct'" class="row mt-2">
 
+  <!-- Product Name -->
   <div class="col-sm-6">
     <label class="form-label">Product Name *</label>
-    <!-- <input type="text" formControlName="product" placeholder="Enter Product Name" class="form-control" /> -->
-    <select formControlName="product" class="form-select">
+    <select formControlName="product" class="form-select" (change)="onProductSelect($event)">
       <option value="" disabled>Select Product</option>
-      <option *ngFor="let pk of pack" value="{{pk.id}}">{{pk.product_title}} ({{pk.price}})</option>
+      <option *ngFor="let pk of pack" [value]="pk.id">
+        {{ pk.product_title }} ({{ pk.price }} USDT)
+      </option>
     </select>
   </div>
 
+  <!-- Address -->
   <div class="col-sm-6">
     <label class="form-label">Address *</label>
     <input type="text" formControlName="address" placeholder="Enter Address" class="form-control" />
   </div>
 
+  <!-- Pincode -->
   <div class="col-sm-6">
     <label class="form-label">Pincode *</label>
     <input type="number" formControlName="pincode" placeholder="Enter Pincode" class="form-control" />
   </div>
 
+  <!-- Delivery Type -->
   <div class="col-sm-6">
-  <label class="form-label">Delivery Type</label>
-  <div class="input-wrapper">
-    <select formControlName="deliverytype" class="form-select">
+    <label class="form-label">Delivery Type *</label>
+    <select formControlName="deliverytype" class="form-select" (change)="onDeliveryChange($event)">
       <option value="" disabled>Select Delivery Type</option>
       <option value="home">Home Delivery</option>
       <option value="leader">Delivery To Leader</option>
     </select>
-    <div *ngIf="form.get('deliverytype')?.touched && form.get('deliverytype')?.invalid" class="text-danger small">
-      <div *ngIf="form.get('deliverytype')?.errors?.['required']">Delivery Type is required.</div>
+  </div>
+
+  <!-- Selected Product Info -->
+  <div *ngIf="selectedProduct" class="col-12 mt-3">
+    <div class="card border-success p-3">
+      <div class="d-flex align-items-center">
+        <div>
+          <h6 class="mb-1">{{ selectedProduct.product_title }}</h6>
+          <p class="mb-1">Price: <strong>{{ selectedProduct.price }} USDT</strong></p>
+          <p class="mb-1" *ngIf="form.value.deliverytype === 'home'">
+            Delivery Fee: <strong>{{ selectedProduct.dfee }} USDT</strong>
+          </p>
+          <p class="mb-1 text-muted">Info: {{ selectedProduct.info }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- Message for "No Product" -->
+<div *ngIf="form.value.regtype === 'noproduct'" class="alert alert-info mt-3">
+  You will receive <strong>10.8 USDT worth of YOHAN Coins</strong>.
 </div>
+
+
 
 
 

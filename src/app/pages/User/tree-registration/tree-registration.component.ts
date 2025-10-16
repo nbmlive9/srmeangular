@@ -50,6 +50,8 @@ export class TreeRegistrationComponent {
     errorMessage3: string = '';
         regid:any;
     position:any;
+      selectedProduct: any = null; // store selected product details
+deliveryFee: string = '';
     constructor(private api:UserService, private fb:FormBuilder, private router:Router,  private modalService: NgbModal, private activeroute:ActivatedRoute){
         this.form = this.fb.group({
                name: ['', Validators.required],
@@ -93,6 +95,20 @@ export class TreeRegistrationComponent {
         this.pack = res.data;
       });
     }
+
+      onProductSelect(event: any) {
+  const selectedId = event.target.value;
+  this.selectedProduct = this.pack.find((p: any) => p.id === selectedId);
+}
+
+onDeliveryChange(event: any) {
+  const deliveryType = event.target.value;
+  if (deliveryType === 'home' && this.selectedProduct) {
+    this.deliveryFee = this.selectedProduct.dfee;
+  } else {
+    this.deliveryFee = '';
+  }
+}
   
     onRegisterIdSelect(event: any) {
       const id = event.target.value;

@@ -29,14 +29,16 @@ export class AddProductsComponent {
         this.form = this.fb.group({
         name: ['', Validators.required],
         price: ['', Validators.required],
-        gst: ['', Validators.required],
+        // gst: ['', Validators.required],
         info: ['', Validators.required],
+        dfee: ['', ],
       });
          this.form1 = this.fb.group({
         product_title: ['', ],
         price: ['', ],
-        gst: ['', ],
+        // gst: ['', ],
         info: ['', ],
+        dfee: ['', ],
          status: ['', ],
       });
     } 
@@ -65,17 +67,20 @@ export class AddProductsComponent {
         const val: any = {
           name: this.form.value.name,
           price: this.form.value.price,
-           gst: this.form.value.gst,
+          //  gst: this.form.value.gst,
             info: this.form.value.info,
+            dfee:this.form.value.dfee,
         };
     
         this.api.AddProducts(val).subscribe(
           (response: any) => {
             console.log('Response:', response);
             this.form.reset();
-            setTimeout(() => {
-              this.router.navigate(['/addproduct']);
-            }, 500);
+               setTimeout(() => {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/addproduct']);
+          });
+        }, 500);
           },
           (error: any) => {
             console.error('Error:', error);
@@ -90,8 +95,9 @@ export class AddProductsComponent {
     this.form1.patchValue({
       product_title: row.product_title,
       price: row.price,
-      gst: row.gst,
+      // gst: row.gst,
       info: row.info,
+      dfee:row.dfee,
       status: row.status || 'Active',
     });
   }

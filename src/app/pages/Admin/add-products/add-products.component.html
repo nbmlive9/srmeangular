@@ -17,9 +17,14 @@
                                 <input class="form-control" pInputText id="address" type="number" placeholder="Product Amount" formControlName="price" required />
                             </div>
                              <div class="field col-md-6">
+                                <label for="lastname2">Delivery Fee </label>
+                                <input class="form-control" pInputText id="address" type="number" placeholder="Delivery Fee" formControlName="dfee" required />
+                                <span class="text-danger"> Note: Enter Value Only Home Delivery</span>
+                            </div>
+                             <!-- <div class="field col-md-6">
                                 <label for="lastname2">GST *</label>
                                 <input class="form-control" pInputText id="address" type="number" placeholder="Product GST" formControlName="gst" required />
-                            </div>
+                            </div> -->
                              <div class="field col-md-6">
                                 <label for="lastname2">Product Info *</label>
                                 <input class="form-control" pInputText id="userid" type="text" formControlName="info" placeholder="Product Info" required />
@@ -44,6 +49,7 @@
                                         <th>S.No</th>
                                         <th>Name</th>
                                         <th>Amount</th>
+                                         <th>Delivery Fee</th>
                                         <th>Action</th>
                                     </tr>            
                                 </thead>
@@ -52,6 +58,7 @@
                                         <td>{{i+1}}</td>
                                         <td>{{row.product_title}}</td>
                                         <td>{{row.price | currency:'USD':true:'1.0-1' }}</td>
+                                        <td>{{row.dfee | currency:'USD':true:'1.0-1' }}</td>
                                         <td> <button class="btn btn-sm btn-success" (click)="openEditModal(row)" data-bs-toggle="modal" data-bs-target="#editModal">  Edit </button> </td>
                                     </tr>
                                 </tbody>
@@ -123,10 +130,14 @@
               <label>Amount</label>
               <input class="form-control" formControlName="price" type="number" />
             </div>
-            <div class="mb-3">
+             <div class="mb-3">
+              <label>Delivery Free</label>
+              <input class="form-control" formControlName="dfee" type="text" />
+            </div>
+            <!-- <div class="mb-3">
               <label>GST</label>
               <input class="form-control" formControlName="gst" type="number" />
-            </div>
+            </div> -->
             <div class="mb-3">
               <label>Product Info</label>
               <input class="form-control" formControlName="info" type="text" />
@@ -134,8 +145,8 @@
             <div class="mb-3">
               <label>Status</label>
               <select class="form-control" formControlName="status">
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
               </select>
             </div>
           </form>

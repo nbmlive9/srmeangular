@@ -141,8 +141,9 @@ export class AdminService {
   AddProducts(value:{
   name: string;
   price: number;
-   gst: number;
+  //  gst: number;
     info: string;
+    dfee:number;
 }){
   const token1 = this.token.getToken();
   const httpOptions = {
@@ -155,8 +156,9 @@ export class AdminService {
     AUTH_API + 'Add_Product',  { 
       "name":value.name, 
       "price":value.price,  
-         "gst":value.gst, 
-      "info":value.info,   
+        //  "gst":value.gst, 
+      "info":value.info,  
+      "dfee":value.dfee, 
     },
      httpOptions 
   );
@@ -165,8 +167,9 @@ export class AdminService {
 UpdateUserProduct(id: any, value: {
  product_title: string;
   price: number;
-   gst: number;
+  //  gst: number;
     info: string;
+    dfee:number;
     status:string;
 }) {
   const token1 = this.token.getToken();
@@ -181,8 +184,9 @@ UpdateUserProduct(id: any, value: {
     {
         "product_title":value.product_title, 
       "price":value.price,  
-         "gst":value.gst, 
+        //  "gst":value.gst, 
       "info":value.info,   
+       "dfee":value.dfee,   
        "status":value.status, 
     },
     httpOptions
