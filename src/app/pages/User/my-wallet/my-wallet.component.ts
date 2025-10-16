@@ -25,7 +25,9 @@ export class MyWalletComponent {
   charges: number = 0;
   netAmount: number = 0;
   errorMessage1: string = '';
-
+ coinValue: number = 0;
+  calculatedCoins: number = 0;
+  ypdata: any;
   constructor(
     private api: UserService,
     private fb: FormBuilder,
@@ -41,6 +43,7 @@ export class MyWalletComponent {
     this.PendingData();
     this.GetProfile();
     this.CompletedData();
+    this.YohanPriceData();
   }
 
   GetProfile() {
@@ -53,6 +56,40 @@ export class MyWalletComponent {
         this.toastr.error('Failed to load profile data', 'Error');
       }
     });
+  }
+
+   YohanPriceData() {
+    this.api.YohanPrice().subscribe({
+      next: (res: any) => {
+        this.ypdata = res.data;
+        this.coinValue = parseFloat(this.ypdata.coinvalue);
+      },
+      error: (err) => {
+        console.error('Error fetching Yohan price:', err);
+      }
+    });
+  }
+
+  formatAmount(event: any) {
+    let value = event.target.value;
+    value = value.replace(/[^0-9.]/g, '');
+
+    if ((value.match(/\./g) || []).length > 1) {
+      value = value.substring(0, value.length - 1);
+    }
+
+    if (value.includes('.')) {
+      const [intPart, decPart] = value.split('.');
+      if (decPart.length > 2) {
+        value = intPart + '.' + decPart.substring(0, 2);
+      }
+    }
+
+    event.target.value = value;
+    this.form.get('amount')?.setValue(value, { emitEvent: false });
+
+    const amount = parseFloat(value);
+    this.calculatedCoins = (!isNaN(amount) && this.coinValue > 0) ? amount / this.coinValue : 0;
   }
 
   PendingData() {

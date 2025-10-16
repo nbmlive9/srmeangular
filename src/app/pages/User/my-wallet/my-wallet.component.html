@@ -18,14 +18,8 @@
     <div class="col-xl-4 col-lg-6">
       <div class="form-group">
         <label>Amount</label>
-        <input
-          type="number"
-          formControlName="amount"
-          min="10"
-          class="form-control"
-          placeholder="Enter amount"
-          (keyup)="calculateNetAmount()"
-        />
+        <input type="number" formControlName="amount" min="10" class="form-control"  placeholder="Enter amount"
+         (input)="formatAmount($event)"   />
         <div *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched" class="text-danger">
           Amount is required and must be ≥ $10
         </div>
@@ -42,18 +36,16 @@
           Minimum amount is 10.
         </small>
 
-        <!-- Charges and Net Amount Display -->
-        <div *ngIf="form.value.amount && form.value.amount >= 10" class="mt-2">
-          <p class="text-danger mb-0">
-            Charges (10%):
-            <strong>{{ charges | currency:'USD':true:'1.2-2' }}</strong>
-          </p>
-          <p class="text-success mb-0">
-            Net Amount:
-            <strong>{{ netAmount | currency:'USD':true:'1.2-2' }}</strong>
-          </p>
-        </div>
       </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-6">
+        <div class="form-group">
+          <label for="yohan">Yohan Coins</label>
+<input  class="form-control" type="number" id="yohan_amount" [value]="calculatedCoins" readonly />
+  <!-- Hidden input for transaction hash -->
+  <input type="hidden" id="transactionHashInput" formControlName="transno" />
+        </div>
     </div>
 
     <!-- Wallet Address Display -->
