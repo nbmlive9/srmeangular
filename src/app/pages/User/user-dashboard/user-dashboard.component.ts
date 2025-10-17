@@ -28,12 +28,33 @@ export class UserDashboardComponent {
     this.getdashboardHome();
   }
 
-    getdashboardHome() {
-    this.api.UDashboardData().subscribe((res: any) => {
-      console.log('homedata', res);
-      this.data2 = res.data;
-    });
+getdashboardHome() {
+  this.api.UDashboardData().subscribe((res: any) => {
+    console.log('homedata', res);
+    this.data2 = res.data;
+
+    const perUnitAmount = 3; // example: $3 per unit
+
+    const thresholds: { [key: string]: number[] } = {
+  levelpay: [3, 6, 9],
+  silverpay: [2, 4, 6, 8],
+  goldpay: [2, 4, 6],
+  platinumpay: [2, 4, 6],
+  diamondpay: [2, 4, 6],
+  crownpay: [2, 4, 6]
+};
+
+    // Calculate holding amounts based on thresholds
+  Object.keys(thresholds).forEach((key: string) => {
+  const count = Number(this.data2[key]);
+  if (thresholds[key].includes(count)) {
+    this.data2[key + 'Holding'] = count * 3;
+  } else {
+    this.data2[key + 'Holding'] = null;
   }
+});
+  });
+}
 
   
 }

@@ -10,10 +10,15 @@
               <div>
                 <h4 class="mb-1 fw-bold">{{ pdata?.name }}</h4>
                 <p class="mb-0 small opacity-75">User ID: {{ pdata?.reg_id }}</p>
+                <p *ngIf="data2?.profiledata.bstatus=='2'">Eliegible for Silver Package</p>
+                 <p *ngIf="data2?.profiledata.bstatus=='3'">Eliegible for Gold Package</p>
+                  <p *ngIf="data2?.profiledata.bstatus=='4'">Eliegible for Platinum Package</p>
+                   <p *ngIf="data2?.profiledata.bstatus=='5'">Eliegible for Diamond Package</p>
+                    <p *ngIf="data2?.profiledata.bstatus=='6'">Eliegible for Crown Package</p>
               </div>
               <div class="ms-auto text-end">
                 <p class="fw-bold mb-0">Wallet Balance</p>
-                <h5 class="mb-0 text-warning">{{ pdata?.wallet_amount | currency:'USD':'symbol':'1.0-2' }}</h5>
+                <h5 class="mb-0 text-warning">{{ pdata?.wallet_amount | currency:'USD':'symbol':'1.2-2' }}</h5>
               </div>
             </div>
           </div>
@@ -25,7 +30,7 @@
             <div class="col-6 col-md-4 col-lg-3">
               <div class="info-card bg-gradient-purple">
                 <h6>Activation Fund</h6>
-                <h4>{{ pdata?.actwallet | currency:'USD':'symbol':'1.0-2' }}</h4>
+                <h4>{{ pdata?.actwallet | currency:'USD':true:'1.2-2' }}</h4>
               </div>
             </div>
 
@@ -33,7 +38,7 @@
             <div class="col-6 col-md-4 col-lg-3">
               <div class="info-card bg-gradient-blue">
                 <h6>Credit</h6>
-                <h4>{{ data2?.credit | currency:'USD':'symbol':'1.0-2' }}</h4>
+                <h4>{{ data2?.credit | currency:'USD':true:'1.2-2' }}</h4>
               </div>
             </div>
 
@@ -41,7 +46,7 @@
             <div class="col-6 col-md-4 col-lg-3">
               <div class="info-card bg-gradient-red">
                 <h6>Debit</h6>
-                <h4>{{ data2?.debit | currency:'USD':'symbol':'1.0-2' }}</h4>
+                <h4>{{ data2?.debit | currency:'USD':true:'1.2-2' }}</h4>
               </div>
             </div>
 
@@ -109,6 +114,17 @@
               </div>
             </div>
 
+        <div class="row">
+  <div class="col-6 col-md-4 col-lg-3" *ngFor="let type of ['levelpay','silverpay','goldpay','platinumpay','diamondpay','crownpay']">
+    <div class="info-card bg-gradient-diamond" *ngIf="data2[type + 'Holding'] !== null">
+      <h6>{{ type | titlecase }} Binary Holding Amount</h6>
+      <h4>${{ data2[type + 'Holding'] }}</h4>
+    </div>
+  </div>
+</div>
+
+
+
             
           </div>
           
@@ -148,6 +164,7 @@
               class="col-md-3 col-6"
               *ngFor="let income of [
                 {label:'Level Binary', value:data2?.todaylevelincome, color1:'#4776E6', color2:'#8E54E9'},
+                    {label:'Inner Income', value:data2?.todayinnerincome, color1:'#8360c3', color2:'#2ebf91'},
                 {label:'Silver Income', value:data2?.todaysilverincome, color1:'#1D976C', color2:'#93F9B9'},
                 {label:'Gold Income', value:data2?.todaygoldincome, color1:'#f7971e', color2:'#ffd200'},
                 {label:'Platinum Income', value:data2?.todayplatinumincome, color1:'#f7971e', color2:'#ffd200'},
@@ -160,7 +177,7 @@
                 [ngStyle]="{'background': 'linear-gradient(135deg,' + income.color1 + ',' + income.color2 + ')'}"
               >
                 <h6 class="fw-semibold">{{ income.label }}</h6>
-                <h2 class="fw-bold"> {{ income.value || 0 | currency:'USD':'symbol':'1.0-2'}}</h2>
+                <h2 class="fw-bold"> {{ income.value || 0 | currency:'USD':true:'1.2-2'}}</h2>
               </div>
             </div>
           </div>
@@ -215,7 +232,7 @@
                 [ngStyle]="{'background': 'linear-gradient(135deg,' + total.color1 + ',' + total.color2 + ')'}"
               >
                 <h6 class="fw-semibold">{{ total.label }}</h6>
-                <h2 class="fw-bold"> {{ total.value || 0 | currency:'USD':'symbol':'1.0-2'}}</h2>
+                <h2 class="fw-bold"> {{ total.value || 0 | currency:'USD':true:'1.2-2'}}</h2>
               </div>
             </div>
           </div>

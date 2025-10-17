@@ -142,7 +142,7 @@ export class MyWalletComponent {
     const payload = {
       recipient: recipient,
       amount: amount,
-     flag: 1
+     flag: 2
     };
 
     console.log('Withdraw Payload:', payload);
@@ -189,7 +189,7 @@ export class MyWalletComponent {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
               this.router.navigate(['/withdraw']);
             });
-          }, 3000);
+          }, 1000);
         this.toastr.error(this.errorMessage1, 'Error');
       }
     });

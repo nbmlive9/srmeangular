@@ -67,9 +67,9 @@
       <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
       <td>{{ item.name }}</td>
       <td>{{ item.reg_id }} <br><small>{{ item.password }}</small></td>
-      <td>{{ item.wallet_amount | currency:'USD':'symbol':'1.0-2' }}</td>
-      <td>{{ item.credit | currency:'USD':'symbol':'1.0-2' }}</td>
-      <td>{{ item.debit | currency:'USD':'symbol':'1.0-2' }}</td>
+      <td>{{ item.wallet_amount | currency:'USD':true:'1.2-2' }}</td>
+      <td>{{ item.credit | currency:'USD':true:'1.2-2' }}</td>
+      <td>{{ item.debit | currency:'USD':true:'1.2-2' }}</td>
           <td>
         <button class="btn btn-sm btn-primary me-1" (click)="openEditModal(item.reg_id)">Edit</button>
 
