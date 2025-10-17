@@ -114,18 +114,15 @@
               </div>
             </div>
 
-        <div class="row">
-  <div class="col-6 col-md-4 col-lg-3" *ngFor="let type of ['levelpay','silverpay','goldpay','platinumpay','diamondpay','crownpay']">
-    <div class="info-card bg-gradient-diamond" *ngIf="data2[type + 'Holding'] !== null">
-      <h6>{{ type | titlecase }} Binary Holding Amount</h6>
-      <h4>${{ data2[type + 'Holding'] }}</h4>
-    </div>
-  </div>
-</div>
+      
+              <div class="col-6 col-md-4 col-lg-3" *ngFor="let type of ['levelpay','silverpay','goldpay','platinumpay','diamondpay','crownpay']">
+                <div class="info-card bg-gradient-diamond" *ngIf="data2[type + 'Holding'] !== null">
+                  <h6>{{ type | titlecase }} Binary Holding Amount</h6>
+                  <h4>${{ data2[type + 'Holding'] }}</h4>
+                </div>
+              </div>
 
 
-
-            
           </div>
           
         

@@ -33,28 +33,38 @@ getdashboardHome() {
     console.log('homedata', res);
     this.data2 = res.data;
 
-    const perUnitAmount = 3; // example: $3 per unit
-
+    // Define thresholds
     const thresholds: { [key: string]: number[] } = {
-  levelpay: [3, 6, 9],
-  silverpay: [2, 4, 6, 8],
-  goldpay: [2, 4, 6],
-  platinumpay: [2, 4, 6],
-  diamondpay: [2, 4, 6],
-  crownpay: [2, 4, 6]
-};
+      levelpay: [3, 6, 9],
+      silverpay: [2, 4, 6, 8],
+      goldpay: [2, 4, 6],
+      platinumpay: [2, 4, 6],
+      diamondpay: [2, 4, 6],
+      crownpay: [2, 4, 6]
+    };
+
+    // Define per-unit amounts
+    const perUnitAmounts: { [key: string]: number } = {
+      levelpay: 9,
+      silverpay: 12,
+      goldpay: 24,
+      platinumpay: 48,
+      diamondpay: 96,
+      crownpay: 192
+    };
 
     // Calculate holding amounts based on thresholds
-  Object.keys(thresholds).forEach((key: string) => {
-  const count = Number(this.data2[key]);
-  if (thresholds[key].includes(count)) {
-    this.data2[key + 'Holding'] = count * 3;
-  } else {
-    this.data2[key + 'Holding'] = null;
-  }
-});
+    Object.keys(thresholds).forEach((key: string) => {
+      const count = Number(this.data2[key]);
+      if (thresholds[key].includes(count)) {
+        this.data2[key + 'Holding'] = count * perUnitAmounts[key];
+      } else {
+        this.data2[key + 'Holding'] = null;
+      }
+    });
   });
 }
+
 
   
 }
