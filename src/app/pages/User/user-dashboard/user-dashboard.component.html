@@ -10,6 +10,11 @@
               <div>
                 <h4 class="mb-1 fw-bold">{{ pdata?.name }}</h4>
                 <p class="mb-0 small opacity-75">User ID: {{ pdata?.reg_id }}</p>
+               <p class="text-warning" *ngIf="data2?.leftsponsors == '0' || data2?.rightsponsors == '0'">
+                  ⚠️ You are not eligible for withdraw amount. You must refer at least 
+                  <strong>1 Left Sponsor</strong> and <strong>1 Right Sponsor</strong>.
+                </p>
+
                 <p *ngIf="data2?.profiledata.bstatus=='2'">Eliegible for Silver Package</p>
                  <p *ngIf="data2?.profiledata.bstatus=='3'">Eliegible for Gold Package</p>
                   <p *ngIf="data2?.profiledata.bstatus=='4'">Eliegible for Platinum Package</p>
@@ -114,13 +119,18 @@
               </div>
             </div>
 
-      
-              <div class="col-6 col-md-4 col-lg-3" *ngFor="let type of ['levelpay','silverpay','goldpay','platinumpay','diamondpay','crownpay']">
-                <div class="info-card bg-gradient-diamond" *ngIf="data2[type + 'Holding'] !== null">
-                  <h6>{{ type | titlecase }} Binary Holding Amount</h6>
-                  <h4>${{ data2[type + 'Holding'] }}</h4>
-                </div>
-              </div>
+              <div class="col-6 col-md-4 col-lg-3" > 
+                  <div class="info-card bg-gradient-red">
+                      <h6> Binary Holding Amount</h6>
+                     <div *ngFor="let type of ['levelpay','silverpay','goldpay','platinumpay','diamondpay','crownpay']">  
+                        <div  *ngIf="data2[type + 'Holding'] !== null">
+                          <h6>{{ type | titlecase }} </h6>
+                          <h4>${{ data2[type + 'Holding']}}</h4>
+                        </div>
+                    </div>
+                  </div>
+             </div>
+
 
 
           </div>
@@ -134,6 +144,7 @@
               class="col-md-3 col-6"
               *ngFor="let item of [
                 {label:'Level Pairs', value:data2?.todaylevelpairs, color1:'#2193b0', color2:'#6dd5ed'},
+                {label:'Inner Pairs', value:data2?.todayinnerpairs, color1:'#654EA3', color2:'#EAAFC8'},
                 {label:'Silver Pairs', value:data2?.todaysilverpairs, color1:'#00C9FF', color2:'#92FE9D'},
                 {label:'Gold Pairs', value:data2?.todaygoldpairs, color1:'#F7971E', color2:'#FFD200'},
                 {label:'Platinum Pairs', value:data2?.todayplatinumpairs, color1:'#2193b0', color2:'#6dd5ed'},
@@ -142,8 +153,7 @@
                 
               ]"
             >
-              <div
-                class="pair-card p-4 rounded-4 text-center text-white shadow-sm"
+              <div  class="pair-card p-4 rounded-4 text-center text-white shadow-sm"
                 [ngStyle]="{'background': 'linear-gradient(135deg,' + item.color1 + ',' + item.color2 + ')'}"
               >
                 <h6 class="fw-semibold">{{ item.label }}</h6>

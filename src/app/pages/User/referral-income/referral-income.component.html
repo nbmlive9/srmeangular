@@ -28,16 +28,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of data1; let i = index">
-              <td>{{ i + 1 }}</td>
-                  <td>{{ item.crdate | date:'dd/MMM/yyyy' }} <br> {{ item.crtime }}</td>
-                  <td>{{ item.amount | currency:'USD':true:'1.0-1' }}</td>
-                  <td>{{ item.remark }}</td>
-                  <td>
-                    <span class="badge bg-success" *ngIf="item.payment_type === 'credit'">Credit</span>
-                    <span class="badge bg-danger" *ngIf="item.payment_type === 'debit'">Debit</span>
-                  </td>
-            </tr>
+<tr *ngFor="let item of filteredData; let i = index">
+  <td>{{ i + 1 }}</td>
+  <td>{{ item.crdate | date:'dd/MMM/yyyy' }} <br> {{ item.crtime }}</td>
+  <td>{{ item.amount | currency:'USD':true:'1.0-1' }}</td>
+  <td>{{ item.remark }}</td>
+  <td>
+    <span class="badge bg-success" *ngIf="item.payment_type === 'credit'">Credit</span>
+    <span class="badge bg-danger" *ngIf="item.payment_type === 'debit'">Debit</span>
+  </td>
+</tr>
+
+
+
           </tbody>
         </table>
       </div>

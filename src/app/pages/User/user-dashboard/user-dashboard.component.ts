@@ -33,17 +33,6 @@ getdashboardHome() {
     console.log('homedata', res);
     this.data2 = res.data;
 
-    // Define thresholds
-    const thresholds: { [key: string]: number[] } = {
-      levelpay: [3, 6, 9],
-      silverpay: [2, 4, 6, 8],
-      goldpay: [2, 4, 6],
-      platinumpay: [2, 4, 6],
-      diamondpay: [2, 4, 6],
-      crownpay: [2, 4, 6]
-    };
-
-    // Define per-unit amounts
     const perUnitAmounts: { [key: string]: number } = {
       levelpay: 9,
       silverpay: 12,
@@ -53,17 +42,43 @@ getdashboardHome() {
       crownpay: 192
     };
 
-    // Calculate holding amounts based on thresholds
-    Object.keys(thresholds).forEach((key: string) => {
-      const count = Number(this.data2[key]);
-      if (thresholds[key].includes(count)) {
-        this.data2[key + 'Holding'] = count * perUnitAmounts[key];
-      } else {
-        this.data2[key + 'Holding'] = null;
+    Object.keys(perUnitAmounts).forEach((key: string) => {
+      const count = Number(this.data2[key]) || 0;
+      const perUnit = perUnitAmounts[key];
+      let holding = null;
+
+      switch (key) {
+        case 'levelpay':
+          if (count >= 3 && count < 6) holding = 1 * perUnit;
+          else if (count >= 6 && count < 9) holding = 2 * perUnit;
+          else holding = null;
+          break;
+
+        case 'silverpay':
+          if (count >= 2 && count < 4) holding = 1 * perUnit;
+          else if (count >= 4 && count < 6) holding = 2 * perUnit;
+          else if (count >= 6 && count < 8) holding = 3 * perUnit;
+          else holding = null;
+          break;
+
+        case 'goldpay':
+        case 'platinumpay':
+        case 'diamondpay':
+        case 'crownpay':
+          if (count >= 2 && count < 4) holding = 1 * perUnit;
+          else if (count >= 4 && count < 6) holding = 2 * perUnit;
+          else holding = null;
+          break;
+
+        default:
+          holding = 0;
       }
+
+      this.data2[key + 'Holding'] = holding;
     });
   });
 }
+
 
 
   

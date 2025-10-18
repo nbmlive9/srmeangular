@@ -18,10 +18,10 @@
     <div class="col-xl-4 col-lg-6">
       <div class="form-group">
         <label>Amount</label>
-        <input type="number" formControlName="amount" min="10" class="form-control"  placeholder="Enter amount"
+        <input type="text" formControlName="amount" min="7.5" class="form-control"  placeholder="Enter amount"
          (input)="formatAmount($event)"   />
         <div *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched" class="text-danger">
-          Amount is required and must be ≥ $10
+          Amount is required and must be ≥ $7.5
         </div>
         <small
           class="text-danger"
@@ -33,7 +33,7 @@
           class="text-danger"
           *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('min')"
         >
-          Minimum amount is 10.
+          Minimum amount is $7.5
         </small>
 
       </div>

@@ -24,7 +24,7 @@
                                     <tr *ngFor="let row of data1; let i =index">
                                         <td>{{i+1}}</td>
                                         <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
-                                        <td>{{row.userid}}</td>
+                                        <td>{{row.regid}}</td>
                                         <td>{{row.query }}</td>
                                          <td>{{row.subject }}</td>
                                         <td> <button class="btn btn-sm btn-success" (click)="openReplyModal(replyModal, row.id)">Replay</button> </td>
@@ -62,10 +62,10 @@
                                     <tr *ngFor="let row of data2; let i =index">
                                         <td>{{i+1}}</td>
                                         <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
-                                        <td>{{row.userid}}</td>
+                                        <td>{{row.regid}}</td>
                                         <td>{{row.query }}</td>
                                          <td>{{row.subject }}</td>
-                                           <td>{{row.replays }} <small>{{row.rdate | date:'dd/MMM/YYYY'}}</small></td>
+                                           <td>{{row.reply }} <br> <small>{{row.rdate | date:'dd/MMM/YYYY'}}</small></td>
                                         <td> <button class="btn btn-sm btn-success">Suucess</button> </td>
                                     </tr>
                                 </tbody>

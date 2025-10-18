@@ -10,6 +10,8 @@ declare var $: any;
 })
 export class TransferWalletComponent {
   pfdata: any;
+  udata: any;
+  name: any;
   openConfirmModal() {
     if (this.form.valid) {
     $('#confirmModal').modal('show');
@@ -64,40 +66,37 @@ export class TransferWalletComponent {
     });
   }
 
-  onRegisterIdSelect(event: any) {
-  const regid = event.target.value.trim();
+   onRegisterIdSelect(event: any) {
+  const id = event.target.value.trim();
 
-  // If empty, reset messages and stop here
-  if (!regid) {
+  // If empty, reset messages and stop here (no API call)
+  if (!id) {
+    this.regname = null;
     this.idselectmsg = '';
-    this.errorMessage = 'Enter Userid';
+    this.errorMessage = '';
     return;
   }
 
-  this.api.GetusersDataByRegID(regid).subscribe(
-    (res: any) => {
-      if (res && res.success) {
-        // success response
-        this.idselectmsg = 'Valid User ID';
+  this.api.GetusersDataByRegID(id).subscribe(
+    (res4: any) => {
+      if (res4 && res4.data && res4.data.length > 0) {
+        this.regname = res4.data[0];
+        this.idselectmsg = `User Name: ${this.regname.name}`;
         this.errorMessage = '';
       } else {
-        // backend says user not found
+        this.regname = null;
+        this.errorMessage = 'User Not Available';
         this.idselectmsg = '';
-        this.errorMessage = 'Enter valid Userid';
       }
     },
     (err: any) => {
-      // backend route error or invalid userid
-      if (err.error && err.error.message?.includes("Can't find a route")) {
-        this.idselectmsg = '';
-        this.errorMessage = 'Enter valid Userid';
-      } else {
-        this.idselectmsg = '';
-        this.errorMessage = 'Enter valid Userid';
-      }
+      this.regname = null;
+      this.idselectmsg = '';
+      this.errorMessage = 'Enter valid Userid';
     }
   );
 }
+
 
 
   add(){

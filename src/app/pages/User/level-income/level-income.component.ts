@@ -34,6 +34,7 @@ export class LevelIncomeComponent {
   getTypeLabel(ttype: string): string {
     switch (ttype) {
       case 'level': return 'Level Binary';
+      case 'innermatch': return 'Inner Binary';
       case 'level2': return 'Silver Binary';
       case 'level3': return 'Gold Binary';
       case 'level4': return 'Platinum Binary';
