@@ -86,26 +86,67 @@ maskPassword(pwd: string): string {
   }
 
   /** Step 1: Generate OTP before updating */
- save() {
+//  save() {
+//   if (this.form.invalid) {
+//     this.form.markAllAsTouched();
+//     return;
+//   }
+
+//   this.api.GenerateOtp().subscribe({
+//     next: (res: any) => {
+//       if (res.status === 1) {
+//         this.toast.success(res?.message || 'OTP sent ✅', 'Success');
+//         this.showOtpForm = true;
+
+//         // ✅ Reset OTP form when showing
+//         this.form1.reset();
+//       } else {
+//         this.toast.error(res?.message || 'OTP generation failed ❌', 'Error');
+//       }
+//     },
+//     error: () => {
+//       this.toast.error('OTP generation failed ❌', 'Error');
+//     }
+//   });
+// }
+
+save() {
   if (this.form.invalid) {
     this.form.markAllAsTouched();
     return;
   }
 
-  this.api.GenerateOtp().subscribe({
-    next: (res: any) => {
-      if (res.status === 1) {
-        this.toast.success(res?.message || 'OTP sent ✅', 'Success');
-        this.showOtpForm = true;
+  const payload = this.form.value;
 
-        // ✅ Reset OTP form when showing
+  this.api.UpdateUserProfile(payload).subscribe({
+    next: (res: any) => {
+      console.log(res);
+      if (res.status === 1) {
+        this.toast.success(res?.message || 'Profile updated ✅', 'Success');
+        this.isEdit = false;
+        this.showOtpForm = false;
         this.form1.reset();
+
+        // ✅ Close modal
+        const modal = document.getElementById('editModal');
+        if (modal) {
+          const modalInstance = bootstrap.Modal.getInstance(modal);
+          if (modalInstance) modalInstance.hide();
+        }
+
+        // ✅ Reload profile data
+        // this.GetProfile();
+
+        // ✅ Force reload component (optional)
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/myprofile']);
+        });
       } else {
-        this.toast.error(res?.message || 'OTP generation failed ❌', 'Error');
+        this.toast.error(res?.message || 'Update failed ❌', 'Error');
       }
     },
     error: () => {
-      this.toast.error('OTP generation failed ❌', 'Error');
+      this.toast.error('Something went wrong ❌', 'Error');
     }
   });
 }
@@ -160,7 +201,7 @@ callSaveApi() {
 
         // ✅ Force reload component (optional)
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/myprofile']);
         });
       } else {
         this.toast.error(res?.message || 'Update failed ❌', 'Error');
