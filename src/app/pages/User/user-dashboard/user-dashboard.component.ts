@@ -42,23 +42,22 @@ getdashboardHome() {
       crownpay: 192
     };
 
+    // Calculate holdings
     Object.keys(perUnitAmounts).forEach((key: string) => {
       const count = Number(this.data2[key]) || 0;
       const perUnit = perUnitAmounts[key];
-      let holding = null;
+      let holding = 0;
 
       switch (key) {
         case 'levelpay':
           if (count >= 3 && count < 6) holding = 1 * perUnit;
           else if (count >= 6 && count < 9) holding = 2 * perUnit;
-          else holding = null;
           break;
 
         case 'silverpay':
           if (count >= 2 && count < 4) holding = 1 * perUnit;
           else if (count >= 4 && count < 6) holding = 2 * perUnit;
           else if (count >= 6 && count < 8) holding = 3 * perUnit;
-          else holding = null;
           break;
 
         case 'goldpay':
@@ -67,17 +66,20 @@ getdashboardHome() {
         case 'crownpay':
           if (count >= 2 && count < 4) holding = 1 * perUnit;
           else if (count >= 4 && count < 6) holding = 2 * perUnit;
-          else holding = null;
           break;
-
-        default:
-          holding = 0;
       }
 
+      // Assign final holding (0 if not eligible)
       this.data2[key + 'Holding'] = holding;
     });
+
+    // Check if any holding > 0
+    this.data2.hasAnyHolding = Object.keys(perUnitAmounts).some(
+      key => this.data2[key + 'Holding'] > 0
+    );
   });
 }
+
 
 
 

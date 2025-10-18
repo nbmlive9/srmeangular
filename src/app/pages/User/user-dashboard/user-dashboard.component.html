@@ -11,15 +11,15 @@
                 <h4 class="mb-1 fw-bold">{{ pdata?.name }}</h4>
                 <p class="mb-0 small opacity-75">User ID: {{ pdata?.reg_id }}</p>
                <p class="text-warning" *ngIf="data2?.leftsponsors == '0' || data2?.rightsponsors == '0'">
-                  ⚠️ You are not eligible for withdraw amount. You must refer at least 
+                  ⚠️ You are not Eligible for withdraw amount. You must refer at least 
                   <strong>1 Left Sponsor</strong> and <strong>1 Right Sponsor</strong>.
                 </p>
 
-                <p *ngIf="data2?.profiledata.bstatus=='2'">Eliegible for Silver Package</p>
-                 <p *ngIf="data2?.profiledata.bstatus=='3'">Eliegible for Gold Package</p>
-                  <p *ngIf="data2?.profiledata.bstatus=='4'">Eliegible for Platinum Package</p>
-                   <p *ngIf="data2?.profiledata.bstatus=='5'">Eliegible for Diamond Package</p>
-                    <p *ngIf="data2?.profiledata.bstatus=='6'">Eliegible for Crown Package</p>
+                <p *ngIf="data2?.profiledata.bstatus=='2'">Eligible for <span class="text-warning">Silver Package</span></p>
+                 <p *ngIf="data2?.profiledata.bstatus=='3'">Eligible for <span class="text-warning">Gold Package</span></p>
+                  <p *ngIf="data2?.profiledata.bstatus=='4'">Eligible for <span class="text-warning">Platinum Package</span></p>
+                   <p *ngIf="data2?.profiledata.bstatus=='5'">Eligible for <span class="text-warning">Diamond Package</span></p>
+                    <p *ngIf="data2?.profiledata.bstatus=='6'">Eligible for <span class="text-warning">Crown Package</span></p>
               </div>
               <div class="ms-auto text-end">
                 <p class="fw-bold mb-0">Wallet Balance</p>
@@ -43,7 +43,7 @@
             <div class="col-6 col-md-4 col-lg-3">
               <div class="info-card bg-gradient-blue">
                 <h6>Credit</h6>
-                <h4>{{ data2?.credit | currency:'USD':true:'1.2-2' }}</h4>
+                <h4>{{ pdata?.credit / 92 | currency:'USD':true:'1.2-2' }}</h4>
               </div>
             </div>
 
@@ -51,7 +51,7 @@
             <div class="col-6 col-md-4 col-lg-3">
               <div class="info-card bg-gradient-red">
                 <h6>Debit</h6>
-                <h4>{{ data2?.debit | currency:'USD':true:'1.2-2' }}</h4>
+                <h4>{{ pdata?.debit / 92 | currency:'USD':true:'1.2-2' }}</h4>
               </div>
             </div>
 
@@ -119,17 +119,27 @@
               </div>
             </div>
 
-              <div class="col-6 col-md-4 col-lg-3" > 
-                  <div class="info-card bg-gradient-red">
-                      <h6> Binary Holding Amount</h6>
-                     <div *ngFor="let type of ['levelpay','silverpay','goldpay','platinumpay','diamondpay','crownpay']">  
-                        <div  *ngIf="data2[type + 'Holding'] !== null">
-                          <h6>{{ type | titlecase }} </h6>
-                          <h4>${{ data2[type + 'Holding']}}</h4>
-                        </div>
-                    </div>
-                  </div>
-             </div>
+             <div class="col-6 col-md-4 col-lg-3">
+  <div class="info-card bg-gradient-red">
+    <h6>Binary Holding Amount</h6>
+
+    <!-- If any holding exists -->
+    <ng-container *ngIf="data2?.hasAnyHolding; else noHolding">
+      <div *ngFor="let type of ['levelpay','silverpay','goldpay','platinumpay','diamondpay','crownpay']">
+        <div *ngIf="data2[type + 'Holding'] > 0">
+          <h6>{{ type | titlecase }}</h6>
+          <h4>${{ data2[type + 'Holding'] }}</h4>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- If no holdings -->
+    <ng-template #noHolding>
+      <h4>$0</h4>
+      <!-- <p class="text-muted small">No eligible holdings yet</p> -->
+    </ng-template>
+  </div>
+</div>
 
 
 

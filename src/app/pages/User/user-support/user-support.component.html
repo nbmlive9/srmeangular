@@ -15,8 +15,8 @@
                     <option value="" selected>Select Query</option>
                     <option value="Profile">Profile</option>
                     <option value="Activation">Activation</option>
-                    <option value="Payment">Payment</option>
-                    <option value="Deposites">Deposites</option>
+                    <option value="Withdraw">Withdraw</option>
+                    <option value="Deposits">Deposits</option>
                     <option value="Wallet Address">Wallet Address</option>
                     <option value="Others">Others</option>
                   </select>
@@ -58,6 +58,7 @@
                   <th>Date</th>
                   <th>Query</th>
                   <th>Subject</th>
+                  <th>Reply</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -67,6 +68,7 @@
                   <td>{{ item.cdate | date: 'dd/MMM/yyyy' }}</td>
                   <td>{{ item.query }}</td>
                   <td>{{ item.subject }}</td>
+                  <td>{{item.reply }} <br> <small>{{item.rdate | date:'dd/MMM/YYYY'}}</small></td>
                   <td>
                     <span class="btn btn-sm"
                       [ngClass]="{ 'btn-success': item.status === '1', 'btn-danger': item.status === '0' }">

@@ -27,7 +27,7 @@
                                         <td>{{row.regid}}</td>
                                         <td>{{row.query }}</td>
                                          <td>{{row.subject }}</td>
-                                        <td> <button class="btn btn-sm btn-success" (click)="openReplyModal(replyModal, row.id)">Replay</button> </td>
+                                        <td> <button class="btn btn-sm btn-success" (click)="openReplyModal(replyModal, row.id)">Reply</button> </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -54,7 +54,7 @@
                                         <th>UserId</th>
                                         <th>Query</th>
                                         <th>Remark</th>
-                                        <th>Replay</th>
+                                        <th>Reply</th>
                                         <th>Action</th>
                                     </tr>            
                                 </thead>
@@ -66,7 +66,7 @@
                                         <td>{{row.query }}</td>
                                          <td>{{row.subject }}</td>
                                            <td>{{row.reply }} <br> <small>{{row.rdate | date:'dd/MMM/YYYY'}}</small></td>
-                                        <td> <button class="btn btn-sm btn-success">Suucess</button> </td>
+                                        <td> <button class="btn btn-sm btn-success">Success</button> </td>
                                     </tr>
                                 </tbody>
                             </table>

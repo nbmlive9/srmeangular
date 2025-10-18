@@ -28,6 +28,7 @@ export class MyWalletComponent {
  coinValue: number = 0;
   calculatedCoins: number = 0;
   ypdata: any;
+  data2: any;
   constructor(
     private api: UserService,
     private fb: FormBuilder,
@@ -44,6 +45,7 @@ export class MyWalletComponent {
     this.GetProfile();
     this.CompletedData();
     this.YohanPriceData();
+    this.GetHomedata();
   }
 
   GetProfile() {
@@ -56,6 +58,13 @@ export class MyWalletComponent {
         this.toastr.error('Failed to load profile data', 'Error');
       }
     });
+  }
+
+  GetHomedata(){
+      this.api.UDashboardData().subscribe((res: any) => {
+    console.log('homedata', res);
+    this.data2 = res.data;
+     });
   }
 
    YohanPriceData() {
