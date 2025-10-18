@@ -38,7 +38,7 @@ maskPassword(pwd: string): string {
     this.form = this.fb.group({
       name: ['', ],
       email: ['', [Validators.email]],
-      wallet1: ['',],
+      aadhar: ['',],
       password: ['']
     });
 
@@ -80,7 +80,7 @@ maskPassword(pwd: string): string {
     this.form.patchValue({
       name: this.pfdata?.name,
       email: this.pfdata?.email,
-      wallet1: this.pfdata?.wallet1,
+      aadhar: this.pfdata?.aadhar,
       password: this.pfdata?.password,
     });
   }

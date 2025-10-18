@@ -94,7 +94,7 @@ forgotPassword(value: { regid: string; email: string }): Observable<any> {
         name: string;
     email: string;
     password: string;
-    wallet1: string;
+    aadhar: string;
   }) {
     const token1 = this.token.getToken();
     const httpOptions = {
@@ -109,7 +109,7 @@ forgotPassword(value: { regid: string; email: string }): Observable<any> {
           "name":value.name, 
         "email":value.email, 
         "password":value.password, 
-        "wallet1":value.wallet1, 
+        "aadhar":value.aadhar, 
       },
       httpOptions
     );
