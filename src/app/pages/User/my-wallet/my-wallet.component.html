@@ -58,13 +58,13 @@
 
     <!-- Submit Button and Wallet Missing Message -->
     <div class="buy-crpto-btn mt-4">
-      <button type="submit" class="btn btn-primary"  *ngIf="data2?.leftsponsors == '1' && data2?.rightsponsors == '1'" [disabled]="form.invalid || !pfdata?.wallet1 || pfdata?.wallet1.trim() === ''">  Withdraw   </button>
+      <button type="submit" class="btn btn-primary"  *ngIf="data2?.leftsponsors == '1' && data2?.rightsponsors == '1'" [disabled]="form.invalid || !pfdata?.aadhar || pfdata?.aadhar.trim() === ''">  Withdraw   </button>
       
         <p class="text-primary" *ngIf="data2?.leftsponsors == '0' || data2?.rightsponsors == '0'">
     ⚠️ You are not eligible for withdraw amount. You must refer at least 
           <strong>1 Left Sponsor</strong> and <strong>1 Right Sponsor</strong>.
         </p>
-      <p class="text-danger mt-2" *ngIf="!pfdata?.wallet1 || pfdata?.wallet1.trim() === ''">
+      <p class="text-danger mt-2" *ngIf="!pfdata?.aadhar || pfdata?.aadhar.trim() === ''">
         Please set up your USDT BEP20 wallet address in your profile to enable withdrawals.
         <span routerLink="/myprofile" class="text-success" style="cursor: pointer;">Go to Profile</span>
       </p>

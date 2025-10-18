@@ -141,7 +141,7 @@ export class MyWalletComponent {
     }
 
     const amount = this.form.value.amount;
-    const recipient = this.pfdata?.wallet1;
+    const recipient = this.pfdata?.aadhar;
 
     if (!recipient || recipient.trim() === '') {
       this.toastr.error('Wallet address not found in profile', 'Error');
