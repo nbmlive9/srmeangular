@@ -245,9 +245,9 @@ get isFundSufficient(): boolean {
 
         setTimeout(() => {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/activation']);
+            this.router.navigate(['/activationreport']);
           });
-        }, 500);
+        }, 1000);
       } else {
         this.errorMessage3 = 'Something went wrong, please try again.';
       }

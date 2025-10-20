@@ -15,11 +15,11 @@
                   <strong>1 Left Sponsor</strong> and <strong>1 Right Sponsor</strong>.
                 </p>
 
-                <p *ngIf="data2?.profiledata.bstatus=='2'">Eligible for <span class="text-warning">Silver Package</span></p>
-                 <p *ngIf="data2?.profiledata.bstatus=='3'">Eligible for <span class="text-warning">Gold Package</span></p>
-                  <p *ngIf="data2?.profiledata.bstatus=='4'">Eligible for <span class="text-warning">Platinum Package</span></p>
-                   <p *ngIf="data2?.profiledata.bstatus=='5'">Eligible for <span class="text-warning">Diamond Package</span></p>
-                    <p *ngIf="data2?.profiledata.bstatus=='6'">Eligible for <span class="text-warning">Crown Package</span></p>
+                <p *ngIf="data2?.profiledata.bstatus=='2'">Congratulations !!! You are in <span class="text-warning">Silver Package</span></p>
+                 <p *ngIf="data2?.profiledata.bstatus=='3'">Congratulations !!! You are in <span class="text-warning">Gold Package</span></p>
+                  <p *ngIf="data2?.profiledata.bstatus=='4'">Congratulations !!! You are in <span class="text-warning">Platinum Package</span></p>
+                   <p *ngIf="data2?.profiledata.bstatus=='5'">Congratulations !!! You are in <span class="text-warning">Diamond Package</span></p>
+                    <p *ngIf="data2?.profiledata.bstatus=='6'">Congratulations !!! You are in <span class="text-warning">Crown Package</span></p>
               </div>
               <div class="ms-auto text-end">
                 <p class="fw-bold mb-0">Wallet Balance</p>
@@ -43,7 +43,7 @@
             <div class="col-6 col-md-4 col-lg-3">
               <div class="info-card bg-gradient-blue">
                 <h6>Credit</h6>
-                <h4>{{ pdata?.credit / 92 | currency:'USD':true:'1.2-2' }}</h4>
+                <h4>{{ pdata?.credit | currency:'USD':true:'1.2-2' }}</h4>
               </div>
             </div>
 
@@ -51,7 +51,7 @@
             <div class="col-6 col-md-4 col-lg-3">
               <div class="info-card bg-gradient-red">
                 <h6>Debit</h6>
-                <h4>{{ pdata?.debit / 92 | currency:'USD':true:'1.2-2' }}</h4>
+                <h4>{{ pdata?.debit | currency:'USD':true:'1.2-2' }}</h4>
               </div>
             </div>
 

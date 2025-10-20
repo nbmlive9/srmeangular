@@ -103,9 +103,21 @@
                 <label class="form-label">Referral ID</label>
                 <div class="input-wrapper">
                   <input type="text" formControlName="sponcerid" class="form-control" [(ngModel)]="data2.reg_id" readonly />
-                  <input type="text" formControlName="placementid" [(ngModel)]="data2.reg_id" class="form-control" hidden />
+                  <!-- <input type="text" formControlName="placementid" [(ngModel)]="data2.reg_id" class="form-control" hidden /> -->
                 </div>
                 <small class="text-success">Name: {{ data2.name }}</small>
+              </div>
+
+               <!-- Referral ID -->
+              <div class="col-sm-6">
+                <label class="form-label">Placement ID</label>
+               <div class="input-wrapper">
+                  <!-- <input type="text" formControlName="sponcerid" class="form-control" [(ngModel)]="data2.reg_id" readonly /> -->
+                  <input type="text" formControlName="placementid" class="form-control" (keyup)="onRegisterIdSelect1($event)" />
+                  <span class="text-danger" *ngIf="form.get('placementid')?.touched && form.get('placementid')?.hasError('required')"> placementid is required  </span>            
+                </div>
+                    <span class="text-success">{{idselectmsg1}}</span>
+                    <span class="text-danger">{{errorMessage1}}</span>
               </div>
           
               

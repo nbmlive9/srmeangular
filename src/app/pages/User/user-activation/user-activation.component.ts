@@ -14,6 +14,9 @@ declare var bootstrap: any;
 export class UserActivationComponent {
   @ViewChild('loadingModal') loadingModal!: TemplateRef<any>;
   @ViewChild('activationModal') activationModal!: TemplateRef<any>;
+  regname1: any;
+  idselectmsg1='';
+  errorMessage1='';
 
   openConfirmModal() {
   if (this.form.valid) {
@@ -58,7 +61,7 @@ deliveryFee: string = '';
         confirmPassword: ['', Validators.required],
         sponcerid: [''],
         position: [''], 
-        placementid: ['',],
+        placementid: ['', Validators.required],
         regtype: ['', Validators.required],
         product: [''], 
         address: [''], 
@@ -160,6 +163,37 @@ get isFundSufficient(): boolean {
       }
     );
   }
+
+  onRegisterIdSelect1(event: any) {
+  const id = event.target.value.trim();
+
+  // If empty, reset messages and stop here (no API call)
+  if (!id) {
+    this.regname1 = null;
+    this.idselectmsg1 = '';
+    this.errorMessage1 = '';
+    return;
+  }
+
+  this.api.GetusersDataByRegID(id).subscribe(
+    (res4: any) => {
+      if (res4 && res4.data && res4.data.length > 0) {
+        this.regname1 = res4.data[0];
+        this.idselectmsg1 = `User Name: ${this.regname1.name}`;
+        this.errorMessage1 = '';
+      } else {
+        this.regname1 = null;
+        this.errorMessage1 = 'User Not Available';
+        this.idselectmsg1 = '';
+      }
+    },
+    (err: any) => {
+      this.regname1 = null;
+      this.idselectmsg1 = '';
+      this.errorMessage1 = 'Enter valid Userid';
+    }
+  );
+}
 
    updateProductValidators(regtype: string) {
     const product = this.form.get('product');

@@ -123,6 +123,15 @@ export class MyWalletComponent {
     });
   }
 
+  get canWithdraw(): boolean {
+  return (
+    this.data2 &&
+    Number(this.data2.leftsponsors) === 1 &&
+    Number(this.data2.rightsponsors) === 1
+  );
+}
+
+
   calculateNetAmount() {
     const amount = this.form.value.amount || 0;
     if (amount >= 10) {
