@@ -243,11 +243,11 @@ get isFundSufficient(): boolean {
         // 4️⃣ Open activation modal
         this.modalService.open(this.activationModal, { centered: true });
 
-        setTimeout(() => {
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/activationreport']);
-          });
-        }, 1000);
+        // setTimeout(() => {
+        //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        //     this.router.navigate(['/activationreport']);
+        //   });
+        // }, 1000);
       } else {
         this.errorMessage3 = 'Something went wrong, please try again.';
       }

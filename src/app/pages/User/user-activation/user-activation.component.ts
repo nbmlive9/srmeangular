@@ -274,7 +274,7 @@ get isFundSufficient(): boolean {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
             this.router.navigate(['/activation']);
           });
-        }, 500);
+        }, 3000);
       } else {
         this.errorMessage3 = 'Something went wrong, please try again.';
       }
