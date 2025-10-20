@@ -127,8 +127,8 @@
                 <div class="input-wrapper">
                    <select formControlName="position" class="form-select">
                                 <option value="" disabled>Select Position</option>
-                                <option value="Left">Left</option>
-                                <option value="Right">Right</option>
+                                <option value="left">Left</option>
+                                <option value="right">Right</option>
                             </select>
                                 <div *ngIf="form.get('position')?.touched && form.get('position')?.invalid" class="text-danger small">
                                     <div *ngIf="form.get('position')?.errors?.['required']">Position is required.</div>

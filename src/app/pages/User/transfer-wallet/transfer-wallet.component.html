@@ -18,6 +18,9 @@
                                 <div class="form-group">
                                     <label class="focus-label">Transfer Amount ($)*</label>
                                     <input type="text" class="form-control floating" formControlName="amount">
+                                    <span class="text-danger" *ngIf="form.get('amount')?.touched && form.get('amount')?.hasError('required')">
+                                      Enter Amount
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -35,16 +38,22 @@
                                 <div class="form-group">
                                     <label class="focus-label">Remark*</label>
                                     <input type="text" class="form-control floating" formControlName="remark">
+                                    <span class="text-danger" *ngIf="form.get('remark')?.touched && form.get('remark')?.hasError('required')">
+                                      Enter Remark
+                                    </span>
                                 </div>
                             </div>
                              <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="focus-label">Select Type*</label>
                                     <select class="form-control select" formControlName="wallettyoe">
-                      <option value="" disabled>Select Type</option>
-                      <option value="dwallet">Activation Fund ({{pfdata?.actwallet | currency:'USD':true:'1.2-2'}})</option>
-                      <option value="ewallet">Main Wallet ({{pfdata?.wallet_amount | currency:'USD':true:'1.2-2'}})</option>
-                    </select>
+                                      <option value="" disabled>Select Type</option>
+                                      <option value="dwallet">Activation Fund ({{pfdata?.actwallet | currency:'USD':true:'1.2-2'}})</option>
+                                      <option value="ewallet">Main Wallet ({{pfdata?.wallet_amount | currency:'USD':true:'1.2-2'}})</option>
+                                    </select>
+                                    <span class="text-danger" *ngIf="form.get('wallettyoe')?.touched && form.get('wallettyoe')?.hasError('required')">
+                                      Select Walet Type
+                                    </span>
                                 </div>
                             </div>
                             <div class="text-center m-t-20">
