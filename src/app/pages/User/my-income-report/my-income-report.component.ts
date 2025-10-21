@@ -22,7 +22,7 @@ export class MyIncomeReportComponent {
   
   ngOnInit() {
     this.api.UProfile().subscribe((res:any)=>{
-      console.log('profile',res);
+      // console.log('profile',res);
       this.pfdata=res.data[0];
     })
   }

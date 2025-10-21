@@ -90,7 +90,7 @@ deliveryFee: string = '';
     this.position = this.activeroute.snapshot.paramMap.get('position') || '';
       //get profile
          this.api.UProfile().subscribe((res: any) => {
-        console.log('profile', res);
+        // console.log('profile', res);
         this.data2 = res.data[0];
       });
       //get packages

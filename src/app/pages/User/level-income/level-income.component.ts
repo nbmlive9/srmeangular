@@ -15,7 +15,7 @@ export class LevelIncomeComponent {
 
   ngOnInit() {
     this.api.WalletMatchingReport().subscribe((res: any) => {
-      console.log('matching', res);
+      // console.log('matching', res);
       this.data1 = res.data || [];
       this.filteredData = this.data1; // show all by default
     });

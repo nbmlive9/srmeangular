@@ -29,7 +29,7 @@ export class LeftTeamComponent {
 
     this.api.LeftTeamData(page, this.rowsPerPage).subscribe(
       (res: any) => {
-        console.log(res);
+        // console.log(res);
         this.data1 = res.data.data;
         this.totalRecords = res.data.count;
         this.totalPages = Math.ceil(this.totalRecords / this.rowsPerPage);

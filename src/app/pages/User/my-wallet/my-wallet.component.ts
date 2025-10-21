@@ -62,7 +62,7 @@ export class MyWalletComponent {
 
   GetHomedata(){
       this.api.UDashboardData().subscribe((res: any) => {
-    console.log('homedata', res);
+    // console.log('homedata', res);
     this.data2 = res.data;
      });
   }

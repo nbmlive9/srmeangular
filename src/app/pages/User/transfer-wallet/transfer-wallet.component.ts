@@ -47,7 +47,7 @@ export class TransferWalletComponent {
   constructor(private api:UserService, private fb:FormBuilder, private router:Router ){
       this.form = this.fb.group({
               regid: ['', Validators.required], 
-              amount: ['', [Validators.required, Validators.min(7.5)]], 
+              amount: ['', [Validators.required, Validators.min(1)]], 
               wallettyoe: ['', Validators.required], 
               remark: ['Transfer Wallet'], 
             });

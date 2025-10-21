@@ -18,7 +18,7 @@ export class ReferralIncomeComponent {
   
  reportsData() {
     this.api.WalletMatchingReport().subscribe((res: any) => {
-      console.log('inner matching', res);
+      // console.log('inner matching', res);
       this.data1 = res.data;
       // Filter here
       this.filteredData = this.data1.filter((d: any) => d.ttype === 'innermatch');

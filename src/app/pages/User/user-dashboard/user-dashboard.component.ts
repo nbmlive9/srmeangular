@@ -22,7 +22,7 @@ export class UserDashboardComponent {
 
   ngOnInit(){
     this.api.UProfile().subscribe((res:any)=>{
-        console.log('profile',res);
+        // console.log('profile',res);
         this.pdata=res.data[0];
     });
     this.getdashboardHome();
@@ -30,7 +30,7 @@ export class UserDashboardComponent {
 
 getdashboardHome() {
   this.api.UDashboardData().subscribe((res: any) => {
-    console.log('homedata', res);
+    // console.log('homedata', res);
     this.data2 = res.data;
 
     const perUnitAmounts: { [key: string]: number } = {

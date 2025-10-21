@@ -23,7 +23,7 @@ constructor(private api: UserService, private router: Router) {}
 
 ngOnInit() {
   this.api.UProfile().subscribe((res:any)=>{
-    console.log('profile',res);
+    // console.log('profile',res);
     this.pfdata=res.data[0];
   })
 }
