@@ -17,10 +17,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="focus-label">Transfer Amount ($)*</label>
-                                    <input type="text" class="form-control floating" formControlName="amount">
-                                    <span class="text-danger" *ngIf="form.get('amount')?.touched && form.get('amount')?.hasError('required')">
-                                      Enter Amount
-                                    </span>
+                                    <input type="text" class="form-control floating" formControlName="amount" min="7.5">
+                                    <div *ngIf="form.get('amount')?.touched">
+                                      <span class="text-danger" *ngIf="form.get('amount')?.hasError('required')">
+                                        Amount is required.
+                                      </span>
+                                      <span class="text-danger" *ngIf="form.get('amount')?.hasError('min')">
+                                        Minimum transfer amount is $7.5.
+                                      </span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -34,7 +39,7 @@
                                     </span>
                                 </div>
                             </div>
-                             <div class="col-md-6">
+                             <!-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="focus-label">Remark*</label>
                                     <input type="text" class="form-control floating" formControlName="remark">
@@ -42,7 +47,7 @@
                                       Enter Remark
                                     </span>
                                 </div>
-                            </div>
+                            </div> -->
                              <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="focus-label">Select Type*</label>

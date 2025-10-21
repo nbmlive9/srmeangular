@@ -46,7 +46,7 @@ export class DepositRequestComponent {
     private sanitizer: DomSanitizer
   ) {
     this.form = this.fb.group({
-      amount: ['', [Validators.required, Validators.min(10)]],
+      amount: ['', [Validators.required, Validators.min(1)]],
       transno: [''],
       note: ['Yohan Coins']
     });
