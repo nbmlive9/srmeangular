@@ -73,6 +73,10 @@ import { AdminDashboardComponent } from './pages/Admin/admin-dashboard/admin-das
 import { TreeRegistrationComponent } from './pages/User/tree-registration/tree-registration.component';
 import { UserOrdersComponent } from './pages/User/user-orders/user-orders.component';
 import { PendingOrdersDataComponent } from './pages/Admin/pending-orders-data/pending-orders-data.component';
+import { ELoginComponent } from './pages/Crm/e-login/e-login.component';
+import { EDashboardComponent } from './pages/Crm/e-dashboard/e-dashboard.component';
+import { ETicketsComponent } from './pages/Crm/e-tickets/e-tickets.component';
+import { EDeliveryProductsComponent } from './pages/Crm/e-delivery-products/e-delivery-products.component';
 
 @NgModule({
   declarations: [
@@ -139,7 +143,11 @@ import { PendingOrdersDataComponent } from './pages/Admin/pending-orders-data/pe
     AdminDashboardComponent,
     TreeRegistrationComponent,
     UserOrdersComponent,
-    PendingOrdersDataComponent
+    PendingOrdersDataComponent,
+    ELoginComponent,
+    EDashboardComponent,
+    ETicketsComponent,
+    EDeliveryProductsComponent
   ],
   imports: [
     BrowserModule,

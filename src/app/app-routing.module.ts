@@ -38,12 +38,17 @@ import { AddProductsComponent } from './pages/Admin/add-products/add-products.co
 import { TreeRegistrationComponent } from './pages/User/tree-registration/tree-registration.component';
 import { UserOrdersComponent } from './pages/User/user-orders/user-orders.component';
 import { UactivationReportComponent } from './pages/User/uactivation-report/uactivation-report.component';
+import { ELoginComponent } from './pages/Crm/e-login/e-login.component';
+import { EDashboardComponent } from './pages/Crm/e-dashboard/e-dashboard.component';
+import { EDeliveryProductsComponent } from './pages/Crm/e-delivery-products/e-delivery-products.component';
+import { ETicketsComponent } from './pages/Crm/e-tickets/e-tickets.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent },
   {path:"",component:UloginComponent },
   {path:"auth-login",component:UloginComponent },
   {path:"forgot",component:ForgotPasswordComponent },
+  {path:"crm",component:ELoginComponent },
 //   {path:"auth-signup",component:RegistrationComponent },
 // { path: "auth-sponsorsignup/:regid", component: SponsorRegistrationComponent },
 
@@ -62,6 +67,11 @@ const routes: Routes = [
   {path:"adminsupport",component:SupportTicketsComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
    {path:"awardusers",component:AwardUsersDataComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
    {path:"royaltyusers",component:RoyaltyUsersDataComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
+
+   //Employee Routing
+   { path: "edashboard", component: EDashboardComponent, canActivate: [AuthGuard], data: { roles: ['employee'] } },
+     { path: "eproducts", component: EDeliveryProductsComponent, canActivate: [AuthGuard], data: { roles: ['employee'] } },
+       { path: "eticket", component: ETicketsComponent, canActivate: [AuthGuard], data: { roles: ['employee'] } },
 
   //User Routings
   {path:"mydashboard",component:UserDashboardComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },

@@ -86,6 +86,11 @@ export class MenuBarComponent implements OnInit {
     // optionally route to login
   }
 
+    logout2() {
+    this.token1.signOut2();
+    // optionally route to login
+  }
+
   toggleSidebar() {
     const sidebarModal = document.getElementById(this.sidebarId);
     if (!sidebarModal) return;

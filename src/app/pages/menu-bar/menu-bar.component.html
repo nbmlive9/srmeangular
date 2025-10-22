@@ -20,6 +20,10 @@
           <span class="brand-title">Yohan</span>
           <small class="brand-sub">User Panel</small>
         </div>
+          <div class="brand-text" *ngIf="token1.isEmployee()">
+          <span class="brand-title">Yohan</span>
+          <small class="brand-sub">CRM Panel</small>
+        </div>
       </a>
 
       <!-- Search (hide on xs) -->
@@ -44,6 +48,16 @@
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
           <li><a class="dropdown-item" routerLink="/updateprofile">Profile</a></li>
           <li><a class="dropdown-item" (click)="logout1()">Logout</a></li>
+        </ul>
+      </div>
+
+       <div class="avatar-wrap dropdown"  *ngIf="token1.isEmployee()">
+        <button class="avatar-btn" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="assets/logo.png" alt="avatar" class="avatar-img" />
+          <span class="avatar-name d-none d-lg-inline">Employee</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+          <li><a class="dropdown-item" (click)="logout2()">Logout</a></li>
         </ul>
       </div>
 

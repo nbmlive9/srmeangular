@@ -29,6 +29,12 @@ export class TokenStorageService {
     this.router.navigateByUrl('/login');
   }
 
+   signOut2() {
+    this.user = null;
+    window.localStorage.clear();
+    this.router.navigateByUrl('/emplogin');
+  }
+
   public saveToken(token: string): void {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);
@@ -70,6 +76,11 @@ export class TokenStorageService {
 isUser() {
   this.user = this.getUser();
   return this.user && this.user.usertype == 'user';
+}
+
+  isEmployee() {
+  this.user = this.getUser();
+  return this.user && this.user.usertype == 'employee';
 }
 
 

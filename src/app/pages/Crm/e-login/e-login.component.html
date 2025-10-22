@@ -1,0 +1,36 @@
+<div class="login-wrapper d-flex align-items-center justify-content-center">
+  <div class="login-card shadow-lg">
+    <div class="text-center mb-4">
+      <img src="assets/logo.png" alt="Yohan Coin Logo" class="logo mb-2 center-logo">
+      <h5 class="fw-bold text-white">Welcome Back</h5>
+      <p class="text-light mb-0">Sign in to <span class="text-warning">Yohan</span> CRM account</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div *ngIf="errorMessage" class="alert alert-danger text-center py-2">{{ errorMessage }}</div>
+
+      <div class="form-group mb-3">
+        <label class="text-white mb-1">Username *</label>
+        <input type="text" class="form-control" formControlName="username" placeholder="Enter your User ID" autofocus>
+      </div>
+
+      <div class="form-group mb-3 position-relative">
+        <label class="text-white mb-1">Password *</label>
+        <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password" placeholder="Enter your password">
+        <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+           (click)="togglePasswordVisibility()"
+           style="position: absolute; right: 12px; top: 40px; cursor: pointer; color: #ffb703;"></i>
+      </div>
+
+      <button type="submit" class="btn btn-login w-100 mt-3" [disabled]="!form.valid">Sign In</button>
+
+      <!-- <div class="text-center mt-3">
+        <a routerLink="/forgot" class="text-warning text-decoration-none small">Forgot your password?</a>
+      </div> -->
+    </form>
+  </div>
+</div>
+
+<!-- <footer class="text-center text-light py-3 small mt-4">
+  © 2025 Yohan Coin. All Rights Reserved.
+</footer> -->
