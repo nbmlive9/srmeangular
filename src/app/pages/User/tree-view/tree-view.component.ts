@@ -263,7 +263,7 @@ getImageByBoardStatus(boardstatus: string): string {
     this.loading = true;
     this.uapi.UserTreeViewDataById(id).subscribe(
       (res: any) => {
-        console.log('modal data', res);
+        // console.log('modal data', res);
         this.tdata = res.data;
         this.loading = false;
       },

@@ -48,7 +48,7 @@ hideNodeModal() {
       }
     });
     this.uapi.UProfile().subscribe((res:any)=>{
-        console.log('profile',res);
+        // console.log('profile',res);
         this.udata=res.data[0];
     })
   }
@@ -58,7 +58,7 @@ hideNodeModal() {
     this.loading = true;
     this.uapi.UserTreeView(regid).subscribe(
       (res: any) => {
-        console.log('tree',res)
+        // console.log('tree',res)
         this.loading = false;
         this.data2 = res.data;
         if (this.data2) {

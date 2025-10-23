@@ -79,6 +79,7 @@ import { ETicketsComponent } from './pages/Crm/e-tickets/e-tickets.component';
 import { EDeliveryProductsComponent } from './pages/Crm/e-delivery-products/e-delivery-products.component';
 import { CompletedOrdersComponent } from './pages/Crm/completed-orders/completed-orders.component';
 import { PendingOrdersComponent } from './pages/Crm/pending-orders/pending-orders.component';
+import { DowanloadTreeDataComponent } from './pages/User/dowanload-tree-data/dowanload-tree-data.component';
 
 @NgModule({
   declarations: [
@@ -151,7 +152,8 @@ import { PendingOrdersComponent } from './pages/Crm/pending-orders/pending-order
     ETicketsComponent,
     EDeliveryProductsComponent,
     CompletedOrdersComponent,
-    PendingOrdersComponent
+    PendingOrdersComponent,
+    DowanloadTreeDataComponent
   ],
   imports: [
     BrowserModule,
