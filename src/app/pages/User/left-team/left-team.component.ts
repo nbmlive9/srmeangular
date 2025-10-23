@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -6,90 +6,81 @@ import { UserService } from 'src/app/service/user.service';
   templateUrl: './left-team.component.html',
   styleUrls: ['./left-team.component.css']
 })
-export class LeftTeamComponent {
-  data1: any[] = [];
-  loading = true;
+export class LeftTeamComponent implements OnInit {
+  allData: any[] = [];      // All fetched data
+  pro: any[] = [];           // Data to display (after filters)
+  loading: boolean = false;
+  allLoaded: boolean = false;
 
-  rowsPerPage = 10;
-  currentPage = 1;
-  totalRecords = 0;
-  totalPages = 0;
+  page: number = 1;
+  perPage: number = 20;
 
-  Math = Math;
+  // Optional filters (example: date range, can be extended)
+  startDate: string = '';
+  endDate: string = '';
 
   constructor(private api: UserService) {}
 
   ngOnInit() {
-    this.loadUsers();
+    this.loadMore(); // Load first page
   }
 
-  loadUsers() {
-    this.loading = true;
-    const page = this.currentPage;
+  /** Scroll event */
+  onScroll(event: any): void {
+    const target = event.target;
+    const threshold = 20; // trigger when 20px from bottom
+    const position = target.scrollHeight - target.scrollTop - target.clientHeight;
 
-    this.api.LeftTeamData(page, this.rowsPerPage).subscribe(
-      (res: any) => {
-        // console.log(res);
-        this.data1 = res.data.data;
-        this.totalRecords = res.data.count;
-        this.totalPages = Math.ceil(this.totalRecords / this.rowsPerPage);
+    if (position <= threshold && !this.loading && !this.allLoaded) {
+      this.loadMore();
+    }
+  }
+
+  /** Load next page */
+  loadMore(): void {
+    if (this.loading || this.allLoaded) return;
+
+    this.loading = true;
+
+    this.api.LeftTeamData(this.page, this.perPage).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        const newData = res.data?.data || [];
+
+        if (newData.length > 0) {
+          this.allData = [...this.allData, ...newData];
+          this.applyDateFilter();
+          this.page++;
+        } else {
+          this.allLoaded = true;
+        }
+
         this.loading = false;
       },
-      () => (this.loading = false)
-    );
+      error: (err) => {
+        console.error('Error loading users', err);
+        if (err.status === 404) this.allLoaded = true;
+        this.loading = false;
+      }
+    });
   }
 
-  goToPage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.loadUsers();
+  /** Filter by date (optional) */
+  applyDateFilter(): void {
+    if (!this.startDate && !this.endDate) {
+      this.pro = [...this.allData];
+      return;
     }
-  }
 
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.loadUsers();
-    }
-  }
+    const start = this.startDate ? new Date(this.startDate) : null;
+    const end = this.endDate ? new Date(this.endDate) : null;
 
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.loadUsers();
-    }
-  }
-
-  // ✅ Jump to first page
-  firstPage() {
-    if (this.currentPage !== 1) {
-      this.currentPage = 1;
-      this.loadUsers();
-    }
-  }
-
-  // ✅ Jump to last page
-  lastPage() {
-    if (this.currentPage !== this.totalPages) {
-      this.currentPage = this.totalPages;
-      this.loadUsers();
-    }
-  }
-
-  getPageNumbers(): number[] {
-    const pages: number[] = [];
-    const maxVisible = 5; // show 5 page buttons
-    let start = Math.floor((this.currentPage - 1) / maxVisible) * maxVisible + 1;
-    let end = Math.min(start + maxVisible - 1, this.totalPages);
-    for (let i = start; i <= end; i++) pages.push(i);
-    return pages;
-  }
-
-  getStartIndex() {
-    return (this.currentPage - 1) * this.rowsPerPage + 1;
-  }
-
-  getEndIndex() {
-    return Math.min(this.currentPage * this.rowsPerPage, this.totalRecords);
+    this.pro = this.allData.filter((wd: any) => {
+      const cdate = new Date(wd.crdate);
+      if (start && end) return cdate >= start && cdate <= end;
+      if (start) return cdate >= start;
+      if (end) return cdate <= end;
+      return true;
+    });
   }
 }

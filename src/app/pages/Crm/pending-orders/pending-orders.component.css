@@ -1,0 +1,8 @@
+/* Add to component CSS or global styles */
+.modal {
+  z-index: 2000 !important;
+}
+
+.modal-backdrop {
+  z-index: 1999 !important;
+}

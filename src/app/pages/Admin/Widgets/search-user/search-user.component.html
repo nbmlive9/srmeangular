@@ -35,7 +35,7 @@
 <div *ngIf="searchData && !loading" class="mt-4">
 
   <!-- User Info -->
-  <h5 class="mb-3 text-primary">User Details</h5>
+  <h5 class="mb-3 text-primary">User Details  <button class="btn btn-sm btn-primary me-1" (click)="openEditModal(searchData.userdata?.reg_id)">Edit</button></h5>
   <table class="table table-bordered">
     <tbody>
       <tr>
@@ -48,15 +48,15 @@
       </tr>
       <tr>
         <th>Wallet Amount</th>
-        <td>{{ searchData.userdata?.wallet_amount | currency:'INR':'symbol':'1.0-0' }}</td>
+        <td>{{ searchData.userdata?.wallet_amount | currency:'USD':'symbol':'1.0-0' }}</td>
       </tr>
       <tr>
         <th>Credit</th>
-        <td>{{ searchData.userdata?.credit | currency:'INR':'symbol':'1.0-0' }}</td>
+        <td>{{ searchData.userdata?.credit | currency:'USD':'symbol':'1.0-0' }}</td>
       </tr>
       <tr>
         <th>Debit</th>
-        <td>{{ searchData.userdata?.debit | currency:'INR':'symbol':'1.0-0' }}</td>
+        <td>{{ searchData.userdata?.debit | currency:'USD':'symbol':'1.0-0' }}</td>
       </tr>
     </tbody>
   </table>
@@ -100,42 +100,42 @@
         <td>{{ searchData.leftlevel || 0 }}</td>
         <td>{{ searchData.levelright || 0 }}</td>
         <td>{{ searchData.levelpair || 0 }}</td>
-        <td>{{ searchData.levelpair * 1000 || 0 }}</td>
+        <td>{{ searchData.levelpair * 7.5 || 0 }}</td>
       </tr>
       <tr>
         <td>Silver</td>
         <td>{{ searchData.leftsilver || 0 }}</td>
         <td>{{ searchData.rightsilver || 0 }}</td>
         <td>{{ searchData.silverpair || 0 }}</td>
-        <td>{{ searchData.silverpair * 1000 || 0 }}</td>
+        <td>{{ searchData.silverpair * 10.2 || 0 }}</td>
       </tr>
       <tr>
         <td>Gold</td>
         <td>{{ searchData.leftgold || 0 }}</td>
         <td>{{ searchData.rightgold || 0 }}</td>
         <td>{{ searchData.goldpair || 0 }}</td>
-         <td>{{ searchData.goldpair * 2000 || 0 }}</td>
+         <td>{{ searchData.goldpair * 20.4 || 0 }}</td>
       </tr>
       <tr>
         <td>Platinum</td>
         <td>{{ searchData.leftplatinum || 0 }}</td>
         <td>{{ searchData.rightplatinum || 0 }}</td>
         <td>{{ searchData.platinumpair || 0 }}</td>
-         <td>{{ searchData.platinumpair * 4000 || 0 }}</td>
+         <td>{{ searchData.platinumpair * 40.8 || 0 }}</td>
       </tr>
       <tr>
         <td>Diamond</td>
         <td>{{ searchData.leftdiamond || 0 }}</td>
         <td>{{ searchData.rightdiamond || 0 }}</td>
         <td>{{ searchData.diamondpair || 0 }}</td>
-         <td>{{ searchData.diamondpair * 8000 || 0 }}</td>
+         <td>{{ searchData.diamondpair * 81.6 || 0 }}</td>
       </tr>
       <tr>
         <td>Crown</td>
         <td>{{ searchData.leftcrown || 0 }}</td>
         <td>{{ searchData.rightcrown || 0 }}</td>
         <td>{{ searchData.crownpair || 0 }}</td>
-        <td>{{ searchData.crownpair * 16000 || 0 }}</td>
+        <td>{{ searchData.crownpair * 163.2 || 0 }}</td>
       </tr>
     </tbody>
     <!-- <p class="text-success">Total Credit: 
@@ -147,7 +147,7 @@
           (searchData.platinumpair * 4000 || 0) +
           (searchData.diamondpair * 8000 || 0) +
           (searchData.crownpair * 16000 || 0)
-          | currency:'INR':'symbol':'1.0-0'
+          | currency:'USD':'symbol':'1.0-0'
         }}
     </p> -->
       <p class="text-danger">Difference Amount: 
@@ -162,7 +162,7 @@
       (searchData.diamondpair * 8000 || 0) +
       (searchData.crownpair * 16000 || 0)
     )
-    | currency:'INR':'symbol':'1.0-0'
+    | currency:'USD':'symbol':'1.0-0'
   }}
     </p>
   </table>
@@ -207,12 +207,8 @@
             <input formControlName="password" class="form-control" type="text">
           </div>
           <div class="col-md-6 mb-3">
-            <label>Security Key</label>
-            <input formControlName="transpassword" class="form-control" type="text">
-          </div>
-          <div class="col-md-6 mb-3">
             <label>Wallet Address</label>
-            <input formControlName="wallet1" class="form-control" type="text">
+            <input formControlName="aadhar" class="form-control" type="text">
           </div>
         </div>
 

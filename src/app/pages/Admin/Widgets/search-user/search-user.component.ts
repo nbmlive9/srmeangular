@@ -33,8 +33,7 @@ export class SearchUserComponent {
       phone: ['', ], 
       email: ['', ],
       password: ['', ],
-      transpassword: ['', ],
-      wallet1: ['', ],
+      aadhar: ['', ],
     });
   }
 
@@ -79,8 +78,7 @@ openEditModal(id: any) {
         phone: user.phone || '',
         email: user.email || '',
         password: user.password || '',
-        transpassword: user.transpassword || '',
-        wallet1: user.wallet1 || '',
+        aadhar: user.aadhar || '',
       });
       this.isEditModalOpen = true;
     }

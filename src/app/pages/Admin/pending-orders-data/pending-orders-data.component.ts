@@ -14,11 +14,12 @@ declare var bootstrap: any;
 })
 export class PendingOrdersDataComponent {
 
-   data1: any[] = [];
+    data1: any[] = [];
      selectedIds: string[] = [];
+     filterPincode: string = ''; // <--- Pincode filter
      private confirmModal: any;
-   
-     constructor(private api: AdminService, private toastr: ToastrService, private router:Router) {}
+    filterDeliveryType: string = 'all';
+     constructor(private api: AdminService, private toastr: ToastrService, private router: Router) {}
    
      ngOnInit() {
        this.loadPendingOrders();
@@ -30,6 +31,21 @@ export class PendingOrdersDataComponent {
          this.selectedIds = [];
        });
      }
+
+     
+    get filteredData(): any[] {
+    return this.data1.filter(item => {
+      const matchesPincode = !this.filterPincode || item.pincode?.includes(this.filterPincode);
+      const matchesType = this.filterDeliveryType === 'all' || item.deliverytype === this.filterDeliveryType;
+      return matchesPincode && matchesType;
+    });
+  }
+   
+     /** Filtered data based on Pincode */
+    //  get filteredData(): any[] {
+    //    if (!this.filterPincode) return this.data1;
+    //    return this.data1.filter(item => item.pincode?.includes(this.filterPincode));
+    //  }
    
      toggleSelection(id: string, event: any) {
        if (event.target.checked) this.selectedIds.push(id);
@@ -37,57 +53,54 @@ export class PendingOrdersDataComponent {
      }
    
      toggleSelectAll(event: any) {
-       this.selectedIds = event.target.checked ? this.data1.map(item => item.id) : [];
+       const ids = this.filteredData.map(item => item.id); // <-- only filtered rows
+       this.selectedIds = event.target.checked ? ids : [];
      }
    
      isAllSelected(): boolean {
-       return this.data1.length > 0 && this.selectedIds.length === this.data1.length;
+       const filteredIds = this.filteredData.map(item => item.id);
+       return filteredIds.length > 0 && filteredIds.every(id => this.selectedIds.includes(id));
      }
    
      /** ✅ Open Confirmation Modal */
-    openConfirmModal() {
-      const modalEl = document.getElementById('confirmDeliverModal');
-      if (modalEl) {
-        this.confirmModal = new bootstrap.Modal(modalEl, {
-          backdrop: false, // normal backdrop
-          keyboard: true  // allow ESC to close
-        });
-        this.confirmModal.show();
-      }
-    }
-  
-    /** ✅ Confirm Delivery */
-    confirmDeliver() {
-      this.confirmModal?.hide();
-  
-      if (this.selectedIds.length === 0) {
-        this.toastr.warning('Please select at least one order');
-        return;
-      }
-  
-      const idsArray = this.selectedIds.map(id => Number(id));
-  
-      this.api.ProductDeliveryById({ ids: idsArray }).subscribe({
-        next: () => {
-          this.toastr.success('Delivery updated successfully!');
-            setTimeout(() => {
-                this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                  this.router.navigate(['/addproduct']);
-                });
-              }, 500);
-          this.loadPendingOrders();
-        },
-        error: (err) => {
-          console.error('Error:', err);
-          this.toastr.error('Failed to update delivery');
-        }
-      });
-    }
+     openConfirmModal() {
+       const modalEl = document.getElementById('confirmDeliverModal');
+       if (modalEl) {
+         this.confirmModal = new bootstrap.Modal(modalEl, { backdrop: false, keyboard: true });
+         this.confirmModal.show();
+       }
+     }
+   
+     /** ✅ Confirm Delivery */
+     confirmDeliver() {
+       this.confirmModal?.hide();
+       if (this.selectedIds.length === 0) {
+         this.toastr.warning('Please select at least one order');
+         return;
+       }
+   
+       const idsArray = this.selectedIds.map(id => Number(id));
+       this.api.ProductDeliveryById({ ids: idsArray }).subscribe({
+         next: () => {
+           this.toastr.success('Delivery updated successfully!');
+           setTimeout(() => {
+             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+               this.router.navigate(['/addproduct']);
+             });
+           }, 500);
+           this.loadPendingOrders();
+         },
+         error: (err) => {
+           console.error('Error:', err);
+           this.toastr.error('Failed to update delivery');
+         }
+       });
+     }
    
      /** ✅ Export Excel (All or Selected) */
      exportToExcel(type: 'all' | 'selected') {
        let exportData = type === 'all'
-         ? this.data1
+         ? this.filteredData
          : this.data1.filter(item => this.selectedIds.includes(item.id));
    
        if (exportData.length === 0) {
@@ -101,10 +114,10 @@ export class PendingOrdersDataComponent {
            'Date': new Date(item.cdate).toLocaleDateString(),
            'User ID': item.regid,
            'Name': item.name,
-           'Address': item.shiippingaddress,
-           'Pincode': item.pincode,
            'Product': item.product,
-           'Delivery Type': item.deliverytype
+           'Delivery Type': item.deliverytype,
+           'Pincode': item.pincode,
+           'Address': item.shiippingaddress,
          }))
        );
    
@@ -117,7 +130,7 @@ export class PendingOrdersDataComponent {
      /** ✅ Export PDF (All or Selected) */
      exportToPDF(type: 'all' | 'selected') {
        let exportData = type === 'all'
-         ? this.data1
+         ? this.filteredData
          : this.data1.filter(item => this.selectedIds.includes(item.id));
    
        if (exportData.length === 0) {
@@ -133,14 +146,14 @@ export class PendingOrdersDataComponent {
          new Date(item.cdate).toLocaleDateString(),
          item.regid,
          item.name,
-         item.shiippingaddress,
-         item.pincode,
          item.product,
-         item.deliverytype
+         item.deliverytype,
+         item.pincode,
+         item.shiippingaddress,
        ]);
    
        autoTable(doc, {
-         head: [['S.No', 'Date', 'User ID', 'Name', 'Address', 'Pincode', 'Product', 'Delivery']],
+         head: [['S.No', 'Date', 'User ID', 'Name', 'Product', 'Delivery', 'Pincode', 'Address']],
          body: tableData,
          startY: 20
        });

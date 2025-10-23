@@ -32,7 +32,7 @@ export class TokenStorageService {
    signOut2() {
     this.user = null;
     window.localStorage.clear();
-    this.router.navigateByUrl('/emplogin');
+    this.router.navigateByUrl('/crm');
   }
 
   public saveToken(token: string): void {

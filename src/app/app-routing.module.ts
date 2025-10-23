@@ -42,6 +42,8 @@ import { ELoginComponent } from './pages/Crm/e-login/e-login.component';
 import { EDashboardComponent } from './pages/Crm/e-dashboard/e-dashboard.component';
 import { EDeliveryProductsComponent } from './pages/Crm/e-delivery-products/e-delivery-products.component';
 import { ETicketsComponent } from './pages/Crm/e-tickets/e-tickets.component';
+import { CompletedOrdersComponent } from './pages/Crm/completed-orders/completed-orders.component';
+import { PendingOrdersComponent } from './pages/Crm/pending-orders/pending-orders.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent },
@@ -70,7 +72,9 @@ const routes: Routes = [
 
    //Employee Routing
    { path: "edashboard", component: EDashboardComponent, canActivate: [AuthGuard], data: { roles: ['employee'] } },
+     { path: "ependingorders", component: PendingOrdersComponent, canActivate: [AuthGuard], data: { roles: ['employee'] } },
      { path: "eproducts", component: EDeliveryProductsComponent, canActivate: [AuthGuard], data: { roles: ['employee'] } },
+      { path: "edelivered", component: CompletedOrdersComponent, canActivate: [AuthGuard], data: { roles: ['employee'] } },
        { path: "eticket", component: ETicketsComponent, canActivate: [AuthGuard], data: { roles: ['employee'] } },
 
   //User Routings

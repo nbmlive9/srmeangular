@@ -1,1 +1,239 @@
-<p>e-dashboard works!</p>
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+   <div class="content">
+        <div class="row p-2">
+        <div class="col-md-12">
+
+            <div class="card p-3">
+    <!-- Search Form -->
+<!-- Search Form -->
+<form class="form-row justify-content-center" (ngSubmit)="searchUser()">
+  <div class="col-sm-6 col-md-4 mb-2">
+    <input
+      type="text"
+      id="searchTerm"
+      name="searchTerm"
+      class="form-control"
+      placeholder="Enter User ID"
+      [(ngModel)]="searchTerm"
+      required
+    />
+  </div>
+  <div class="col-auto mb-2">
+    <button type="submit" class="btn btn-success">Search</button>
+  </div>
+</form>
+
+<!-- Loader Display -->
+<div class="text-center mt-3" *ngIf="loading">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <p class="mt-2">Fetching data, please wait...</p>
+</div>
+
+<!-- Error Message -->
+<div class="text-center mt-2 text-danger" *ngIf="errorMessage && !loading">
+  {{ errorMessage }}
+</div>
+
+<!-- Result Display -->
+<div *ngIf="searchData && !loading" class="mt-4">
+
+  <!-- User Info -->
+  <h5 class="mb-3 text-primary">User Details  <button class="btn btn-sm btn-primary me-1" (click)="openEditModal(searchData.userdata?.reg_id)">Edit</button></h5>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <td>{{ searchData.userdata?.name }}</td>
+      </tr>
+      <tr>
+        <th>Reg ID</th>
+        <td>{{ searchData.userdata?.reg_id }} (Pass: {{ searchData.userdata?.password }})</td>
+      </tr>
+      <tr>
+        <th>Wallet Amount</th>
+        <td>{{ searchData.userdata?.wallet_amount | currency:'USD':'symbol':'1.0-0' }}</td>
+      </tr>
+      <tr>
+        <th>Credit</th>
+        <td>{{ searchData.userdata?.credit | currency:'USD':'symbol':'1.0-0' }}</td>
+      </tr>
+      <tr>
+        <th>Debit</th>
+        <td>{{ searchData.userdata?.debit | currency:'USD':'symbol':'1.0-0' }}</td>
+      </tr>
+    </tbody>
+  </table>
+<!-- Level Information -->
+  <!-- <h5 class="mt-4 mb-3 text-primary">Level Information</h5>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th>Left Level</th>
+        <td>{{ searchData.leftlevel }}</td>
+      </tr>
+      <tr>
+        <th>Right Level</th>
+        <td>{{ searchData.levelright }}</td>
+      </tr>
+      <tr>
+        <th>Total Level Pairs</th>
+        <td>{{ searchData.levelpair }}</td>
+      </tr>
+       <tr>
+        <th>Total Amount</th>
+        <td>{{ searchData.levelpair * 1000 }}</td>
+      </tr>
+    </tbody>
+  </table> -->
+  <!-- Pair Counts -->
+  <h5 class="mt-4 mb-3 text-primary">Pair Information</h5>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Left</th>
+        <th>Right</th>
+        <th>Pairs</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>Level</td>
+        <td>{{ searchData.leftlevel || 0 }}</td>
+        <td>{{ searchData.levelright || 0 }}</td>
+        <td>{{ searchData.levelpair || 0 }}</td>
+        <td>{{ searchData.levelpair * 7.5 || 0 }}</td>
+      </tr>
+      <tr>
+        <td>Silver</td>
+        <td>{{ searchData.leftsilver || 0 }}</td>
+        <td>{{ searchData.rightsilver || 0 }}</td>
+        <td>{{ searchData.silverpair || 0 }}</td>
+        <td>{{ searchData.silverpair * 10.2 || 0 }}</td>
+      </tr>
+      <tr>
+        <td>Gold</td>
+        <td>{{ searchData.leftgold || 0 }}</td>
+        <td>{{ searchData.rightgold || 0 }}</td>
+        <td>{{ searchData.goldpair || 0 }}</td>
+         <td>{{ searchData.goldpair * 20.4 || 0 }}</td>
+      </tr>
+      <tr>
+        <td>Platinum</td>
+        <td>{{ searchData.leftplatinum || 0 }}</td>
+        <td>{{ searchData.rightplatinum || 0 }}</td>
+        <td>{{ searchData.platinumpair || 0 }}</td>
+         <td>{{ searchData.platinumpair * 40.8 || 0 }}</td>
+      </tr>
+      <tr>
+        <td>Diamond</td>
+        <td>{{ searchData.leftdiamond || 0 }}</td>
+        <td>{{ searchData.rightdiamond || 0 }}</td>
+        <td>{{ searchData.diamondpair || 0 }}</td>
+         <td>{{ searchData.diamondpair * 81.6 || 0 }}</td>
+      </tr>
+      <tr>
+        <td>Crown</td>
+        <td>{{ searchData.leftcrown || 0 }}</td>
+        <td>{{ searchData.rightcrown || 0 }}</td>
+        <td>{{ searchData.crownpair || 0 }}</td>
+        <td>{{ searchData.crownpair * 163.2 || 0 }}</td>
+      </tr>
+    </tbody>
+    <!-- <p class="text-success">Total Credit: 
+
+      {{
+          (searchData?.levelpair * 1000 || 0) +
+          (searchData?.silverpair * 1000 || 0) +
+          (searchData.goldpair * 2000 || 0) +
+          (searchData.platinumpair * 4000 || 0) +
+          (searchData.diamondpair * 8000 || 0) +
+          (searchData.crownpair * 16000 || 0)
+          | currency:'USD':'symbol':'1.0-0'
+        }}
+    </p> -->
+      <!-- <p class="text-danger">Difference Amount: 
+
+      {{
+    (searchData.userdata?.credit || 0) -
+    (
+      (searchData.levelpair * 1000 || 0) +
+      (searchData.silverpair * 1000 || 0) +
+      (searchData.goldpair * 2000 || 0) +
+      (searchData.platinumpair * 4000 || 0) +
+      (searchData.diamondpair * 8000 || 0) +
+      (searchData.crownpair * 16000 || 0)
+    )
+    | currency:'USD':'symbol':'1.0-0'
+  }}
+    </p> -->
+  </table>
+
+  
+</div>
+
+
+   
+
+</div>
+
+<app-pending-orders></app-pending-orders>
+
+
+<div class="modal fade show d-block" 
+     *ngIf="isEditModalOpen"
+     style="background: rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <form [formGroup]="form" (ngSubmit)="submitUpdate()">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User Profile</h5>
+          <button type="button" class="close" (click)="closeModal()">
+            <span>&times;</span>
+          </button>
+        </div>
+
+        <div class="row p-2">
+          <div class="col-md-6 mb-3">
+            <label>Name</label>
+            <input formControlName="name" class="form-control" type="text">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Phone</label>
+            <input formControlName="phone" class="form-control" type="text">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Email</label>
+            <input formControlName="email" class="form-control" type="email">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Password</label>
+            <input formControlName="password" class="form-control" type="text">
+          </div>
+          <div class="col-md-12 mb-3">
+            <label>Wallet Address</label>
+            <input formControlName="aadhar" class="form-control" type="text">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+            
+        </div>
+        </div>
+   </div>
+</div>
+      

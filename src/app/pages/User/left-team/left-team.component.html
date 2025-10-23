@@ -1,61 +1,75 @@
-<div class="table-responsive p-4">
-  <h6 class="text-success">Left Team</h6>
+<div class="container-fluid bg-light py-2 shadow-sm">
+  <div class="container d-flex align-items-center">
 
-  <table class="table table-striped custom-table mb-0">
-    <thead>
-      <tr>
-        <th>S.No</th>
-        <th>Date</th>
-        <th>Userid</th>
-        <th>Level</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of data1; let i = index">
-        <td>{{ getStartIndex() + i }}</td>
-        <td>{{ item.crdate | date:'dd/MM/YYYY'}}</td>
-        <td>{{ item.ref_id }}</td>
-        <td>{{ item.level }}</td>
-        <td>
-          <span class="badge badge-danger" *ngIf="item.status === '0'">Not Activated</span>
-          <span class="badge badge-success" *ngIf="item.status === '1'">Activated</span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  </div>
+</div>
 
-  <!-- Pagination -->
-  <nav *ngIf="totalPages > 1" class="mt-3">
-    <ul class="pagination justify-content-center flex-wrap">
-      
-      <!-- First -->
-      <li class="page-item" [class.disabled]="currentPage === 1">
-        <a class="page-link" (click)="firstPage()">First</a>
-      </li>
+<div class="container mt-3 mb-5">
+  <h3 class="mb-4 text-primary fw-bold">Left Team</h3>
 
-      <!-- Previous -->
-      <li class="page-item" [class.disabled]="currentPage === 1">
-        <a class="page-link" (click)="previousPage()">Previous</a>
-      </li>
+  <!-- Optional Date Filter -->
+  <!-- <div class="row g-3 mb-4">
+    <div class="col-12 col-md-4">
+      <label for="startDate" class="form-label fw-semibold">From Date</label>
+      <input type="date" class="form-control shadow-sm" [(ngModel)]="startDate" id="startDate">
+    </div>
+    <div class="col-12 col-md-4">
+      <label for="endDate" class="form-label fw-semibold">To Date</label>
+      <input type="date" class="form-control shadow-sm" [(ngModel)]="endDate" id="endDate">
+    </div>
+    <div class="col-12 col-md-4 d-grid">
+      <button class="btn btn-primary btn-sm shadow-sm" (click)="applyDateFilter()">
+        Search
+      </button>
+    </div>
+  </div> -->
 
-      <!-- Page Numbers -->
-      <li class="page-item" *ngFor="let page of getPageNumbers()" [class.active]="currentPage === page">
-        <a class="page-link" (click)="goToPage(page)">
-          {{ (page - 1) * rowsPerPage + 1 }} - {{ Math.min(page * rowsPerPage, totalRecords) }}
-        </a>
-      </li>
+  <!-- Scrollable container -->
+  <div class="scroll-container overflow-auto mb-3" style="max-height: 70vh;" (scroll)="onScroll($event)">
+    <!-- <div class="mb-3 fw-semibold fs-5 text-secondary">Team Members</div> -->
 
-      <!-- Next -->
-      <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <a class="page-link" (click)="nextPage()">Next</a>
-      </li>
+    <div class="table-responsive">
+      <table class="table table-striped custom-table mb-0">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Date</th>
+            <th>Userid</th>
+            <th>Level</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let wd of pro; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ wd.crdate | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ wd.ref_id }}</td>
+            <td>{{ wd.level }}</td>
+            <td>
+              <span class="badge badge-danger" *ngIf="wd.status === '0'">Not Activated</span>
+              <span class="badge badge-success" *ngIf="wd.status === '1'">Activated</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <!-- Last -->
-      <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <a class="page-link" (click)="lastPage()">Last</a>
-      </li>
+    <!-- Loading -->
+    <div class="text-center mt-3" *ngIf="loading">
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="text-primary fw-semibold">Loading more users...</p>
+    </div>
 
-    </ul>
-  </nav>
+    <!-- No More -->
+    <div class="text-center mt-3" *ngIf="allLoaded && pro.length > 0">
+      <p class="text-muted fw-semibold">All team members loaded</p>
+    </div>
+
+    <!-- No Data -->
+    <div class="text-center mt-5" *ngIf="!loading && pro.length === 0">
+      <p class="text-muted fw-semibold fs-6">No team members found</p>
+    </div>
+  </div>
 </div>

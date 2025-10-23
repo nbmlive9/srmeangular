@@ -1,0 +1,46 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+   <div class="content">
+        <div class="row p-2">
+            <div class="col-md-12">
+
+                <h4 class="page-title text-success">Completed Orders</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0">
+                            <thead>
+                            <tr>
+                            <th>S.No</th>
+                                <th>Date</th>
+                                <th>userid</th>
+                                <th>Name</th>
+                                <th>Product</th>
+                                <th>Pincode</th>
+                                <th>Delivery</th>
+                                <th>Address</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of data1; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
+                                <td>{{ item.regid }}</td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.product }}</td>
+                                <td>
+                                <span class="text-primary" *ngIf="item.deliverytype=='leader'">Leader To Delivery</span>
+                                <span class="text-success" *ngIf="item.deliverytype=='home'">Home Delivery</span>
+                                </td>
+                                <td>{{ item.pincode }}</td>
+                                <td>{{ item.shiippingaddress }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+         

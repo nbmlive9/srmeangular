@@ -1,1 +1,107 @@
-<p>e-delivery-products works!</p>
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+  <div class="content">
+    <div class="row p-2">
+      <div class="col-md-12">
+
+        <h4 class="page-title text-success">Delivery Orders</h4>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-3">
+          <li class="nav-item">
+            <a class="nav-link" 
+               [ngClass]="{'active': activeTab === 'home'}"
+               (click)="activeTab = 'home'">
+              Home Delivery
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+               [ngClass]="{'active': activeTab === 'leader'}"
+               (click)="activeTab = 'leader'">
+              Leader Delivery
+            </a>
+          </li>
+        </ul>
+
+        <!-- Home Delivery Orders -->
+        <div *ngIf="activeTab === 'home'" class="fade-in">
+          <div class="table-responsive">
+            <table class="table table-striped custom-table mb-0">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Date</th>
+                  <th>User ID</th>
+                  <th>Name</th>
+                  <th>Product</th>
+                  <th>Status</th>
+                  <th>Pincode</th>
+                  <th>Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of data1; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
+                  <td>{{ item.regid }}</td>
+                     <td>{{ item.name }}</td>
+                  <td>{{ item.product }}</td>
+                  <td>
+                    <span class="text-danger" *ngIf="item.transstatus == '0'">Pending</span>
+                    <span class="text-success" *ngIf="item.transstatus == '2'">Delivered</span>
+                  </td>
+                  <td>{{ item.pincode }}</td>
+                  <td>{{ item.shiippingaddress }}</td>
+                </tr>
+                <tr *ngIf="!data1 || data1.length === 0">
+                  <td colspan="7" class="text-center text-muted py-3">No Home Delivery Orders Found.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Leader Delivery Orders -->
+        <div *ngIf="activeTab === 'leader'" class="fade-in">
+          <div class="table-responsive">
+            <table class="table table-striped custom-table mb-0">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Date</th>
+                  <th>User ID</th>
+                  <th>Name</th>
+                  <th>Product</th>
+                  <th>Status</th>
+                  <th>Pincode</th>
+                  <th>Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of data2; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
+                  <td>{{ item.regid }}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.product }}</td>
+                  <td>
+                    <span class="text-danger" *ngIf="item.transstatus == '0'">Pending</span>
+                    <span class="text-success" *ngIf="item.transstatus == '2'">Delivered</span>
+                  </td>
+                  <td>{{ item.pincode }}</td>
+                  <td>{{ item.shiippingaddress }}</td>
+                </tr>
+                <tr *ngIf="!data2 || data2.length === 0">
+                  <td colspan="8" class="text-center text-muted py-3">No Leader Delivery Orders Found.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

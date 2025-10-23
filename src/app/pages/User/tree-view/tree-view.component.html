@@ -158,7 +158,13 @@
       <i class="fa fa-download mx-5 mt-1" style="cursor:pointer; font-size:30px; color:green"></i>
     </div>
 
-    <div id="orgChartToPrint">
+    <div *ngIf="loading1" class="text-center py-5">
+  <div class="spinner-border text-primary" role="status"></div>
+  <p class="mt-2 text-muted">Loading tree, please wait...</p>
+</div>
+
+<div  *ngIf="!loading1 ">
+      <div id="orgChartToPrint">
       <p-organizationChart [value]="data" styleClass="responsive-org-chart">
         <ng-template let-node pTemplate="person">
           <div class="text-center node-container" style="cursor: pointer;">
@@ -182,6 +188,9 @@
         </ng-template>
       </p-organizationChart>
     </div>
+</div>
+  
+
   </div>
 </div>
 

@@ -2,33 +2,26 @@
 
 <div class="row mb-3">
   <div class="col-md-4">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Search by Pincode"
-      [(ngModel)]="filterPincode"
-    />
+    <input type="text" class="form-control" placeholder="Search by Pincode" [(ngModel)]="filterPincode"/>
   </div>
-
-      <div class="col-md-3">
+    <div class="col-md-3">
     <select class="form-select" [(ngModel)]="filterDeliveryType">
       <option value="all">All Types</option>
       <option value="leader">Leader To Delivery</option>
       <option value="home">Home Delivery</option>
     </select>
   </div>
-
   <div class="col-md-8 text-end">
     <button class="btn btn-outline-success btn-sm me-2" (click)="exportToExcel('all')">
       <i class="bi bi-file-earmark-excel"></i> Excel (All)
     </button>
-    <button class="btn btn-outline-primary btn-sm me-2" (click)="exportToExcel('selected')" [disabled]="selectedIds.length === 0">
+    <button class="btn btn-outline-primary btn-sm me-2" (click)="exportToExcel('selected')" [disabled]="selectedIds.length===0">
       <i class="bi bi-file-earmark-excel"></i> Excel (Selected)
     </button>
     <button class="btn btn-outline-danger btn-sm me-2" (click)="exportToPDF('all')">
       <i class="bi bi-file-earmark-pdf"></i> PDF (All)
     </button>
-    <button class="btn btn-outline-warning btn-sm" (click)="exportToPDF('selected')" [disabled]="selectedIds.length === 0">
+    <button class="btn btn-outline-warning btn-sm" (click)="exportToPDF('selected')" [disabled]="selectedIds.length===0">
       <i class="bi bi-file-earmark-pdf"></i> PDF (Selected)
     </button>
   </div>
@@ -38,9 +31,7 @@
   <table class="table table-striped custom-table mb-0">
     <thead>
       <tr>
-        <th>
-          <input type="checkbox" (change)="toggleSelectAll($event)" [checked]="isAllSelected()" />
-        </th>
+        <th><input type="checkbox" (change)="toggleSelectAll($event)" [checked]="isAllSelected()"/></th>
         <th>S.No</th>
         <th>Date</th>
         <th>Userid</th>
@@ -51,25 +42,19 @@
         <th>Address</th>
       </tr>
     </thead>
-
     <tbody>
-      <tr *ngFor="let item of filteredData; let i = index">
+      <tr *ngFor="let item of filteredData; let i=index">
         <td>
-          <input
-            type="checkbox"
-            [value]="item.id"
-            (change)="toggleSelection(item.id, $event)"
-            [checked]="selectedIds.includes(item.id)"
-          />
+          <input type="checkbox" [value]="item.id" (change)="toggleSelection(item.id, $event)" [checked]="selectedIds.includes(item.id)"/>
         </td>
         <td>{{ i + 1 }}</td>
-        <td>{{ item.cdate | date: 'dd/MMM/YYYY' }}</td>
+        <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
         <td>{{ item.regid }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.product }}</td>
         <td>
-          <span class="text-primary" *ngIf="item.deliverytype === 'leader'">Leader To Delivery</span>
-          <span class="text-success" *ngIf="item.deliverytype === 'home'">Home Delivery</span>
+          <span class="text-primary" *ngIf="item.deliverytype==='leader'">Leader To Delivery</span>
+          <span class="text-success" *ngIf="item.deliverytype==='home'">Home Delivery</span>
         </td>
         <td>{{ item.pincode }}</td>
         <td>{{ item.shiippingaddress }}</td>
@@ -79,7 +64,7 @@
 </div>
 
 <div class="mt-3 text-center">
-  <button class="btn btn-success" (click)="openConfirmModal()" [disabled]="selectedIds.length === 0">
+  <button class="btn btn-success" (click)="openConfirmModal()" [disabled]="selectedIds.length===0">
     Deliver Selected ({{ selectedIds.length }})
   </button>
 </div>
@@ -90,7 +75,7 @@
     <div class="modal-content">
       <div class="modal-header bg-warning text-dark">
         <h5 class="modal-title" id="confirmDeliverModalLabel">Confirm Delivery</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body text-center">
         <p>Are you sure you want to deliver <strong>{{ selectedIds.length }}</strong> selected orders?</p>

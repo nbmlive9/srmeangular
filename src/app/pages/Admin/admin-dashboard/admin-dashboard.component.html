@@ -1,128 +1,461 @@
 <app-menu-bar></app-menu-bar>
 
-<div class="page-wrapper bg-wrapper">
-  <div class="content">
-    <div class="row g-4 p-4">
-       <div > 
-         Yohan Coin Price: <span class="text-success">{{dydata?.coinvalue}}</span>
-        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#dynamicupdate">
-  <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: #0C227D;"></i> Update Coin
-</button>
-       </div>
-      <!-- Total Users -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card stat-card shadow-sm border-0">
-          <div class="card-body text-center">
-            <i class="fa fa-users fa-2x text-primary mb-2"></i>
-            <h6 class="text-muted">Total Users</h6>
-            <h4 class="fw-bold">{{ data1?.totalusers || 0 }}</h4>
-          </div>
-        </div>
+<div class="page-wrapper bg-wrapper p-4">
+  <div class="content mb-4">
+    <div class="d-flex justify-content-between mb-3">
+      <div>
+        Yohan Coin Price: <span class="text-success">{{ dydata?.coinvalue }}</span>
+      </div>
+      <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#dynamicupdate">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update Coin
+      </button>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <ul class="nav nav-tabs mb-3" id="dashboardTabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-bs-toggle="tab" href="#today">Today Summary</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="tab" href="#total">Total Summary</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+
+      <!-- =================== TODAY TAB =================== -->
+      <div class="tab-pane fade show active" id="today">
+            <div class="row">
+
+  <!-- Today Join -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-user-plus fa-2x text-success mb-2"></i>
+        <h6 class="text-muted">Today Join</h6>
+        <h4 class="fw-bold">{{ data1?.todayjoin || 0 }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Active -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-bolt fa-2x text-warning mb-2"></i>
+        <h6 class="text-muted">Today Active</h6>
+        <h4 class="fw-bold">{{ data1?.todayactive || 0 }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Credit -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-arrow-up fa-2x text-success mb-2"></i>
+        <h6 class="text-muted">Today Credit</h6>
+        <h4 class="fw-bold">{{ data1?.todaycredit | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Debit -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-arrow-down fa-2x text-danger mb-2"></i>
+        <h6 class="text-muted">Today Debit</h6>
+        <h4 class="fw-bold">{{ data1?.todaydebit | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Deposits -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-coins fa-2x text-warning mb-2"></i>
+        <h6 class="text-muted">Today Deposits</h6>
+        <h4 class="fw-bold">{{ data1?.todaydeposites | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Withdraw -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-wallet fa-2x text-info mb-2"></i>
+        <h6 class="text-muted">Today Withdraw</h6>
+        <h4 class="fw-bold">{{ data1?.todaywithdraw | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Level Income -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-level-up-alt fa-2x text-primary mb-2"></i>
+        <h6 class="text-muted">Today Level Income</h6>
+        <h4 class="fw-bold">{{ data1?.todaylevelincome | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Level Count -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-layer-group fa-2x text-primary mb-2"></i>
+        <h6 class="text-muted">Today Level</h6>
+        <h4 class="fw-bold">{{ data1?.todaylevel || 0 }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Silver -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-medal fa-2x text-secondary mb-2"></i>
+        <h6 class="text-muted">Today Silver</h6>
+        <h4 class="fw-bold">{{ data1?.todaysilver || 0 }}</h4>
+        <p class="small text-muted">Income: {{ data1?.todaysilverincome | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Gold -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-trophy fa-2x text-warning mb-2"></i>
+        <h6 class="text-muted">Today Gold</h6>
+        <h4 class="fw-bold">{{ data1?.todaygold || 0 }}</h4>
+        <p class="small text-muted">Income: {{ data1?.todaygoldincome | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Diamond -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-gem fa-2x text-info mb-2"></i>
+        <h6 class="text-muted">Today Diamond</h6>
+        <h4 class="fw-bold">{{ data1?.todaydiamond || 0 }}</h4>
+        <p class="small text-muted">Income: {{ data1?.todaydiamondincome | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Platinum -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-crown fa-2x text-primary mb-2"></i>
+        <h6 class="text-muted">Today Platinum</h6>
+        <h4 class="fw-bold">{{ data1?.todayplatinum || 0 }}</h4>
+        <p class="small text-muted">Income: {{ data1?.todayplatinumincome | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Crown -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-star fa-2x text-danger mb-2"></i>
+        <h6 class="text-muted">Today Crown</h6>
+        <h4 class="fw-bold">{{ data1?.todaycrown || 0 }}</h4>
+        <p class="small text-muted">Income: {{ data1?.todaycrownincome | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Income Fund -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-piggy-bank fa-2x text-secondary mb-2"></i>
+        <h6 class="text-muted">Today Income Fund</h6>
+        <h4 class="fw-bold">{{ data1?.todayincomefund | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Inner Income -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-hand-holding-usd fa-2x text-info mb-2"></i>
+        <h6 class="text-muted">Today Inner Income</h6>
+        <h4 class="fw-bold">{{ data1?.todayinnerincome | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Level Inner -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-layer-group fa-2x text-warning mb-2"></i>
+        <h6 class="text-muted">Today Level Inner</h6>
+        <h4 class="fw-bold">{{ data1?.todaylevelinner || 0 }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today With Products -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-box fa-2x text-primary mb-2"></i>
+        <h6 class="text-muted">Today With Products</h6>
+        <h4 class="fw-bold">{{ data1?.todaywithproducts || 0 }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Today Without Products -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card text-center shadow-sm border-0">
+      <div class="card-body">
+        <i class="fa fa-box-open fa-2x text-danger mb-2"></i>
+        <h6 class="text-muted">Today Without Products</h6>
+        <h4 class="fw-bold">{{ data1?.todaywithoutproducts || 0 }}</h4>
+      </div>
+    </div>
+  </div>
+
+</div>
+
       </div>
 
-      <!-- Today's Join -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card stat-card shadow-sm border-0">
-          <div class="card-body text-center">
-            <i class="fa fa-user-plus fa-2x text-success mb-2"></i>
-            <h6 class="text-muted">Today Join</h6>
-            <h4 class="fw-bold">{{ data1?.todayjoin || 0 }}</h4>
-          </div>
-        </div>
+      <!-- =================== TOTAL TAB =================== -->
+     <div class="tab-pane fade" id="total">
+
+           <div class="row">
+
+  <!-- Total Users -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-users fa-2x text-primary mb-2"></i>
+        <h6 class="text-muted">Total Users</h6>
+        <h4 class="fw-bold">{{ data1?.totalusers || 0 }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Credit -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-arrow-up fa-2x text-success mb-2"></i>
+        <h6 class="text-muted">Total Credit</h6>
+        <h4 class="fw-bold">{{ data1?.totalcredit | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Debit -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-arrow-down fa-2x text-danger mb-2"></i>
+        <h6 class="text-muted">Total Debit</h6>
+        <h4 class="fw-bold">{{ data1?.totaldebit | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Deposits -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-coins fa-2x text-warning mb-2"></i>
+        <h6 class="text-muted">Total Deposits</h6>
+        <h4 class="fw-bold">{{ data1?.totaldeposites | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Withdraw -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-wallet fa-2x text-info mb-2"></i>
+        <h6 class="text-muted">Total Withdraw</h6>
+        <h4 class="fw-bold">{{ data1?.totalwithdraw | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Level Income -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-level-up-alt fa-2x text-primary mb-2"></i>
+        <h6 class="text-muted">Total Level Income</h6>
+        <h4 class="fw-bold">{{ data1?.totallevelincome | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Level -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-layer-group fa-2x text-warning mb-2"></i>
+        <h6 class="text-muted">Total Level</h6>
+        <h4 class="fw-bold">{{ data1?.totallevel || 0 }}</h4>
+             <p class="small text-muted">Income: {{ data1?.totallevel * 7.5 | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Level Inner -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-layer-group fa-2x text-info mb-2"></i>
+        <h6 class="text-muted">Total Level Inner</h6>
+        <h4 class="fw-bold">{{ data1?.totallevelinner || 0 }}</h4>
+            <p class="small text-muted">Income: {{ data1?.totallevelinner * 1.2 | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Silver -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-medal fa-2x text-secondary mb-2"></i>
+        <h6 class="text-muted">Total Silver</h6>
+        <h4 class="fw-bold">{{ data1?.totalsilver || 0 }}</h4>
+        <p class="small text-muted">Income: {{ data1?.totalsilver * 10.2 | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Gold -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-trophy fa-2x text-warning mb-2"></i>
+        <h6 class="text-muted">Total Gold</h6>
+        <h4 class="fw-bold">{{ data1?.totalgold || 0 }}</h4>
+        <p class="small text-muted">Income: {{ data1?.totalgold * 20.4 | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <!-- Total Platinum -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-crown fa-2x text-primary mb-2"></i>
+        <h6 class="text-muted">Total Platinum</h6>
+        <h4 class="fw-bold">{{ data1?.totalplatinum || 0 }}</h4>
+        <p class="small text-muted">Income: {{ data1?.totalplatinum * 40.8 | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+   <!-- Total Diamond -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-gem fa-2x text-info mb-2"></i>
+        <h6 class="text-muted">Total Diamond</h6>
+        <h4 class="fw-bold">{{ data1?.totaldiamond || 0 }}</h4>
+        <p class="small text-muted">Income: {{ data1?.totaldiamond * 81.6 | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Crown -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-star fa-2x text-danger mb-2"></i>
+        <h6 class="text-muted">Total Crown</h6>
+        <h4 class="fw-bold">{{ data1?.totalcrown || 0 }}</h4>
+        <p class="small text-muted">Income: {{ data1?.totalcrown * 163.2 | currency:'USD':'symbol':'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Income Fund -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-piggy-bank fa-2x text-secondary mb-2"></i>
+        <h6 class="text-muted">Total Income Fund</h6>
+        <h4 class="fw-bold">{{ data1?.totalincomefund | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Total Inner Income -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-hand-holding-usd fa-2x text-info mb-2"></i>
+        <h6 class="text-muted">Total Inner Income</h6>
+        <h4 class="fw-bold">{{ data1?.totalinnerincome | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+    <!-- Total Inner Income -->
+  <div class="col-md-3 col-sm-6 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center">
+      <div class="card-body">
+        <i class="fa fa-hand-holding-usd fa-2x text-info mb-2"></i>
+        <h6 class="text-muted">Total User Wallet</h6>
+        <h4 class="fw-bold">{{ data1?.walletamount | currency:'USD':'symbol':'1.2-2' }}</h4>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- Total Binary Fund -->
+  <div class="col-12 mb-3">
+    <div class="card stat-card shadow-sm border-0 text-center bg-light">
+      <div class="card-body">
+        <h6 class="text-muted">Total Binary Fund</h6>
+        <h4 class="fw-bold">
+          {{
+            ( (data1?.totallevel * 7.5 || 0) +
+              (data1?.totallevelinner * 1.2 || 0) +
+              (data1?.totalsilver * 10.2 || 0) +
+              (data1?.totalgold * 20.4 || 0) +
+              (data1?.totalplatinum * 40.8 || 0) +
+              (data1?.totaldiamond * 81.6 || 0) +
+              (data1?.totalcrown * 163.2 || 0)
+            ) | currency:'USD':'symbol':'1.2-2'
+          }}
+        </h4>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+       
       </div>
 
-      <!-- Today Active -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card stat-card shadow-sm border-0">
-          <div class="card-body text-center">
-            <i class="fa fa-bolt fa-2x text-warning mb-2"></i>
-            <h6 class="text-muted">Today Active</h6>
-            <h4 class="fw-bold">{{ data1?.todayactive || 0 }}</h4>
-          </div>
-        </div>
-      </div>
-
-      <!-- Paid Amount -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card stat-card shadow-sm border-0">
-          <div class="card-body text-center">
-            <i class="fa fa-wallet fa-2x text-info mb-2"></i>
-            <h6 class="text-muted">Paid Amount</h6>
-            <h4 class="fw-bold">{{ data1?.paidamount || 0 | currency:'USD' }}</h4>
-          </div>
-        </div>
-      </div>
-
-      <!-- Total Level -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card stat-card shadow-sm border-0">
-          <div class="card-body text-center">
-            <i class="fa fa-layer-group fa-2x text-secondary mb-2"></i>
-            <h6 class="text-muted">Total Level</h6>
-            <h4 class="fw-bold">{{ data1?.totallevel || 0 }}</h4>
-          </div>
-        </div>
-      </div>
-
-      <!-- Total Silver -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card stat-card shadow-sm border-0">
-          <div class="card-body text-center">
-            <i class="fa fa-medal fa-2x text-secondary mb-2"></i>
-            <h6 class="text-muted">Silver</h6>
-            <h4 class="fw-bold">{{ data1?.totalsilver || 0 }}</h4>
-          </div>
-        </div>
-      </div>
-
-      <!-- Total Gold -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card stat-card shadow-sm border-0">
-          <div class="card-body text-center">
-            <i class="fa fa-trophy fa-2x text-warning mb-2"></i>
-            <h6 class="text-muted">Gold</h6>
-            <h4 class="fw-bold">{{ data1?.totalgold || 0 }}</h4>
-          </div>
-        </div>
-      </div>
-
-      <!-- Total Diamond -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card stat-card shadow-sm border-0">
-          <div class="card-body text-center">
-            <i class="fa fa-gem fa-2x text-info mb-2"></i>
-            <h6 class="text-muted">Diamond</h6>
-            <h4 class="fw-bold">{{ data1?.totaldiamond || 0 }}</h4>
-          </div>
-        </div>
-      </div>
-
-      <!-- Total Platinum -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card stat-card shadow-sm border-0">
-          <div class="card-body text-center">
-            <i class="fa fa-crown fa-2x text-primary mb-2"></i>
-            <h6 class="text-muted">Platinum</h6>
-            <h4 class="fw-bold">{{ data1?.totalplatinum || 0 }}</h4>
-          </div>
-        </div>
-      </div>
-
-      <!-- Total Crown -->
-      <div class="col-md-3 col-sm-6">
-        <div class="card stat-card shadow-sm border-0">
-          <div class="card-body text-center">
-            <i class="fa fa-star fa-2x text-danger mb-2"></i>
-            <h6 class="text-muted">Crown</h6>
-            <h4 class="fw-bold">{{ data1?.totalcrown || 0 }}</h4>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
 
-
+<!-- Dynamic Update Modal -->
 <div class="modal fade" id="dynamicupdate" #dynamicupdate tabindex="-1">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
@@ -131,16 +464,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="form1" (ngSubmit)="UpdateDynamicdata()" class="form-signin">
+        <form [formGroup]="form1" (ngSubmit)="UpdateDynamicdata()">
           <div class="form-group">
-            <label for="sponsor">Coin Price</label>
-            <input type="number" autofocus formControlName="coinvalue" class="form-control" [(ngModel)]="dydata.coinvalue">
+            <label for="coinvalue">Coin Price</label>
+            <input type="number" formControlName="coinvalue" class="form-control" [(ngModel)]="dydata.coinvalue">
           </div>
-
           <div class="form-group text-center mt-3">
-            <button type="submit" class="btn btn-primary account-btn">
-              Submit <i class="fas fa-arrow-right ms-1"></i>
-            </button>
+            <button type="submit" class="btn btn-primary">Submit <i class="fas fa-arrow-right ms-1"></i></button>
           </div>
         </form>
       </div>

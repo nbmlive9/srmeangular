@@ -27,6 +27,12 @@ togglePasswordVisibility(): void {
   this.showPassword = !this.showPassword;
 }
 
+onUserIdInput(event: any) {
+  const value = event.target.value.toUpperCase();
+  event.target.value = value;
+  this.form.get('regid')?.setValue(value, { emitEvent: false });
+}
+
     constructor(private router: Router, private fb:FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private uapi:UserService,  private toastr: ToastrService) { 
       this.form = new FormGroup({
         regid: new FormControl('', [Validators.required]),

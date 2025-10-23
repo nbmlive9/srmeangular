@@ -28,6 +28,7 @@
     "jspdf": "^3.0.3",
     "jspdf-autotable": "^5.0.2",
     "ngx-bootstrap": "^19.0.2",
+    "ngx-infinite-scroll": "^20.0.0",
     "ngx-toastr": "^19.0.0",
     "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",

@@ -28,6 +28,7 @@ modalInstance: any;
   repd: any;
   pdata:any;
   loading: boolean = true;
+  loading1: boolean = true;
   ldata:any;
   rdata: any;
   allData: any;
@@ -103,22 +104,27 @@ mytree1(regid: string) {
 
 
  loadUserTreeData(regid: string) {
-    this.uapi.UserTreeView(regid).subscribe(
-      (res: any) => {
-        console.log('tree',res)
-        this.data2 = res.data;
-        if (this.data2) {
-          this.buildTree();
-          this.errorMessage = '';
-        } else {
-          this.errorMessage = 'No data available for organization chart.';
-        }
-      },
-      (error) => {
-        this.errorMessage = error?.error?.message || 'No Data Found';
+  this.loading1 = true; // <-- Start loader immediately
+  this.data = [];      // <-- Clear previous tree data
+  this.errorMessage = '';
+
+  this.uapi.UserTreeView(regid).subscribe(
+    (res: any) => {
+      this.data2 = res.data;
+      if (this.data2) {
+        this.buildTree();
+      } else {
+        this.errorMessage = 'No data available for organization chart.';
       }
-    );
-  }
+      this.loading1 = false; // <-- Stop loader when data is ready
+    },
+    (error) => {
+      this.errorMessage = error?.error?.message || 'No Data Found';
+      this.loading1 = false;
+    }
+  );
+}
+
 
 
 

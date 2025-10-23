@@ -99,6 +99,10 @@
     <div class="sidebar-footer mt-auto p-3" *ngIf="token1.isAdmin()">
     <button class="btn btn-logout w-100" (click)="logout1()"><i class="fa fa-sign-out-alt me-2"></i> Logout</button>
   </div>
+
+     <div class="sidebar-footer mt-auto p-3" *ngIf="token1.isEmployee()">
+    <button class="btn btn-logout w-100" (click)="logout2()"><i class="fa fa-sign-out-alt me-2"></i> Logout</button>
+  </div>
 </nav>
 
 <!-- Offcanvas for Mobile -->
@@ -123,6 +127,13 @@
       </div>
     </div>
 
+       <div class="offcanvas-profile p-3 d-flex align-items-center gap-2"  *ngIf="token1.isEmployee()">
+      <img src="assets/avatar.jpg" class="off-avatar" />
+      <div>
+        <div class="fw-bold">CRM</div> 
+      </div>
+    </div>
+
     <ul class="list-group list-group-flush">
       <li *ngFor="let item of model" class="list-group-item">
         <a [routerLink]="item.routerLink" (click)="closeSidebar()" class="text-decoration-none text-dark d-flex align-items-center gap-2">
@@ -135,6 +146,9 @@
       </li>
         <li class="list-group-item" *ngIf="token1.isAdmin()">
         <a class="text-danger d-flex align-items-center gap-2" (click)="logout1()"><i class="fa fa-sign-out-alt"></i> Logout</a>
+      </li>
+        <li class="list-group-item" *ngIf="token1.isEmployee()">
+        <a class="text-danger d-flex align-items-center gap-2" (click)="logout2()"><i class="fa fa-sign-out-alt"></i> Logout</a>
       </li>
     </ul>
   </div>

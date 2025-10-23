@@ -1,1 +1,142 @@
-<p>e-tickets works!</p>
+<app-menu-bar></app-menu-bar>
+<div class="page-wrapper bg-wrapper p-2">
+  <div class="content">
+
+    <ul class="nav nav-tabs mb-3">
+      <li class="nav-item">
+        <a class="nav-link" 
+           [ngClass]="{'active': activeTab === 'pending'}" 
+           (click)="activeTab = 'pending'">
+           Pending Tickets
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" 
+           [ngClass]="{'active': activeTab === 'completed'}" 
+           (click)="activeTab = 'completed'">
+           Completed Tickets
+        </a>
+      </li>
+    </ul>
+
+    <!-- Pending Tickets -->
+    <div *ngIf="activeTab === 'pending'">
+      <div class="card chart-card mb-0">
+        <div class="card-header">
+          <h6 class="text-danger mb-0">Pending Support Ticket</h6>
+        </div>
+        <div class="card-body pt-0 pb-0">
+          <div class="table table-responsive">
+            <table class="table custom-table">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Date</th>
+                  <th>UserId</th>
+                  <th>Query</th>
+                  <th>Remark</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of data1; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ row.cdate | date: 'dd/MMM/YYYY' }}</td>
+                  <td>{{ row.regid }}</td>
+                  <td>{{ row.query }}</td>
+                  <td>{{ row.subject }}</td>
+                  <td>
+                    <button
+                      class="btn btn-sm btn-success"
+                      (click)="openReplyModal(replyModal, row.id)"
+                    >
+                      Reply
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="data1?.length === 0">
+                  <td colspan="6" class="text-center text-muted py-3">
+                    No pending tickets found.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completed Tickets -->
+    <div *ngIf="activeTab === 'completed'">
+      <div class="card chart-card mb-0">
+        <div class="card-header">
+          <h6 class="text-success mb-0">Completed Support Ticket</h6>
+        </div>
+        <div class="card-body pt-0 pb-0">
+          <div class="table table-responsive">
+            <table class="table custom-table">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Date</th>
+                  <th>UserId</th>
+                  <th>Query</th>
+                  <th>Remark</th>
+                  <th>Reply</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of data2; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ row.cdate | date: 'dd/MMM/YYYY' }}</td>
+                  <td>{{ row.regid }}</td>
+                  <td>{{ row.query }}</td>
+                  <td>{{ row.subject }}</td>
+                  <td>
+                    {{ row.reply }}
+                    <br />
+                    <small>{{ row.rdate | date: 'dd/MMM/YYYY' }}</small>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-success">Success</button>
+                  </td>
+                </tr>
+                <tr *ngIf="data2?.length === 0">
+                  <td colspan="7" class="text-center text-muted py-3">
+                    No completed tickets found.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Reply Modal -->
+<ng-template #replyModal let-modal>
+  <form [formGroup]="form" (ngSubmit)="replay()">
+    <div class="modal-header">
+      <h5 class="modal-title">Reply</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <textarea
+        class="form-control"
+        formControlName="reply"
+        rows="4"
+        placeholder="Enter your reply"
+      ></textarea>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Send Reply</button>
+    </div>
+  </form>
+</ng-template>

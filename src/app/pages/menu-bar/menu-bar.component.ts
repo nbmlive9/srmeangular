@@ -39,7 +39,7 @@ export class MenuBarComponent implements OnInit {
         { label: 'Users', icon: 'fa fa-users', routerLink: ['/users'] },
         { label: 'Support', icon: 'fa fa-comments', routerLink: ['/adminsupport'] }
       ];
-    } else if (this.token.isUser && this.token.isUser()) {
+    } if (this.token.isUser && this.token.isUser()) {
       this.model = [
         { label: 'Dashboard', icon: 'fa fa-home', routerLink: ['/mydashboard'] },
         { label: 'Profile', icon: 'fa fa-user-edit', routerLink: ['/myprofile'] },
@@ -52,6 +52,20 @@ export class MenuBarComponent implements OnInit {
          { label: 'My Orders', icon: 'fa fa-shopping-cart', routerLink: ['/myorders'] },
         { label: 'My Earning', icon: 'fa fa-wallet', routerLink: ['/income'] },
         { label: 'Support', icon: 'fas fa-comment', routerLink: ['/support'] }
+      ];
+      this.uapi.UProfile().subscribe((res:any)=>{
+          console.log('profile',res);
+          this.pfdata=res.data[0];
+      })
+    }
+
+    if (this.token.isEmployee && this.token.isEmployee()) {
+      this.model = [
+        { label: 'Dashboard', icon: 'fa fa-home', routerLink: ['/edashboard'] },
+          // { label: 'Pending Orders', icon: 'fas fa-comment', routerLink: ['/ependingorders'] },
+        { label: 'Support', icon: 'fas fa-comment', routerLink: ['/eticket'] },
+         { label: 'Orders', icon: 'fas fa-comment', routerLink: ['/eproducts'] },
+          { label: 'Delivered Orders', icon: 'fa fa-home', routerLink: ['/edelivered'] },
       ];
       this.uapi.UProfile().subscribe((res:any)=>{
           console.log('profile',res);

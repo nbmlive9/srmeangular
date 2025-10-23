@@ -385,6 +385,35 @@ return this.http.get(
 }
 
 
+LeftTeamAll(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'TotalLeft_members',
+    httpOptions
+  );   
+}
+
+RightTeamAll(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'TotalRight_members',
+    httpOptions
+  );   
+}
+
+
 LeftTeamData(page: number, perPage: number) {
   const token1 = this.token.getToken();
   const httpOptions = {
