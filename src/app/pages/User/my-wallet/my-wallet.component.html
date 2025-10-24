@@ -114,6 +114,7 @@
                           <th>S.No</th>
                            <th>Date</th>
                           <th>Amount</th>
+                           <th>Coins</th>
                              <th>Txn Id</th>
                           <th>Status</th>
                         </tr>
@@ -123,6 +124,7 @@
                           <td>{{i+1}}</td>
                           <td>{{row.crdate | date:'dd/MMM/YYYY'}}</td>
                           <td class="pay-clr">{{row.amount | currency:'USD':true:'1.2-2'}}</td>
+                             <td>{{row.coins}}</td>
                              <td>{{row.txnid}}</td>
                           <td>
                             <span class="custom-status active-green">

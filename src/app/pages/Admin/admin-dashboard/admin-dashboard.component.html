@@ -12,7 +12,7 @@
     </div>
 
     <!-- Tabs Navigation -->
-    <ul class="nav nav-tabs mb-3" id="dashboardTabs">
+    <ul class="nav nav-tabs mb-3" id="data1?Tabs">
       <li class="nav-item">
         <a class="nav-link active" data-bs-toggle="tab" href="#today">Today Summary</a>
       </li>
@@ -454,6 +454,216 @@
     </div>
   </div>
 </div>
+
+
+
+<div class="card mt-4 ml-5">
+ 
+  <div class="container mt-4">
+  <h4 class="mb-3 text-success text-center">Admin Summary</h4>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped text-center align-middle">
+      <thead class="table-success">
+        <tr>
+          <th>Sr No.</th>
+          <th>Particulars</th>
+          <th>Value</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+          <td>1</td>
+          <td>Total Users</td>
+          <td>{{ data1?.totalusers || 0 }}</td>
+          <td> </td>
+        </tr>
+          <tr>
+          <td>2</td>
+          <td>Today Users</td>
+          <td>{{ data1?.todayjoin || 0 }}</td>
+          <td> </td>
+        </tr>
+          <tr>
+          <td>3</td>
+          <td>Total Amount Received</td>
+          <td>{{ data1?.totalincomefund || 0 | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Joinings with No Product</td>
+          <td>{{ data1?.totalwithoutproducts }}</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Joinings with Product</td>
+          <td>{{ data1?.totalwithproducts }}</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Joinings with No Product Credit</td>
+          <td> </td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Joinings with Product Credit</td>
+          <td> </td>
+          <td> </td>
+        </tr>
+        <tr class="table-warning">
+          <td> </td>
+          <td><b>Total Credit</b></td>
+          <td><b> </b></td>
+          <td>{{ data1?.totalwithoutproducts + data1?.totalwithproducts | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Total Inner Pairs</td>
+          <td> {{data1?.totallevelinner}} </td>
+          <td> {{data1?.totallevelinner * 1.2 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+           <tr>
+          <td>9</td>
+          <td>Today Inner Pairs</td>
+          <td> {{data1?.todaylevelinner}} </td>
+          <td> {{data1?.todaylevelinner * 1.2 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Total Level Pairs</td>
+          <td> {{data1?.totallevel}} </td>
+          <td> {{data1?.totallevel * 7.65 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+           <tr>
+          <td>11</td>
+          <td>Today Level Pairs</td>
+          <td> {{data1?.todaylevel}} </td>
+          <td> {{data1?.todaylevel * 7.65 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>Total Silver Pairs</td>
+          <td> {{data1?.totalsilver}} </td>
+          <td> {{data1?.totalsilver * 10.2 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+           <tr>
+          <td>13</td>
+          <td>Today Silver Pairs</td>
+          <td> {{data1?.todaysilver}} </td>
+          <td> {{data1?.todaysilver * 10.2 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td>Total Gold Pairs</td>
+          <td> {{data1?.totalgold}} </td>
+          <td> {{data1?.totalgold * 20.4 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+           <tr>
+          <td>15</td>
+          <td>Today Gold Pairs</td>
+          <td> {{data1?.todaygold}} </td>
+          <td> {{data1?.todaygold * 20.4 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr>
+          <td>16</td>
+          <td>Total Platinum Pairs</td>
+          <td> {{data1?.totalplatinum}} </td>
+          <td> {{data1?.totalplatinum * 40.8 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+           <tr>
+          <td>17</td>
+          <td>Today Platinum Pairs</td>
+          <td> {{data1?.todayplatinum}} </td>
+          <td> {{data1?.todayplatinum * 40.8 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr>
+          <td>18</td>
+          <td>Total Diamond Pairs</td>
+          <td> {{data1?.totaldiamond}} </td>
+          <td> {{data1?.totaldiamond * 81.6 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+           <tr>
+          <td>19</td>
+          <td>Today Diamond Pairs</td>
+          <td> {{data1?.todaydiamond}} </td>
+          <td> {{data1?.todaydiamond * 81.6 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        <tr>
+          <td>20</td>
+          <td>Total Crown Pairs</td>
+          <td> {{data1?.totalcrown}} </td>
+          <td> {{data1?.totalcrown * 163.2 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+           <tr>
+          <td>21</td>
+          <td>Today Crown Pairs</td>
+          <td> {{data1?.todaycrown}} </td>
+          <td> {{data1?.todaycrown * 163.2 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+         <tr>
+          <td>22</td>
+          <td>Total Output Funds</td>
+          <td> </td>
+          <td>   {{
+            ( (data1?.totallevel * 7.5 || 0) +
+              (data1?.totallevelinner * 1.2 || 0) +
+              (data1?.totalsilver * 10.2 || 0) +
+              (data1?.totalgold * 20.4 || 0) +
+              (data1?.totalplatinum * 40.8 || 0) +
+              (data1?.totaldiamond * 81.6 || 0) +
+              (data1?.totalcrown * 163.2 || 0)
+            ) | currency:'USD':'symbol':'1.2-2'
+          }}</td>
+        </tr>
+         <!-- <tr>
+          <td>23</td>
+          <td>Total Available Amount</td>
+          <td> </td>
+          <td>{{ (data1?.totalwithoutproducts + data1?.totalwithproducts) - 
+            ( (data1?.totallevel * 7.5 || 0) +
+              (data1?.totallevelinner * 1.2 || 0) +
+              (data1?.totalsilver * 10.2 || 0) +
+              (data1?.totalgold * 20.4 || 0) +
+              (data1?.totalplatinum * 40.8 || 0) +
+              (data1?.totaldiamond * 81.6 || 0) +
+              (data1?.totalcrown * 163.2 || 0)
+            ) | currency:'USD':'symbol':'1.2-2'
+          }}</td>
+        </tr> -->
+        <tr>
+          <td>24</td>
+          <td>Total Withdraw</td>
+          <td></td>
+          <td>{{ data1?.totalwithdraw | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+        
+        <tr class="table-danger">
+          <td>25</td>
+          <td><b>User Wallet Fund</b></td>
+          <td><b> </b></td>
+          <td> {{ data1?.walletamount | currency:'USD':'symbol':'1.2-2' }} </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- <div *ngIf="loading" class="text-center mt-5">
+  <div class="spinner-border text-success"></div>
+  <p class="mt-2">Loading data1? data...</p>
+</div> -->
+
+
+
+</div>
+
+
+
 
 <!-- Dynamic Update Modal -->
 <div class="modal fade" id="dynamicupdate" #dynamicupdate tabindex="-1">

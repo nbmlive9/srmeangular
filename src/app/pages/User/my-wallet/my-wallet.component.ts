@@ -115,7 +115,7 @@ export class MyWalletComponent {
   CompletedData() {
     this.api.UserWithdrawCompleted().subscribe({
       next: (res: any) => {
-        console.log(res);
+        console.log(res)
         this.cdata = res.data;
       },
       error: (err) => {
@@ -145,82 +145,74 @@ export class MyWalletComponent {
   }
 
   Withdraw() {
-  if (this.form.invalid) {
-    this.toastr.error('Please enter a valid amount (≥ 10)', 'Validation Error');
-    return;
-  }
-
-  const usdAmount = parseFloat(this.form.value.amount);
-  const recipient = this.pfdata?.aadhar;
-
-  if (!recipient || recipient.trim() === '') {
-    this.toastr.error('Wallet address not found in profile', 'Error');
-    return;
-  }
-
-  // ✅ Convert USD → Yohan Coin before sending
-  const yohanCoinAmount = this.coinValue > 0 ? usdAmount / this.coinValue : 0;
-
-  if (yohanCoinAmount <= 0) {
-    this.toastr.error('Invalid conversion rate or amount', 'Error');
-    return;
-  }
-
-  const payload = {
-    recipient: recipient,
-    amount: parseFloat(yohanCoinAmount.toFixed(4)),
-    flag: 2
-  };
-
-  console.log('Withdraw Payload (in Yohan Coin):', payload);
-
-  this.api.withdrawToBlockchain(payload).subscribe({
-    next: (res: any) => {
-      console.log('Withdraw Response:', res);
-
-      if (res.success) {
-        this.toastr.success(`Withdraw Successful! Tx Hash: ${res.transactionHash}`, 'Success');
-        this.form.reset();
-        this.CompletedData();
-
-        const modalElement = new bootstrap.Modal(this.successModal.nativeElement);
-        modalElement.show();
-
-        setTimeout(() => {
-          modalElement.hide();
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/walletwithdraw']);
-          });
-        }, 1000);
-      } else if (res.error && res.error.toLowerCase().includes('approval')) {
-        setTimeout(() => {
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/walletwithdraw']);
-          });
-        }, 3000);
-        this.toastr.warning('Your withdrawal request is pending admin approval.', 'Pending Approval');
-      } else {
-        setTimeout(() => {
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/walletwithdraw']);
-          });
-        }, 3000);
-        this.toastr.error(res.error || 'Withdraw failed.', 'Error');
-      }
-    },
-    error: (err) => {
-      console.error('Withdraw Error:', err);
-      this.errorMessage1 = 'Insufficient Funds or Server Error';
-      setTimeout(() => {
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/walletwithdraw']);
-        });
-      }, 1000);
-      this.toastr.error(this.errorMessage1, 'Error');
+    if (this.form.invalid) {
+      this.toastr.error('Please enter a valid amount (≥ 10)', 'Validation Error');
+      return;
     }
-  });
-}
 
+    const amount = this.form.value.amount;
+    const recipient = this.pfdata?.aadhar;
+
+    if (!recipient || recipient.trim() === '') {
+      this.toastr.error('Wallet address not found in profile', 'Error');
+      return;
+    }
+
+    const payload = {
+      recipient: recipient,
+      amount: amount,
+     flag: 2
+    };
+
+    console.log('Withdraw Payload:', payload);
+
+    this.api.withdrawToBlockchain(payload).subscribe({
+      next: (res: any) => {
+        console.log('Withdraw Response:', res);
+
+        if (res.success) {
+          this.toastr.success(`Withdraw Successful! Tx Hash: ${res.transactionHash}`, 'Success');
+          this.form.reset();
+          this.CompletedData();
+
+          const modalElement = new bootstrap.Modal(this.successModal.nativeElement);
+          modalElement.show();
+
+          setTimeout(() => {
+            modalElement.hide();
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/walletwithdraw']);
+            });
+          }, 1000);
+        } else if (res.error && res.error.toLowerCase().includes('approval')) {
+          // Example: backend returns error message about admin approval
+              setTimeout(() => {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/walletwithdraw']);
+            });
+          }, 3000);
+          this.toastr.warning('Your withdrawal request is pending admin approval.', 'Pending Approval');
+        } else {
+              setTimeout(() => {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/walletwithdraw']);
+            });
+          }, 3000);
+          this.toastr.error(res.error || 'Withdraw failed.', 'Error');
+        }
+      },
+      error: (err) => {
+        console.error('Withdraw Error:', err);
+        this.errorMessage1 = 'Insufficient Funds or Server Error';
+            setTimeout(() => {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/walletwithdraw']);
+            });
+          }, 1000);
+        this.toastr.error(this.errorMessage1, 'Error');
+      }
+    });
+  }
 
 
 }

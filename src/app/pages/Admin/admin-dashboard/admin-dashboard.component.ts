@@ -37,7 +37,7 @@ errorMessage='';
    getdynamicdata() {
     this.api.GetDynamicData().subscribe({
       next: (res: any) => {
-        console.log('dydata',res);
+        // console.log('dydata',res);
         this.dydata = res.data;
       }
     });
