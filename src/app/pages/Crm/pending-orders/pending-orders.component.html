@@ -28,6 +28,14 @@
 </div>
 
 <div class="table-responsive">
+            <th (click)="sortByPincode()" style="cursor:pointer;">
+  Pincode Filter
+  <i class="bi"
+     [ngClass]="{
+       'bi-arrow-up': sortDirection === 'asc',
+       'bi-arrow-down': sortDirection === 'desc'
+     }"></i>
+</th>
   <table class="table table-striped custom-table mb-0">
     <thead>
       <tr>

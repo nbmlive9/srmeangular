@@ -19,6 +19,7 @@ export class PendingOrdersDataComponent {
      filterPincode: string = ''; // <--- Pincode filter
      private confirmModal: any;
     filterDeliveryType: string = 'all';
+    sortDirection: 'asc' | 'desc' = 'asc';
      constructor(private api: AdminService, private toastr: ToastrService, private router: Router) {}
    
      ngOnInit() {
@@ -40,6 +41,23 @@ export class PendingOrdersDataComponent {
       return matchesPincode && matchesType;
     });
   }
+
+  sortByPincode() {
+  // Toggle sort direction
+  this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+
+  // Sort filtered data array
+  this.data1.sort((a, b) => {
+    const pinA = Number(a.pincode) || 0;
+    const pinB = Number(b.pincode) || 0;
+
+    if (this.sortDirection === 'asc') {
+      return pinA - pinB;
+    } else {
+      return pinB - pinA;
+    }
+  });
+}
    
      /** Filtered data based on Pincode */
     //  get filteredData(): any[] {

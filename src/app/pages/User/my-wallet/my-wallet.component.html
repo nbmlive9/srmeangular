@@ -121,9 +121,9 @@
                       <tbody>
                         <tr *ngFor="let row of cdata; let i=index">
                           <td>{{i+1}}</td>
-                          <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
+                          <td>{{row.crdate | date:'dd/MMM/YYYY'}}</td>
                           <td class="pay-clr">{{row.amount | currency:'USD':true:'1.2-2'}}</td>
-                             <td>{{row.note}}</td>
+                             <td>{{row.txnid}}</td>
                           <td>
                             <span class="custom-status active-green">
                               <span class="live-dark me-1"></span>Success

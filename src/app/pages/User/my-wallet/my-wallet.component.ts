@@ -115,6 +115,7 @@ export class MyWalletComponent {
   CompletedData() {
     this.api.UserWithdrawCompleted().subscribe({
       next: (res: any) => {
+        console.log(res);
         this.cdata = res.data;
       },
       error: (err) => {
