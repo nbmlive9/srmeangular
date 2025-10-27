@@ -30,7 +30,7 @@ export class UserDashboardComponent {
 
 getdashboardHome() {
   this.api.UDashboardData().subscribe((res: any) => {
-    // console.log('homedata', res);
+    console.log('homedata', res);
     this.data2 = res.data;
 
     const perUnitAmounts: { [key: string]: number } = {

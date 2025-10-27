@@ -1,0 +1,72 @@
+ <div class="card p-2 buy-form">
+                    <h5 class="page-title text-danger">Transfer to Other User Wallet  </h5>
+                      <form [formGroup]="form" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="focus-label">Transfer Amount ($)*</label>
+                                    <input type="text" class="form-control floating" formControlName="amount" min="1">
+                                    <div *ngIf="form.get('amount')?.touched">
+                                      <span class="text-danger" *ngIf="form.get('amount')?.hasError('required')">
+                                        Amount is required.
+                                      </span>
+                                      <span class="text-danger" *ngIf="form.get('amount')?.hasError('min')">
+                                        Minimum transfer amount is $1.
+                                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="focus-label">From Userid*</label>
+                                    <input type="text" class="form-control floating" formControlName="fromid" (keyup)="onRegisterIdSelect($event)">
+                                      <span class="text-success">{{idselectmsg}}</span>
+                                    <span class="text-danger">{{errorMessage}}</span>
+                                     <span class="text-danger" *ngIf="form.get('fromid')?.touched && form.get('fromid')?.hasError('required')">
+                                      Enter valid From userid
+                                    </span>
+                                </div>
+                            </div>
+
+                           
+                             <!-- <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="focus-label">Remark*</label>
+                                    <input type="text" class="form-control floating" formControlName="remark">
+                                    <span class="text-danger" *ngIf="form.get('remark')?.touched && form.get('remark')?.hasError('required')">
+                                      Enter Remark
+                                    </span>
+                                </div>
+                            </div> -->
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="focus-label">Select Type*</label>
+                                    <select class="form-control select" formControlName="wallettyoe">
+                                      <option value="" disabled>Select Type</option>
+                                      <option value="dwallet">Activation Fund </option>
+                                      <option value="ewallet">Main Wallet </option>
+                                    </select>
+                                    <span class="text-danger" *ngIf="form.get('wallettyoe')?.touched && form.get('wallettyoe')?.hasError('required')">
+                                      Select Walet Type
+                                    </span>
+                                </div>
+                            </div>
+
+                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="focus-label">To Userid*</label>
+                                    <input type="text" class="form-control floating" formControlName="regid" (keyup)="onRegisterIdSelect1($event)">
+                                      <span class="text-success">{{idselectmsg1}}</span>
+                                    <span class="text-danger">{{errorMessage1}}</span>
+                                     <span class="text-danger" *ngIf="form.get('regid')?.touched && form.get('regid')?.hasError('required')">
+                                      Enter valid To userid
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="text-center m-t-20">
+                                <button class="btn btn-primary submit-btn" (click)="add()" [disabled]="!form.valid" type="button">Submit</button>
+                            </div>
+                         </div>
+                      </form>
+                </div>

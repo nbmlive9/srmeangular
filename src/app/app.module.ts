@@ -83,6 +83,7 @@ import { DowanloadTreeDataComponent } from './pages/User/dowanload-tree-data/dow
 import { DirectRegistrationUserComponent } from './pages/User/direct-registration-user/direct-registration-user.component';
 import { DirectDepositeFundComponent } from './pages/User/direct-deposite-fund/direct-deposite-fund.component';
 import { DirectWithdrawFundComponent } from './pages/User/direct-withdraw-fund/direct-withdraw-fund.component';
+import { DirectUserWalletTransferComponent } from './pages/User/direct-user-wallet-transfer/direct-user-wallet-transfer.component';
 
 @NgModule({
   declarations: [
@@ -159,7 +160,8 @@ import { DirectWithdrawFundComponent } from './pages/User/direct-withdraw-fund/d
     DowanloadTreeDataComponent,
     DirectRegistrationUserComponent,
     DirectDepositeFundComponent,
-    DirectWithdrawFundComponent
+    DirectWithdrawFundComponent,
+    DirectUserWalletTransferComponent
   ],
   imports: [
     BrowserModule,

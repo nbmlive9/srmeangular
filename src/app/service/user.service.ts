@@ -285,6 +285,33 @@ UserWithdraw(value: {
     );
   }
 
+  DirectUserTransferUserWallet(value: {
+    fromid:string;
+    regid:string;
+    amount: number;
+    remark: string;
+    wallettyoe:string;
+  }){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    };
+    return this.http.post(
+      AUTH_API + 'Wallet_TranseferDirect',
+      { 
+        "fromid":value.fromid, 
+      "regid":value.regid, 
+      "amount":value.amount, 
+      "remark":value.remark,
+      "wallettyoe":value.wallettyoe
+    },
+       httpOptions 
+    );
+  }
+
   TransferWalletData(){
     const token1 = this.token.getToken();
     const httpOptions = {

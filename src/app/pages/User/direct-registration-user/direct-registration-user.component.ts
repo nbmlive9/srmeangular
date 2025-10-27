@@ -17,12 +17,15 @@ export class DirectRegistrationUserComponent {
 
     @ViewChild('depositModal') depositModal!: TemplateRef<any>;
 @ViewChild('withdrawModal') withdrawModal!: TemplateRef<any>;
+@ViewChild('transferModal') transferModal!: TemplateRef<any>;
 
 openModal(type: string) {
   if (type === 'deposit') {
     this.modalService.open(this.depositModal, { centered: true, size: 'lg', backdrop: 'static' });
-  } else if (type === 'withdraw') {
+  } if (type === 'withdraw') {
     this.modalService.open(this.withdrawModal, { centered: true, size: 'lg', backdrop: 'static' });
+  } if (type === 'transfer') {
+    this.modalService.open(this.transferModal, { centered: true, size: 'lg', backdrop: 'static' });
   }
 }
 

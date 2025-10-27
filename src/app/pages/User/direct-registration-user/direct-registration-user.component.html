@@ -17,8 +17,9 @@
 
 <!-- Trigger button -->
 <div class="text-end">
-  <button class="btn btn-sm btn-primary mr-3" (click)="openModal('deposit')">Deposit</button>
-  <button class="btn btn-sm btn-danger" (click)="openModal('withdraw')">Withdraw</button>
+  <button class="btn btn-sm btn-primary mr-3" (click)="openModal('deposit')">Deposit / Add Funds</button>
+  <button class="btn btn-sm btn-danger mr-3" (click)="openModal('withdraw')">Withdraw</button>
+    <button class="btn btn-sm btn-success" (click)="openModal('transfer')">Transfer</button>
 </div>
 
 <!-- Deposit Modal -->
@@ -40,6 +41,16 @@
   </div>
   <div class="modal-body">
     <app-direct-withdraw-fund></app-direct-withdraw-fund> 
+  </div>
+</ng-template>
+
+<ng-template #transferModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Transfer</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <app-direct-user-wallet-transfer></app-direct-user-wallet-transfer> 
   </div>
 </ng-template>
 
