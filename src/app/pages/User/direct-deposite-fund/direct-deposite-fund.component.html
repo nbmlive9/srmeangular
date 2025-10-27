@@ -1,5 +1,12 @@
     <div class="card p-2 buy-form">
                     <h5 class="page-title text-danger">Deposit Wallet  </h5>
+                    <div *ngIf="successMessage" class="alert alert-success mt-2 text-center">
+  {{ successMessage }}
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger mt-2 text-center">
+  {{ errorMessage }}
+</div>
                       <form [formGroup]="form" novalidate>
                         <div class="row">
                             <div class="col-md-6">

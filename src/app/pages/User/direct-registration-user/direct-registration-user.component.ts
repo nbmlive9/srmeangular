@@ -68,6 +68,9 @@ openModal(type: string) {
     errorMessage3: string = '';
     selectedProduct: any = null; // store selected product details
   deliveryFee: string = '';
+      idselectmsg2: string = '';
+    regname2:any;
+    errorMessage2: string = '';
     constructor(private api:UserService, private fb:FormBuilder, private router:Router,  private modalService: NgbModal){
         this.form = this.fb.group({
           regid: ['', Validators.required],
@@ -77,7 +80,7 @@ openModal(type: string) {
           password: ['', [Validators.required, Validators.minLength(6)]], 
           sponcerid: ['', Validators.required],
           position: ['',Validators.required], 
-          placementid: [''],
+          placementid: ['',Validators.required],
           regtype: ['', Validators.required],
           product: [''], 
           address: [''], 
@@ -156,7 +159,15 @@ openModal(type: string) {
   
   
     onRegisterIdSelect(event: any) {
-      const id = event.target.value;
+     const id = event.target.value.trim();
+  
+    // If empty, reset messages and stop here (no API call)
+    if (!id) {
+      this.regname = null;
+      this.idselectmsg = '';
+      this.errorMessage = '';
+      return;
+    }
       this.api.GetusersDataByRegID(id).subscribe(
         (res4: any) => {
           if (res4) {
@@ -210,6 +221,38 @@ openModal(type: string) {
       }
     );
   }
+
+  onRegisterIdSelect2(event: any) {
+    const id = event.target.value.trim();
+  
+    // If empty, reset messages and stop here (no API call)
+    if (!id) {
+      this.regname2 = null;
+      this.idselectmsg2 = '';
+      this.errorMessage2 = '';
+      return;
+    }
+  
+    this.api.GetusersDataByRegID(id).subscribe(
+      (res4: any) => {
+          console.log(res4);
+        if (res4 && res4.data && res4.data.length > 0) {
+          this.regname2 = res4.data[0];
+          this.idselectmsg2 = `Name: ${this.regname2.name} , fund: ${this.regname2.actwallet} `;
+          this.errorMessage2 = '';
+        } else {
+          this.regname2 = null;
+          this.errorMessage2 = 'User Not Available';
+          this.idselectmsg2 = '';
+        }
+      },
+      (err: any) => {
+        this.regname2 = null;
+        this.idselectmsg2 = '';
+        this.errorMessage2 = 'Enter valid Userid';
+      }
+    );
+  }
   
      updateProductValidators(regtype: string) {
       const product = this.form.get('product');
@@ -248,7 +291,7 @@ openModal(type: string) {
       email: this.form.value.email,
       password: this.form.value.password,
       position: this.form.value.position,
-      placementid: this.form.value.sponcerid,
+      placementid: this.form.value.placementid,
       regtype: this.form.value.regtype,
       deliverytype: this.form.value.deliverytype,
     };

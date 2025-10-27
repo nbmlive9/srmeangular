@@ -32,7 +32,7 @@ import { IncomesReportComponent } from './pages/User/incomes-report/incomes-repo
 import { MyWalletComponent } from './pages/User/my-wallet/my-wallet.component';
 import { WalletReportComponent } from './pages/User/wallet-report/wallet-report.component';
 import { ProfileComponent } from './pages/User/profile/profile.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LevelIncomeComponent } from './pages/User/level-income/level-income.component';
 import { ReferralIncomeComponent } from './pages/User/referral-income/referral-income.component';
 import { ReferralClubIncomeComponent } from './pages/User/referral-club-income/referral-club-income.component';
@@ -173,7 +173,7 @@ import { DirectUserWalletTransferComponent } from './pages/User/direct-user-wall
       preventDuplicates: true,
     }), ClipboardModule, OrganizationChartModule
   ],
-  providers: [],
+  providers: [NgbActiveModal],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

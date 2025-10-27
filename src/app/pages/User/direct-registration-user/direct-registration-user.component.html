@@ -16,43 +16,43 @@
 </ng-template> -->
 
 <!-- Trigger button -->
-<div class="text-end">
-  <button class="btn btn-sm btn-primary mr-3" (click)="openModal('deposit')">Deposit / Add Funds</button>
-  <button class="btn btn-sm btn-danger mr-3" (click)="openModal('withdraw')">Withdraw</button>
-    <button class="btn btn-sm btn-success" (click)="openModal('transfer')">Transfer</button>
-</div>
+  <div class="text-end">
+    <button class="btn btn-sm btn-primary mr-3" (click)="openModal('deposit')">Deposit / Add Funds</button>
+    <button class="btn btn-sm btn-danger mr-3" (click)="openModal('withdraw')">Withdraw</button>
+      <button class="btn btn-sm btn-success" (click)="openModal('transfer')">Transfer</button>
+  </div>
 
-<!-- Deposit Modal -->
-<ng-template #depositModal let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title">Deposit</h5>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-  </div>
-  <div class="modal-body">
-    <app-direct-deposite-fund></app-direct-deposite-fund>
-  </div>
-</ng-template>
+  <!-- Deposit Modal -->
+  <ng-template #depositModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Deposit</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <app-direct-deposite-fund></app-direct-deposite-fund>
+    </div>
+  </ng-template>
 
-<!-- Withdraw Modal -->
-<ng-template #withdrawModal let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title">Withdraw</h5>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-  </div>
-  <div class="modal-body">
-    <app-direct-withdraw-fund></app-direct-withdraw-fund> 
-  </div>
-</ng-template>
+  <!-- Withdraw Modal -->
+  <ng-template #withdrawModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Withdraw</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <app-direct-withdraw-fund></app-direct-withdraw-fund> 
+    </div>
+  </ng-template>
 
-<ng-template #transferModal let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title">Transfer</h5>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-  </div>
-  <div class="modal-body">
-    <app-direct-user-wallet-transfer></app-direct-user-wallet-transfer> 
-  </div>
-</ng-template>
+  <ng-template #transferModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Transfer</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <app-direct-user-wallet-transfer></app-direct-user-wallet-transfer> 
+    </div>
+  </ng-template>
 
 
 
@@ -92,6 +92,20 @@
                 </div>
               <small class="text-success">{{idselectmsg1}}</small>
                    <small class="text-danger">{{errorMessage1}}</small>
+              </div>
+
+              <div class="col-sm-6">
+                <label class="form-label">Placement ID</label>
+                <div class="input-wrapper">
+                  <input type="text" formControlName="placementid" class="form-control"  (keyup)="onRegisterIdSelect2($event)"/>
+                    <!-- <input type="text" formControlName="placementid" class="form-control" [(ngModel)]="data2.reg_id" hidden/> -->
+                  <!-- <input type="text" formControlName="placementid" [(ngModel)]="data2.reg_id" class="form-control" hidden /> -->
+                </div>
+                   <div *ngIf="form.get('placementid')?.touched && form.get('placementid')?.invalid" class="text-danger small">
+                  placementid is required
+                </div>
+              <small class="text-success">{{idselectmsg2}}</small>
+                   <small class="text-danger">{{errorMessage2}}</small>
               </div>
 
 

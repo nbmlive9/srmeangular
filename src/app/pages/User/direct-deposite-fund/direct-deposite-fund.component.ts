@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class DirectDepositeFundComponent {
     errorMessage: string = '';
     tdata:any;
   pfdata: any;
-    constructor(private api:UserService, private fb:FormBuilder, private router:Router ){
+  successMessage: string = '';
+    constructor(private api:UserService, private fb:FormBuilder, private router:Router,   public activeModal: NgbActiveModal ){
         this.form = this.fb.group({
                 regid: ['', Validators.required], 
                 amount: ['', [Validators.required, Validators.min(1)]], 
@@ -81,6 +83,7 @@ export class DirectDepositeFundComponent {
           if (a) {
             // console.log(a);
                this.form.reset();
+               this.activeModal.close();
               //  this.reloadPage();
                setTimeout(() => {
                  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -89,13 +92,14 @@ export class DirectDepositeFundComponent {
                  }, 500);
           } else {
             // console.log(a);
-            // this.errorMessage = a.msg.message;
-         
+            this.errorMessage = a.msg.message;
+          
           }
         },
         (err: any) => {
           console.error(err);
           // this.errorMessage = err.error.message;
+           
         },
       );
     }

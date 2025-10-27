@@ -525,13 +525,13 @@
           <td>8</td>
           <td>Total Inner Pairs</td>
           <td> {{data1?.totallevelinner}} </td>
-          <td> {{data1?.totallevelinner * 1.2 | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td> {{data1?.totallevelinner * 1.02 | currency:'USD':'symbol':'1.2-2' }}</td>
         </tr>
            <tr>
           <td>9</td>
           <td>Today Inner Pairs</td>
           <td> {{data1?.todaylevelinner}} </td>
-          <td> {{data1?.todaylevelinner * 1.2 | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td> {{data1?.todaylevelinner * 1.02 | currency:'USD':'symbol':'1.2-2' }}</td>
         </tr>
         <tr>
           <td>10</td>
@@ -611,7 +611,7 @@
           <td> </td>
           <td>   {{
             ( (data1?.totallevel * 7.5 || 0) +
-              (data1?.totallevelinner * 1.2 || 0) +
+              (data1?.totallevelinner * 1.02 || 0) +
               (data1?.totalsilver * 10.2 || 0) +
               (data1?.totalgold * 20.4 || 0) +
               (data1?.totalplatinum * 40.8 || 0) +
