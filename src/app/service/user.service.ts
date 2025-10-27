@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { TokenStorageService } from './token-storage.service';
 import { Observable } from 'rxjs';
 
-const AUTH_API ='https://yohanbin.live/S7R18M13E5/S7R18M13E5/User/'
-
+//const AUTH_API ='https://yohanbin.live/S7R18M13E5/S7R18M13E5/User/'
+  const AUTH_API ='https://yohanbin.live/S7R18M13E56/S7R18M13E5/User/'
 @Injectable({
   providedIn: 'root'
 })
@@ -31,6 +31,7 @@ export class UserService {
   return this.http.post(
     AUTH_API + 'Register',
     {
+      "regid": value.regid,
       "sponcerid": value.sponcerid,
       "name": value.name,
       "phone": value.phone,
@@ -43,6 +44,76 @@ export class UserService {
       "address": value.address || null,
       "pincode": value.pincode || null,
       "deliverytype": value.deliverytype || null,
+    },
+    httpOptions
+  );
+}
+
+UserRegistrationDirect(value: any) {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+
+  return this.http.post(
+    AUTH_API + 'Registerdirect',
+    {
+      "sponcerid": value.sponcerid,
+      "regid": value.regid,
+      "name": value.name,
+      "phone": value.phone,
+      "email": value.email,
+      "password": value.password,
+      "position": value.position,
+      "placementid": value.placementid,
+      "regtype": value.regtype,
+      "product": value.product || null,
+      "address": value.address || null,
+      "pincode": value.pincode || null,
+      "deliverytype": value.deliverytype || null,
+    },
+    httpOptions
+  );
+}
+
+DirectDepositeFundUser(value: any) {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+
+  return this.http.post(
+    AUTH_API + 'Deposite_direct',
+    {
+      "amount": value.amount,
+      "note": value.note,
+      "transno": value.transno,
+      "regid": value.regid,
+    },
+    httpOptions
+  );
+}
+
+DirectWithdrawFundUser(value: any) {
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  };
+
+  return this.http.post(
+    AUTH_API + 'Withdraw_direct',
+    {
+      "amount": value.amount,
+      "regid": value.regid,
     },
     httpOptions
   );

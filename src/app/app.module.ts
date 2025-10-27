@@ -80,6 +80,9 @@ import { EDeliveryProductsComponent } from './pages/Crm/e-delivery-products/e-de
 import { CompletedOrdersComponent } from './pages/Crm/completed-orders/completed-orders.component';
 import { PendingOrdersComponent } from './pages/Crm/pending-orders/pending-orders.component';
 import { DowanloadTreeDataComponent } from './pages/User/dowanload-tree-data/dowanload-tree-data.component';
+import { DirectRegistrationUserComponent } from './pages/User/direct-registration-user/direct-registration-user.component';
+import { DirectDepositeFundComponent } from './pages/User/direct-deposite-fund/direct-deposite-fund.component';
+import { DirectWithdrawFundComponent } from './pages/User/direct-withdraw-fund/direct-withdraw-fund.component';
 
 @NgModule({
   declarations: [
@@ -153,7 +156,10 @@ import { DowanloadTreeDataComponent } from './pages/User/dowanload-tree-data/dow
     EDeliveryProductsComponent,
     CompletedOrdersComponent,
     PendingOrdersComponent,
-    DowanloadTreeDataComponent
+    DowanloadTreeDataComponent,
+    DirectRegistrationUserComponent,
+    DirectDepositeFundComponent,
+    DirectWithdrawFundComponent
   ],
   imports: [
     BrowserModule,

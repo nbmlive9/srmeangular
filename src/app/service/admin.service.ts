@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from './token-storage.service';
 import { Observable } from 'rxjs';
 
-const AUTH_API ='https://yohanbin.live/S7R18M13E5/S7R18M13E5/Admin/'
-
+//const AUTH_API ='https://yohanbin.live/S7R18M13E5/S7R18M13E5/Admin/'
+const AUTH_API ='https://yohanbin.live/S7R18M13E56/S7R18M13E5/Admin/'
 @Injectable({
   providedIn: 'root'
 })

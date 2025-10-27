@@ -44,6 +44,7 @@ import { EDeliveryProductsComponent } from './pages/Crm/e-delivery-products/e-de
 import { ETicketsComponent } from './pages/Crm/e-tickets/e-tickets.component';
 import { CompletedOrdersComponent } from './pages/Crm/completed-orders/completed-orders.component';
 import { PendingOrdersComponent } from './pages/Crm/pending-orders/pending-orders.component';
+import { DirectRegistrationUserComponent } from './pages/User/direct-registration-user/direct-registration-user.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent },
@@ -93,6 +94,7 @@ const routes: Routes = [
     {path:"income",component:MyIncomeReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
        {path:"myorders",component:UserOrdersComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
       { path: 'treeregister/:regid/:position', component: TreeRegistrationComponent, canActivate: [AuthGuard], data: { usertype: ['user'] } },
+        {path:"directreg",component:DirectRegistrationUserComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   // {path:"activation/:regid",component:UserActivation, canActivate: [AuthGuard], data: { roles: ['user'] } },
 
 ];
