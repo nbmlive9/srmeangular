@@ -97,7 +97,7 @@
     <table class="table table-bordered align-middle text-center">
       <thead class="table-light">
         <tr>
-          <th>Rank</th>
+          <th> </th>
           <th>Left</th>
           <th>Right</th>
         </tr>
@@ -112,6 +112,11 @@
           <td class="fw-bold text-secondary">Level</td>
           <td>{{ data2?.mlevelleft || 0 }}</td>
           <td>{{ data2?.mlevelright || 0 }}</td>
+        </tr>
+          <tr>
+          <td class="fw-bold text-secondary">Inner</td>
+          <td>{{ data2?.minnerleft || 0 }}</td>
+          <td>{{ data2?.minnerright || 0 }}</td>
         </tr>
         <tr>
           <td class="fw-bold text-muted">Silver</td>
@@ -227,7 +232,7 @@
   <table class="table table-bordered align-middle text-center">
     <thead class="table-light">
       <tr>
-        <th>Rank</th>
+        <th> </th>
         <th>Left</th>
         <th>Right</th>
       </tr>
@@ -243,6 +248,11 @@
         <td>{{ tdata?.mlevelleft || 0 }}</td>
         <td>{{ tdata?.mlevelright || 0 }}</td>
       </tr>
+          <tr>
+          <td class="fw-bold text-secondary">Inner</td>
+          <td>{{ tdata?.minnerleft || 0 }}</td>
+          <td>{{ tdata?.minnerright || 0 }}</td>
+        </tr>
       <tr>
         <td class="fw-bold text-muted">Silver</td>
         <td>{{ tdata?.msilverleft || 0 }}</td>

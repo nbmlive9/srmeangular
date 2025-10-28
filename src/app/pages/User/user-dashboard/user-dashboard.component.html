@@ -6,8 +6,9 @@
           <!-- Profile Section -->
           <div class="profile-card gradient-bg text-white p-4 rounded-4 shadow-sm mb-4">
             <div class="d-flex align-items-center flex-wrap">
-              <a routerLink="/directreg" class="btn btn-sm btn-danger">Click Registration</a>
-              <!-- <img src="assets/profile.png" alt="Profile" class="profile-img me-3" /> -->
+              <div *ngIf="pdata?.reg_id === 'SM888777'">
+                  <a routerLink="/directreg" class="btn btn-sm btn-danger">Click Registration</a>
+              </div>
               <div>
                 <h4 class="mb-1 fw-bold">{{ pdata?.name }}</h4>
                 <p class="mb-0 small opacity-75">User ID: {{ pdata?.reg_id }}</p>

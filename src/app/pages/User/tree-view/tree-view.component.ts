@@ -110,6 +110,7 @@ mytree1(regid: string) {
 
   this.uapi.UserTreeView(regid).subscribe(
     (res: any) => {
+      // console.log('treedata',res);
       this.data2 = res.data;
       if (this.data2) {
         this.buildTree();
