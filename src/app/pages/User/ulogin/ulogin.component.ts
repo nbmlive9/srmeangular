@@ -28,7 +28,8 @@ togglePasswordVisibility(): void {
 }
 
 onUserIdInput(event: any) {
-  const value = event.target.value.toUpperCase();
+  // Convert to uppercase and remove all spaces
+  const value = event.target.value.toUpperCase().replace(/\s+/g, '');
   event.target.value = value;
   this.form.get('regid')?.setValue(value, { emitEvent: false });
 }
