@@ -6,6 +6,11 @@
             <div class="col-md-12">
               <div class="text-center mb-3 d-flex flex-wrap justify-content-center">
                 <!-- <button class="btn btn-outline-primary m-1" (click)="showSection('selftransfer')">Self Transfer</button> -->
+                 <div *ngIf="message" class="alert alert-{{message.type}} alert-dismissible fade show" role="alert">
+  {{ message.text }}
+  <button type="button" class="btn-close" (click)="message=null" aria-label="Close"></button>
+</div>
+
                   <button class="btn btn-outline-success m-1" (click)="showSection('usertransfer')">User Transfer Wallet</button>
               </div>
             </div>
@@ -61,9 +66,36 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="text-center m-t-20">
+                            <div *ngIf="showOtpForm" class="mt-3">
+                  <form [formGroup]="form1" novalidate>
+                    <div class="mb-3">
+                      <label class="form-label">Enter OTP</label>
+                      <input 
+                        type="text" 
+                        formControlName="otp" 
+                        class="form-control" 
+                        placeholder="Enter 6-digit OTP"
+                      >
+                      <div *ngIf="form1.get('otp')?.touched && form1.get('otp')?.invalid" class="text-danger small">
+                        OTP is required.
+                      </div>
+                    </div>
+
+                    <button class="btn btn-primary me-2" type="button" (click)="verifyOtpAndSave()" [disabled]="form1.invalid">
+                      Verify & Save
+                    </button>
+                    <button class="btn btn-secondary" type="button" (click)="showOtpForm = false">
+                      Cancel
+                    </button>
+                  </form>
+                </div>
+                    <div class="modal-footer">
+              <button *ngIf="!showOtpForm" type="button" class="btn btn-primary w-100" (click)="save()">Generate OTP</button>
+              <!-- <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Close</button> -->
+            </div>
+                            <!-- <div class="text-center m-t-20">
                                 <button class="btn btn-primary submit-btn" (click)="openConfirmModal()" [disabled]="!form.valid" type="button">Submit</button>
-                            </div>
+                            </div> -->
                          </div>
                       </form>
                 </div>
@@ -106,7 +138,7 @@
                       <tbody>
                         <tr *ngFor="let item of tdata; let i = index">
                           <td>{{ i + 1 }}</td>
-                          <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
+                          <td>{{ item.cdate | date:'dd/MMM/YYYY' }} <br><small>{{item.ctime}}</small></td>
                           <td>{{ item.amount | currency:'USD':true:'1.0-1' }}</td>
                           <td>{{ item.userid }} <br><small>{{item.rname}}</small></td>
                           <td>{{ item.remark }}</td>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/service/user.service';
 declare var $: any;
 @Component({
@@ -44,13 +45,20 @@ export class TransferWalletComponent {
   regname:any;
   errorMessage: string = '';
   tdata:any;
-  constructor(private api:UserService, private fb:FormBuilder, private router:Router ){
+  form1:FormGroup;
+    showOtpForm: boolean = false;
+    message: { type: 'success' | 'danger', text: string } | null = null;
+  constructor(private api:UserService, private fb:FormBuilder, private router:Router,     private toast: ToastrService ){
       this.form = this.fb.group({
               regid: ['', Validators.required], 
               amount: ['', [Validators.required, Validators.min(1)]], 
               wallettyoe: ['', Validators.required], 
               remark: ['Transfer Wallet'], 
             });
+
+                this.form1 = this.fb.group({
+      otp: ['', Validators.required],
+    });
   }
 
   ngOnInit() {
@@ -61,7 +69,7 @@ export class TransferWalletComponent {
     });
     //transferreport
        this.api.TransferWalletData().subscribe((res: any) => {
-      // console.log('transferreport', res);
+      console.log('transferreport', res);
       this.tdata = res.data;
     });
   }
@@ -97,41 +105,93 @@ export class TransferWalletComponent {
   );
 }
 
-
-
-  add(){
-    console.log(this.form.value);
-    if (this.form.valid) {
-      const val = {
-        regid: this.form.value.regid,
-        amount:this.form.value.amount,
-        wallettyoe: this.form.value.wallettyoe,
-        remark:this.form.value.remark,
-      };
-      this.api.UserTransferUserWallet(val).subscribe(
-        (a:any) => {
-          if (a) {
-            // console.log(a);
-               this.form.reset();
-              //  this.reloadPage();
-               setTimeout(() => {
-                 this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                   this.router.navigate(['/transferwallet']);
-                 });
-                 }, 500);
-          } else {
-            // console.log(a);
-            // this.errorMessage = a.msg.message;
-         
-          }
-        },
-        (err: any) => {
-          console.error(err);
-          // this.errorMessage = err.error.message;
-        },
-      );
-    }
+save() {
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  this.api.GenerateOtp().subscribe({
+    next: (res: any) => {
+      if (res.status === 1) {
+        this.message = { type: 'success', text: res?.message || 'OTP sent ✅' };
+        this.showOtpForm = true;
+        this.form1.reset();
+      } else {
+        this.message = { type: 'danger', text: res?.message || 'OTP generation failed ❌' };
+      }
+
+      // Hide message after 3 seconds
+      setTimeout(() => this.message = null, 3000);
+    },
+    error: () => {
+      this.message = { type: 'danger', text: 'OTP generation failed ❌' };
+      setTimeout(() => this.message = null, 3000);
+    }
+  });
+}
+
+
+verifyOtpAndSave() {
+  if (this.form1.invalid) {
+    this.form1.markAllAsTouched();
+    return;
+  }
+
+  const payload = { otp: this.form1.value.otp };
+
+  this.api.VerifyOtp(payload).subscribe({
+    next: (res: any) => {
+      if (res.status === 1) {
+        this.message = { type: 'success', text: res?.message || 'OTP Verified ✅' };
+        setTimeout(() => this.add(), 500); // small delay to show OTP verified message
+      } else {
+        this.message = { type: 'danger', text: res?.message || 'Invalid OTP ❌' };
+      }
+      setTimeout(() => this.message = null, 3000);
+    },
+    error: () => {
+      this.message = { type: 'danger', text: 'OTP verification failed ❌' };
+      setTimeout(() => this.message = null, 3000);
+    }
+  });
+}
+
+
+
+  add() {
+  if (this.form.valid) {
+    const val = {
+      regid: this.form.value.regid,
+      amount: this.form.value.amount,
+      wallettyoe: this.form.value.wallettyoe,
+      remark: this.form.value.remark,
+    };
+    this.api.UserTransferUserWallet(val).subscribe(
+      (a: any) => {
+        if (a.status === 1) { // assuming API returns status
+          this.message = { type: 'success', text: a.message || 'Transfer successful ✅' };
+          this.form.reset();
+          this.showOtpForm = false;
+
+          setTimeout(() => {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/transferwallet']);
+            });
+          }, 500);
+        } else {
+          this.message = { type: 'danger', text: a.message || 'Transfer failed ❌' };
+        }
+        setTimeout(() => this.message = null, 3000);
+      },
+      (err: any) => {
+        this.message = { type: 'danger', text: err.error?.message || 'Something went wrong ❌' };
+        setTimeout(() => this.message = null, 3000);
+      }
+    );
+  }
+}
+
   
   
 
