@@ -1,0 +1,68 @@
+
+            <div class="col-md-12">
+                <div class="buy-form">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                    <h4 class="page-title text-success">Total Users - {{ selectedLevel | titlecase }}</h4>
+                    </div>
+
+                    <div class="col-md-6 text-end">
+                    <select class="form-select w-auto d-inline-block"
+                            [(ngModel)]="selectedLevel"
+                            (change)="onLevelChange()">
+                        <option value="silver">Silver</option>
+                        <option value="gold">Gold</option>
+                        <option value="platinum">Platinum</option>
+                        <option value="diamond">Diamond</option>
+                        <option value="crown">Crown</option>
+                    </select>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0">
+                    <thead>
+                        <tr>
+                        <th>#</th>
+                        <th>Reg ID</th>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>Act Wallet</th>
+                        <th>Wallet</th>
+                        <th>Aadhar</th>
+                        <th>Sponsor</th>
+                        <th>Ref ID</th>
+                        <th>Position</th>
+                        <th>Pin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="filteredUsers.length === 0">
+                        <td colspan="12" class="text-center text-muted">
+                            No users found for {{ selectedLevel | titlecase }}
+                        </td>
+                        </tr>
+
+                        <tr *ngFor="let row of filteredUsers; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ row.reg_id }}</td>
+                        <td>{{ row.name }}</td>
+                        <td>{{ row.contact }}</td>
+                        <td>{{ row.email }}</td>
+                        <td>{{ row.actwallet | currency:'USD':true:'1.2-2' }}</td>
+                        <td>{{ row.wallet_amount | currency:'USD':true:'1.2-2'}}</td>
+                        <td>{{ row.aadhar }}</td>
+                        <td>{{ row.sponsor }}</td>
+                        <td>{{ row.ref_id }}</td>
+                        <td>{{ row.sposition }}</td>
+                        <td>{{ row.rpin }}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+
+                </div>
+            </div>
+

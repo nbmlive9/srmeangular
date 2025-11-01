@@ -6,12 +6,12 @@
             <div class="col-md-12">
               <div class="text-center mb-3 d-flex flex-wrap justify-content-center">
                 <!-- <button class="btn btn-outline-primary m-1" (click)="showSection('selftransfer')">Self Transfer</button> -->
-                 <div *ngIf="message" class="alert alert-{{message.type}} alert-dismissible fade show" role="alert">
-  {{ message.text }}
-  <button type="button" class="btn-close" (click)="message=null" aria-label="Close"></button>
-</div>
 
                   <button class="btn btn-outline-success m-1" (click)="showSection('usertransfer')">User Transfer Wallet</button>
+                 <div *ngIf="message" class="alert alert-{{message.type}} alert-dismissible fade show" role="alert">
+                {{ message.text }}
+                <button type="button" class="btn-close" (click)="message=null" aria-label="Close"></button>
+                 </div>
               </div>
             </div>
             <div class="col-md-12" *ngIf="usertransfer">
@@ -66,6 +66,25 @@
                                     </span>
                                 </div>
                             </div>
+
+                            
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                    <label class="focus-label">Enter Secure Pin*</label>
+                                  <input type="number" class="form-control mb-2" placeholder="Secure Pin" formControlName="securepin"  (input)="onPinInput($event)" />
+
+                                  <!-- Validation messages -->
+                                  <div *ngIf="form.get('securepin')?.touched && form.get('securepin')?.invalid" class="text-danger small mt-1">
+                                    <div *ngIf="form.get('securepin')?.errors?.['required']">
+                                      Secure PIN is required.
+                                    </div>
+                                    <div *ngIf="form.get('securepin')?.errors?.['pattern']">
+                                      Secure PIN must be exactly 4 digits.
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+
                             <!-- <div *ngIf="showOtpForm" class="mt-3">
                   <form [formGroup]="form1" novalidate>
                     <div class="mb-3">

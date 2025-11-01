@@ -3,10 +3,10 @@ import { UserService } from 'src/app/service/user.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import * as QRCode from 'qrcode';
 import html2canvas from 'html2canvas';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 declare var $: any;
 @Component({
   selector: 'app-user-dashboard',
@@ -16,17 +16,93 @@ declare var $: any;
 export class UserDashboardComponent {
   pdata: any;
   data2: any;
+  securePinForm!: FormGroup;
+
+    @ViewChild('securePinModal') securePinModal!: TemplateRef<any>;
+  modalRef!: NgbModalRef;
 
 
-  constructor(private api:UserService){}
+  constructor(private api:UserService, private fb:FormBuilder, private toastr:ToastrService,   private modalService: NgbModal){}
 
   ngOnInit(){
     this.api.UProfile().subscribe((res:any)=>{
-        // console.log('profile',res);
+        console.log('profile',res);
         this.pdata=res.data[0];
     });
     this.getdashboardHome();
+      this.loadProfile();
+    this.securePinForm = this.fb.group({
+      securepin: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]]
+    });
   }
+
+  ngAfterViewInit() {
+  // Wait a short time to ensure view is rendered
+  setTimeout(() => {
+    if (this.pdata && (!this.pdata.securepin || this.pdata.securepin.trim() === '')) {
+      if (this.securePinModal) {
+        this.modalRef = this.modalService.open(this.securePinModal, {
+          backdrop: 'static',
+          keyboard: false,
+          centered: true,
+          size: 'md'
+        });
+      }
+    }
+  }, 100);
+}
+
+
+  loadProfile() {
+    this.api.UProfile().subscribe((res: any) => {
+      // console.log('profile', res);
+      this.pdata = res.data[0];
+
+      // Check secure pin
+      if (!this.pdata.securepin || this.pdata.securepin.trim() === '') {
+        setTimeout(() => {
+          this.modalRef = this.modalService.open(this.securePinModal, {
+            backdrop: 'static',
+            keyboard: false,
+            centered: true
+          });
+        }, 300);
+      }
+    });
+  }
+
+  
+
+  updateSecurePin() {
+  if (this.securePinForm.invalid) {
+    this.toastr.error('Please enter a valid Secure PIN (4 digits).');
+    return;
+  }
+
+  const formValue = this.securePinForm.value;
+  this.api.SecurePinUpdate(formValue).subscribe(
+    (res: any) => {
+      this.toastr.success('Secure PIN updated successfully!');
+      this.modalRef.close();
+
+      // Update local pdata so modal won't show again
+      this.pdata.securepin = formValue.securepin;
+    },
+    (error) => {
+      console.error(error);
+      this.toastr.error('Failed to update Secure PIN.');
+    }
+  );
+}
+
+
+  onPinInput(event: any) {
+  const input = event.target as HTMLInputElement;
+  // Remove all non-digit characters and trim to 4 digits
+  const cleanValue = input.value.replace(/[^0-9]/g, '').slice(0, 4);
+  this.securePinForm.get('securepin')?.setValue(cleanValue, { emitEvent: false });
+}
+
 
 getdashboardHome() {
   this.api.UDashboardData().subscribe((res: any) => {

@@ -45,6 +45,11 @@ import { ETicketsComponent } from './pages/Crm/e-tickets/e-tickets.component';
 import { CompletedOrdersComponent } from './pages/Crm/completed-orders/completed-orders.component';
 import { PendingOrdersComponent } from './pages/Crm/pending-orders/pending-orders.component';
 import { DirectRegistrationUserComponent } from './pages/User/direct-registration-user/direct-registration-user.component';
+import { SilverTeamComponent } from './pages/User/silver-team/silver-team.component';
+import { GoldTeamComponent } from './pages/User/gold-team/gold-team.component';
+import { PlatinumTeamComponent } from './pages/User/platinum-team/platinum-team.component';
+import { DiamondTeamComponent } from './pages/User/diamond-team/diamond-team.component';
+import { CrownTeamComponent } from './pages/User/crown-team/crown-team.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent },
@@ -95,6 +100,11 @@ const routes: Routes = [
        {path:"myorders",component:UserOrdersComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
       { path: 'treeregister/:regid/:position', component: TreeRegistrationComponent, canActivate: [AuthGuard], data: { usertype: ['user'] } },
         {path:"directreg",component:DirectRegistrationUserComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+          {path:"silverteam",component:SilverTeamComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+            {path:"goldteam",component:GoldTeamComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+              {path:"platinumteam",component:PlatinumTeamComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+                {path:"diamondteam",component:DiamondTeamComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+                  {path:"crownteam",component:CrownTeamComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   // {path:"activation/:regid",component:UserActivation, canActivate: [AuthGuard], data: { roles: ['user'] } },
 
 ];

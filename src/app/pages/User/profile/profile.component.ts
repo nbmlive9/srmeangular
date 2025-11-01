@@ -29,6 +29,7 @@ togglePassword() {
 maskPassword(pwd: string): string {
   return pwd ? '*'.repeat(pwd.length) : '';
 }
+backendError: string = '';
   constructor(
     private api: UserService,
     private fb: FormBuilder,
@@ -37,9 +38,10 @@ maskPassword(pwd: string): string {
     // Profile form
     this.form = this.fb.group({
       name: ['', ],
-      email: ['', [Validators.email]],
+      email: ['', ],
       aadhar: ['',],
-      password: ['']
+      password: [''],
+      securepin: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
     });
 
     // OTP form
@@ -82,67 +84,76 @@ maskPassword(pwd: string): string {
       email: this.pfdata?.email,
       aadhar: this.pfdata?.aadhar,
       password: this.pfdata?.password,
+      securepin: this.pfdata?.securepin,
     });
   }
 
-  /** Step 1: Generate OTP before updating */
- save() {
-  if (this.form.invalid) {
-    this.form.markAllAsTouched();
-    return;
-  }
-
-  this.api.GenerateOtp().subscribe({
-    next: (res: any) => {
-      if (res.status === 1) {
-        this.toast.success(res?.message || 'OTP sent ✅', 'Success');
-        this.showOtpForm = true;
-
-        // ✅ Reset OTP form when showing
-        this.form1.reset();
-      } else {
-        this.toast.error(res?.message || 'OTP generation failed ❌', 'Error');
-      }
-    },
-    error: () => {
-      this.toast.error('OTP generation failed ❌', 'Error');
-    }
-  });
+    onPinInput(event: any) {
+  const input = event.target as HTMLInputElement;
+  // Remove all non-digit characters and trim to 4 digits
+  const cleanValue = input.value.replace(/[^0-9]/g, '').slice(0, 4);
+  this.form.get('securepin')?.setValue(cleanValue, { emitEvent: false });
 }
 
-// save() {
+  /** Step 1: Generate OTP before updating */
+//  save() {
 //   if (this.form.invalid) {
 //     this.form.markAllAsTouched();
 //     return;
 //   }
 
-//   const payload = this.form.value;
-
-//   this.api.UpdateUserProfile(payload).subscribe({
+//   this.api.GenerateOtp().subscribe({
 //     next: (res: any) => {
-//       console.log(res);
 //       if (res.status === 1) {
-//         this.toast.success(res?.message || 'Profile updated ✅', 'Success');
-//         this.isEdit = false;
-//         this.showOtpForm = false;
+//         this.toast.success(res?.message || 'OTP sent ✅', 'Success');
+//         this.showOtpForm = true;
+
+//         // ✅ Reset OTP form when showing
 //         this.form1.reset();
-//         const modal = document.getElementById('editModal');
-//         if (modal) {
-//           const modalInstance = bootstrap.Modal.getInstance(modal);
-//           if (modalInstance) modalInstance.hide();
-//         }
-//         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-//           this.router.navigate(['/myprofile']);
-//         });
 //       } else {
-//         this.toast.error(res?.message || 'Update failed ❌', 'Error');
+//         this.toast.error(res?.message || 'OTP generation failed ❌', 'Error');
 //       }
 //     },
 //     error: () => {
-//       this.toast.error('Something went wrong ❌', 'Error');
+//       this.toast.error('OTP generation failed ❌', 'Error');
 //     }
 //   });
 // }
+
+save() {
+  this.backendError = ''; 
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
+  }
+
+  const payload = this.form.value;
+
+  this.api.UpdateUserProfile(payload).subscribe({
+    next: (res: any) => {
+      console.log(res);
+      if (res.status === 1) {
+        this.toast.success(res?.message || 'Profile updated ✅', 'Success');
+        this.isEdit = false;
+        this.showOtpForm = false;
+        this.form1.reset();
+        const modal = document.getElementById('editModal');
+        if (modal) {
+          const modalInstance = bootstrap.Modal.getInstance(modal);
+          if (modalInstance) modalInstance.hide();
+        }
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/myprofile']);
+        });
+      } else {
+         this.backendError = res?.message || 'Incorrect Pin ❌';
+      }
+    },
+    error: () => {
+       this.backendError = 'Something went wrong Incorrect Pin  ❌';
+    }
+  });
+}
 
 
   /** Step 2: Verify OTP and call save API */

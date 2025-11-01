@@ -1,0 +1,89 @@
+<app-menu-bar></app-menu-bar>
+
+<div class="page-wrapper bg-wrapper">
+  <div class="content" >
+    <div class="row">
+      <div class="col-md-12">
+        <div class="buy-form">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <h4 class="page-title text-success">Platinum Teams</h4>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                [class.active]="activeTab === 'left'"
+                (click)="setTab('left')"
+              >
+                Left Team
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                class="nav-link"
+                [class.active]="activeTab === 'right'"
+                (click)="setTab('right')"
+              >
+                Right Team
+              </button>
+            </li>
+          </ul>
+
+          <!-- Table -->
+          <div class="table-responsive" *ngIf="activeTab === 'left'">
+            <table class="table table-striped custom-table mb-0">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Date</th>
+                  <th>User ID</th>
+                  <th>Position</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of data1; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ row.crdate | date: 'dd/MMM/yyyy' }}</td>
+                  <td>{{ row.ref_id }}</td>
+                  <td>{{ row.position }}</td>
+                </tr>
+                <tr *ngIf="data1.length === 0">
+                  <td colspan="4" class="text-center text-muted">No Left Team Members Found</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-responsive" *ngIf="activeTab === 'right'">
+            <table class="table table-striped custom-table mb-0">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Date</th>
+                  <th>User ID</th>
+                  <th>Position</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of data2; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ row.crdate | date: 'dd/MMM/yyyy' }}</td>
+                  <td>{{ row.ref_id }}</td>
+                  <td>{{ row.position }}</td>
+                </tr>
+                <tr *ngIf="data2.length === 0">
+                  <td colspan="4" class="text-center text-muted">No Right Team Members Found</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

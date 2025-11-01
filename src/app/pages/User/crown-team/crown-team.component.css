@@ -1,0 +1,17 @@
+.nav-tabs {
+  border-bottom: 2px solid #ddd;
+}
+.nav-link {
+  cursor: pointer;
+  color: #555;
+  font-weight: 500;
+}
+.nav-link.active {
+  background: #28a745;
+  color: #fff !important;
+  border-radius: 5px 5px 0 0;
+}
+.table thead th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}

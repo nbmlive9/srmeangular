@@ -166,6 +166,7 @@ forgotPassword(value: { regid: string; email: string }): Observable<any> {
     email: string;
     password: string;
     aadhar: string;
+    securepin:number;
   }) {
     const token1 = this.token.getToken();
     const httpOptions = {
@@ -181,6 +182,26 @@ forgotPassword(value: { regid: string; email: string }): Observable<any> {
         "email":value.email, 
         "password":value.password, 
         "aadhar":value.aadhar, 
+        "securepin":value.securepin, 
+      },
+      httpOptions
+    );
+  }
+
+  SecurePinUpdate(value: {
+        securepin: number;
+  }) {
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    };
+    return this.http.post(
+      AUTH_API + 'Securepinupdate',
+      { 
+          "securepin":value.securepin, 
       },
       httpOptions
     );
@@ -265,6 +286,7 @@ UserWithdraw(value: {
     amount: number;
     remark: string;
     wallettyoe:string;
+    securepin:number;
   }){
     const token1 = this.token.getToken();
     const httpOptions = {
@@ -279,7 +301,8 @@ UserWithdraw(value: {
       "regid":value.regid, 
       "amount":value.amount, 
       "remark":value.remark,
-      "wallettyoe":value.wallettyoe
+      "wallettyoe":value.wallettyoe,
+      "securepin":value.securepin
     },
        httpOptions 
     );
@@ -968,7 +991,146 @@ GenerateOtp() {
   );
 }
 
+ SilverLeftTeam(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'SilverLeft_members',
+      httpOptions
+    );   
+  }
 
+  SilverRightTeam(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'SilverRight_members',
+      httpOptions
+    );   
+  }
+
+   GoldLeftTeam(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'GoldLeft_members',
+      httpOptions
+    );   
+  }
+
+    GoldRightTeam(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'GoldRight_members',
+      httpOptions
+    );   
+  }
+
+   PlatinumLeftTeam(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'PlatinumLeft_members',
+      httpOptions
+    );   
+  }
+
+     PlatinumRightTeam(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'PlatinumRight_members',
+      httpOptions
+    );   
+  }
+
+
+   DiamondLeftTeam(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'DiamondLeft_members',
+      httpOptions
+    );   
+  }
+
+     DiamondRightTeam(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'DiamondRight_members',
+      httpOptions
+    );   
+  }
+
+   CrownLeftTeam(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'CrownLeft_members',
+      httpOptions
+    );   
+  }
+
+     CrownRightTeam(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'CrownRight_members',
+      httpOptions
+    );   
+  }
 
 
 }

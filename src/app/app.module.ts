@@ -84,6 +84,12 @@ import { DirectRegistrationUserComponent } from './pages/User/direct-registratio
 import { DirectDepositeFundComponent } from './pages/User/direct-deposite-fund/direct-deposite-fund.component';
 import { DirectWithdrawFundComponent } from './pages/User/direct-withdraw-fund/direct-withdraw-fund.component';
 import { DirectUserWalletTransferComponent } from './pages/User/direct-user-wallet-transfer/direct-user-wallet-transfer.component';
+import { SilverTeamComponent } from './pages/User/silver-team/silver-team.component';
+import { GoldTeamComponent } from './pages/User/gold-team/gold-team.component';
+import { PlatinumTeamComponent } from './pages/User/platinum-team/platinum-team.component';
+import { DiamondTeamComponent } from './pages/User/diamond-team/diamond-team.component';
+import { CrownTeamComponent } from './pages/User/crown-team/crown-team.component';
+import { TotalUsersAllComponent } from './pages/Admin/total-users-all/total-users-all.component';
 
 @NgModule({
   declarations: [
@@ -161,7 +167,13 @@ import { DirectUserWalletTransferComponent } from './pages/User/direct-user-wall
     DirectRegistrationUserComponent,
     DirectDepositeFundComponent,
     DirectWithdrawFundComponent,
-    DirectUserWalletTransferComponent
+    DirectUserWalletTransferComponent,
+    SilverTeamComponent,
+    GoldTeamComponent,
+    PlatinumTeamComponent,
+    DiamondTeamComponent,
+    CrownTeamComponent,
+    TotalUsersAllComponent
   ],
   imports: [
     BrowserModule,

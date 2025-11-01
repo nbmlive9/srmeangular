@@ -84,12 +84,29 @@
   </div>
 
   <ul class="menu-list">
-    <li *ngFor="let item of model" class="menu-item" routerLinkActive="active">
-      <a [routerLink]="item.routerLink" class="menu-link">
-        <i class="{{ item.icon }}"></i>
-        <span class="label">{{ item.label }}</span>
-      </a>
-    </li>
+   <li *ngFor="let item of model" class="menu-item" routerLinkActive="active">
+  <div *ngIf="!item.children" class="menu-link-wrap">
+    <a [routerLink]="item.routerLink" class="menu-link">
+      <i class="{{ item.icon }}"></i>
+      <span class="label">{{ item.label }}</span>
+    </a>
+  </div>
+
+  <!-- For menu with children -->
+  <div *ngIf="item.children" class="menu-link-wrap">
+    <button class="menu-link w-100 text-start d-flex justify-content-between align-items-center" 
+            (click)="item.open = !item.open">
+      <span><i class="{{ item.icon }}"></i> {{ item.label }}</span>
+      <i class="fa" [ngClass]="item.open ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+    </button>
+    <ul class="submenu list-unstyled ps-4" *ngIf="item.open">
+      <li *ngFor="let child of item.children">
+        <a [routerLink]="child.routerLink" style="text-decoration: none; color: #fff;" class="submenu-link d-block py-1">{{ child.label }}</a>
+      </li>
+    </ul>
+  </div>
+</li>
+
   </ul>
 
   <div class="sidebar-footer mt-auto p-3" *ngIf="token1.isUser()">
@@ -135,12 +152,33 @@
     </div>
 
     <ul class="list-group list-group-flush">
-      <li *ngFor="let item of model" class="list-group-item">
-        <a [routerLink]="item.routerLink" (click)="closeSidebar()" class="text-decoration-none text-dark d-flex align-items-center gap-2">
-          <i class="{{ item.icon }}"></i>
-          <span>{{ item.label }}</span>
-        </a>
+    <li *ngFor="let item of model" class="list-group-item">
+  <!-- Normal menu item -->
+  <div *ngIf="!item.children">
+    <a [routerLink]="item.routerLink" (click)="closeSidebar()" 
+       class="text-decoration-none text-dark d-flex align-items-center gap-2">
+      <i class="{{ item.icon }}"></i>
+      <span>{{ item.label }}</span>
+    </a>
+  </div>
+
+  <!-- Menu with submenus -->
+  <div *ngIf="item.children">
+    <div class="d-flex justify-content-between align-items-center" (click)="item.open = !item.open">
+      <span class="d-flex align-items-center gap-2">
+        <i class="{{ item.icon }}"></i> {{ item.label }}
+      </span>
+      <i class="fa" [ngClass]="item.open ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+    </div>
+    <ul class="list-unstyled ps-3 mt-2" *ngIf="item.open">
+      <li *ngFor="let child of item.children" class="py-1">
+        <a [routerLink]="child.routerLink" (click)="closeSidebar()"
+           class="text-decoration-none text-secondary d-block">{{ child.label }}</a>
       </li>
+    </ul>
+  </div>
+</li>
+
       <li class="list-group-item" *ngIf="token1.isUser()">
         <a class="text-danger d-flex align-items-center gap-2" (click)="logout()"><i class="fa fa-sign-out-alt"></i> Logout</a>
       </li>

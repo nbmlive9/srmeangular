@@ -63,37 +63,38 @@ export class AddProductsComponent {
       });
     }
 
-    onCheckboxChange(controlName: string, event: any) {
+onCheckboxChange(controlName: string, event: any) {
   const isChecked = event.target.checked;
   this.form.get(controlName)?.setValue(isChecked ? 1 : 0);
 }
+
   
-    add() {
-    if (this.form.valid) {
-      const val = {
-        name: this.form.value.name,
-        price: this.form.value.price,
-        info: this.form.value.info,
-        dfee: this.form.value.dfee,
-        // ✅ If checkbox selected → send 1, else 0
-        home: this.form.value.home ? 1 : 0,
-        leader: this.form.value.leader ? 1 : 0,
-      };
+   add() {
+  if (this.form.valid) {
+    const val = {
+      name: this.form.value.name,
+      price: this.form.value.price,
+      info: this.form.value.info,
+      dfee: this.form.value.dfee || 0,
+      home: this.form.value.home,    // 0 or 1
+      leader: this.form.value.leader // 0 or 1
+    };
 
-      console.log("➡️ Sending payload:", val);
+    console.log("Payload sent to backend:", val);
 
-      this.api.AddProducts(val).subscribe({
-        next: (response: any) => {
-          console.log('✅ Product added successfully:', response);
-          this.form.reset();
-          this.getproducts();
-        },
-        error: (error: any) => {
-          console.error('❌ Error adding product:', error);
-        }
-      });
-    }
+    this.api.AddProducts(val).subscribe({
+      next: (response: any) => {
+        console.log('Product added successfully', response);
+        this.form.reset({ home: 0, leader: 0 }); // reset checkboxes to 0
+        this.getproducts();
+      },
+      error: (error: any) => {
+        console.error('Error adding product', error);
+      }
+    });
   }
+}
+
 
    openEditModal(row: any) {
     this.editId = row.id;

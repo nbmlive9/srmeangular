@@ -989,5 +989,19 @@ GetDynamicData(){
   );
 }
 
+GetTotalUsersAll(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'Total_Usersas',
+      httpOptions
+    );
+  }
+
 
 }

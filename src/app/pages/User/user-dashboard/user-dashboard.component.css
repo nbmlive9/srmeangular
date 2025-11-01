@@ -116,3 +116,8 @@ h2 {
   }
 }
 
+#securepin {
+  letter-spacing: 5px;
+  text-align: center;
+  font-size: 22px;
+}

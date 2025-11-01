@@ -269,3 +269,41 @@
 </div>
 </div>
 
+<!-- Secure Pin Modal -->
+<ng-template #securePinModal let-modal>
+  <div class="modal-header bg-primary text-white">
+    <h5 class="modal-title">Setup Secure PIN</h5>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="securePinForm">
+      <div class="form-group mb-3">
+        <label for="securepin">Enter New Secure PIN</label>
+        <input
+          type="text"
+          class="form-control text-center fw-bold"
+          id="securepin"
+          formControlName="securepin"
+          maxlength="4"
+          minlength="4"
+          placeholder="Enter 4-digit PIN"
+         (input)="onPinInput($event)"
+        />
+        <small class="text-muted">
+          This PIN is required for Profile Update & Transfer Wallet.
+        </small>
+
+        <div *ngIf="securePinForm.get('securepin')?.invalid && securePinForm.get('securepin')?.touched" class="text-danger small mt-1">
+          Please enter exactly 4 digits.
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <!-- <button class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button> -->
+    <button class="btn btn-success" (click)="updateSecurePin()" [disabled]="securePinForm.invalid">
+      Save PIN
+    </button>
+  </div>
+</ng-template>

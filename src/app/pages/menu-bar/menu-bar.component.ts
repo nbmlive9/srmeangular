@@ -47,7 +47,20 @@ export class MenuBarComponent implements OnInit {
         { label: 'Activation', icon: 'fa fa-check-circle', routerLink: ['/activation'] },
         { label: 'Transfer', icon: 'fa fa-retweet', routerLink: ['/transferwallet'] },
         { label: 'Referrals', icon: 'fa fa-user', routerLink: ['/referrals'] },
-        { label: 'My Team', icon: 'fa fa-users', routerLink: ['/team'] },
+        // { label: 'My Team', icon: 'fa fa-users', routerLink: ['/team'] },
+          // 🧩 My Team with Submenu
+    {
+      label: 'My Team',
+      icon: 'fa fa-users',
+      children: [
+        { label: 'Teams', routerLink: ['/team'] },
+        { label: 'Silver Team', routerLink: ['/silverteam'] },
+        { label: 'Gold Team', routerLink: ['/goldteam'] },
+         { label: 'Platinum Team', routerLink: ['/platinumteam'] },
+          { label: 'Diamond Team', routerLink: ['/diamondteam'] },
+           { label: 'Crown Team', routerLink: ['/crownteam'] },
+      ]
+    },
         { label: 'Withdraw', icon: 'fa fa-wallet', routerLink: ['/walletwithdraw'] },
          { label: 'My Orders', icon: 'fa fa-shopping-cart', routerLink: ['/myorders'] },
         { label: 'My Earning', icon: 'fa fa-wallet', routerLink: ['/income'] },

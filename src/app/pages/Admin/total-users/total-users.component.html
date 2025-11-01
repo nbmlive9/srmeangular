@@ -14,6 +14,7 @@
           <button class="btn btn-outline-primary m-1" (click)="showSection('total')">
             Total Users
           </button>
+             <button class="btn btn-outline-success m-1" (click)="showSection('tsusers')">Upgrade Users</button>
           <!-- Future filters -->
           <!--
           <button class="btn btn-outline-success m-1" (click)="showSection('today')">Today Users</button>
@@ -129,6 +130,7 @@
 
       <!-- Conditional User Components -->
       <div *ngIf="TodayUsers" class="p-2"><app-today-users></app-today-users></div>
+       <div *ngIf="tsusers" class="p-2"> <app-total-users-all></app-total-users-all> </div>
       <div *ngIf="Activeusers" class="p-2"><app-active-users></app-active-users></div>
       <div *ngIf="Inactiveusers" class="p-2"><app-inactive-users></app-inactive-users></div>
     </div>

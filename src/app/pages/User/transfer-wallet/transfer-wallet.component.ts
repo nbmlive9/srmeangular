@@ -48,12 +48,14 @@ export class TransferWalletComponent {
   form1:FormGroup;
     showOtpForm: boolean = false;
     message: { type: 'success' | 'danger', text: string } | null = null;
+    
   constructor(private api:UserService, private fb:FormBuilder, private router:Router,     private toast: ToastrService ){
       this.form = this.fb.group({
               regid: ['', Validators.required], 
               amount: ['', [Validators.required, Validators.min(1)]], 
               wallettyoe: ['', Validators.required], 
               remark: ['Transfer Wallet'], 
+              securepin: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
             });
 
                 this.form1 = this.fb.group({
@@ -104,6 +106,14 @@ export class TransferWalletComponent {
     }
   );
 }
+
+   onPinInput(event: any) {
+  const input = event.target as HTMLInputElement;
+  // Remove all non-digit characters and trim to 4 digits
+  const cleanValue = input.value.replace(/[^0-9]/g, '').slice(0, 4);
+  this.form.get('securepin')?.setValue(cleanValue, { emitEvent: false });
+}
+
 
 save() {
   if (this.form.invalid) {
@@ -160,12 +170,14 @@ verifyOtpAndSave() {
 
 
   add() {
+    
   if (this.form.valid) {
     const val = {
       regid: this.form.value.regid,
       amount: this.form.value.amount,
       wallettyoe: this.form.value.wallettyoe,
       remark: this.form.value.remark,
+      securepin:this.form.value.securepin,
     };
     this.api.UserTransferUserWallet(val).subscribe(
       (a: any) => {

@@ -46,6 +46,10 @@
         <th>Reg ID</th>
         <td>{{ searchData.userdata?.reg_id }} (Pass: {{ searchData.userdata?.password }})</td>
       </tr>
+         <tr>
+        <th>Secure Pin</th>
+        <td>{{ searchData.userdata?.rpin }} </td>
+      </tr>
       <tr>
         <th>Wallet Amount</th>
         <td>{{ searchData.userdata?.wallet_amount | currency:'USD':'symbol':'1.0-0' }}</td>
