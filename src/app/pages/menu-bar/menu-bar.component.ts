@@ -56,9 +56,9 @@ export class MenuBarComponent implements OnInit {
         { label: 'Teams', routerLink: ['/team'] },
         { label: 'Silver Team', routerLink: ['/silverteam'] },
         { label: 'Gold Team', routerLink: ['/goldteam'] },
-         { label: 'Platinum Team', routerLink: ['/platinumteam'] },
-          { label: 'Diamond Team', routerLink: ['/diamondteam'] },
-           { label: 'Crown Team', routerLink: ['/crownteam'] },
+        { label: 'Platinum Team', routerLink: ['/platinumteam'] },
+        { label: 'Diamond Team', routerLink: ['/diamondteam'] },
+        { label: 'Crown Team', routerLink: ['/crownteam'] },
       ]
     },
         { label: 'Withdraw', icon: 'fa fa-wallet', routerLink: ['/walletwithdraw'] },

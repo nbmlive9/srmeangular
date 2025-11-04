@@ -1,0 +1,66 @@
+<div class="container mt-4">
+  <div class="card shadow-lg p-3 rounded-4">
+    <h4 class="text-center text-primary mb-3">Silver Users (Date Filter)</h4>
+
+    <!-- 🔹 Date Filter Form -->
+    <form [formGroup]="form" (ngSubmit)="getData()" class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Start Date</label>
+        <input type="date" class="form-control" formControlName="startdate" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">End Date</label>
+        <input type="date" class="form-control" formControlName="enddate" />
+      </div>
+
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-success mt-3" [disabled]="form.invalid || loading">
+          {{ loading ? 'Loading...' : 'Get Data' }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 🔹 Data Table -->
+  <div class="card table-responsive shadow-sm mt-4" *ngIf="data1.length > 0">
+    <div class="d-flex justify-content-between align-items-center p-2">
+      <h5 class="m-0">Silver Users List</h5>
+      <button class="btn btn-sm btn-primary" (click)="downloadExcel()">
+        <i class="fas fa-download"></i> Download Excel
+      </button>
+    </div>
+
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>User ID</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Left</th>
+          <th>Right</th>
+          <th>Pairs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of data1; let i = index" class="text-center">
+          <td>{{ i + 1 }}</td>
+          <td>{{ row.date | date:'dd/MM/yyyy' }}</td>
+          <td>{{ row.regid }}</td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.phone }}</td>
+          <td>{{ row.left }}</td>
+          <td>{{ row.right }}</td>
+          <td>{{ row.pairs }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 🔹 No Data Message -->
+  <div *ngIf="!loading && data1.length === 0" class="text-center text-muted mt-4">
+    No data found for the selected dates.
+  </div>
+</div>

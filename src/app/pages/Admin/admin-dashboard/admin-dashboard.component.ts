@@ -15,6 +15,10 @@ export class AdminDashboardComponent {
   dydata: any;
 form1:FormGroup;
 errorMessage='';
+totalAvailableAmount: number = 0;
+
+
+
   constructor(private api:AdminService, private fb:FormBuilder, private router:Router){
     
       this.form1 = this.fb.group({
@@ -31,8 +35,39 @@ errorMessage='';
     this.api.AdminDashboard().subscribe((res:any)=>{
         console.log(res);
         this.data1=res.data;
+            // ✅ Now calculate after data is available
+    if (this.data1) {
+      this.calculateTotalAvailable(this.data1);
+    }
+
     })
   }
+
+  calculateTotalAvailable(data1: any) {
+  const totalCredit = data1?.totalcredit || 0;
+  const totalProductCost = (data1?.totalwithproducts * 2.5) || 0;
+
+  const totalOutputFunds =
+    ((data1?.totallevel * 7.5 || 0) +
+    (data1?.totallevelinner * 1.02 || 0) +
+    (data1?.totalsilver * 10.2 || 0) +
+    (data1?.totalgold * 20.4 || 0) +
+    (data1?.totalplatinum * 40.8 || 0) +
+    (data1?.totaldiamond * 81.6 || 0) +
+    (data1?.totalcrown * 163.2 || 0));
+
+  const totalHoldingWallet =
+    ((data1?.totalsilvertrash * 12 || 0) +
+    (data1?.totalgoldtrash * 24 || 0) +
+    (data1?.totalplatinumtrash * 48 || 0) +
+    (data1?.totaldiamondtrash * 96 || 0) +
+    (data1?.totalcrowntrash * 192 || 0));
+
+  const totalSilverRewards = (data1?.totalsilver * 4) || 0;
+
+  this.totalAvailableAmount =
+    totalOutputFunds - totalHoldingWallet - totalProductCost - totalSilverRewards;
+}
 
    getdynamicdata() {
     this.api.GetDynamicData().subscribe({

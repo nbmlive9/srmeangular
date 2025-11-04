@@ -90,6 +90,7 @@ import { PlatinumTeamComponent } from './pages/User/platinum-team/platinum-team.
 import { DiamondTeamComponent } from './pages/User/diamond-team/diamond-team.component';
 import { CrownTeamComponent } from './pages/User/crown-team/crown-team.component';
 import { TotalUsersAllComponent } from './pages/Admin/total-users-all/total-users-all.component';
+import { SilverUsersDateComponent } from './pages/Admin/silver-users-date/silver-users-date.component';
 
 @NgModule({
   declarations: [
@@ -173,7 +174,8 @@ import { TotalUsersAllComponent } from './pages/Admin/total-users-all/total-user
     PlatinumTeamComponent,
     DiamondTeamComponent,
     CrownTeamComponent,
-    TotalUsersAllComponent
+    TotalUsersAllComponent,
+    SilverUsersDateComponent
   ],
   imports: [
     BrowserModule,

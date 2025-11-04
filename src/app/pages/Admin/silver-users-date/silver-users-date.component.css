@@ -1,0 +1,16 @@
+.card {
+  border-radius: 16px;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .table {
+    font-size: 13px;
+  }
+  .btn {
+    width: 100%;
+  }
+}

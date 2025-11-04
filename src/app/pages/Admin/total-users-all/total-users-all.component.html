@@ -17,6 +17,10 @@
                         <option value="crown">Crown</option>
                     </select>
                     </div>
+
+                      <button class="btn btn-success ms-2" (click)="downloadExcel()">
+    <i class="fas fa-file-excel"></i> Download {{ selectedLevel | titlecase }} Data
+  </button>
                 </div>
 
                 <!-- Table -->
@@ -31,7 +35,7 @@
                         <th>Email</th>
                         <th>Act Wallet</th>
                         <th>Wallet</th>
-                        <th>Aadhar</th>
+                        <th>Wallet Address</th>
                         <th>Sponsor</th>
                         <th>Ref ID</th>
                         <th>Position</th>
@@ -40,7 +44,7 @@
                     </thead>
                     <tbody>
                         <tr *ngIf="filteredUsers.length === 0">
-                        <td colspan="12" class="text-center text-muted">
+                        <td class="text-center text-muted">
                             No users found for {{ selectedLevel | titlecase }}
                         </td>
                         </tr>

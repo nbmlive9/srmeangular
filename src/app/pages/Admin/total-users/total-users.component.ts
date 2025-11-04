@@ -22,6 +22,7 @@ totalPages: number = 50; // Example: set dynamically after API call
   TotalUsers: boolean = true;
   TodayUsers: boolean = false;
   tsusers: boolean = false;
+    svdata: boolean = false;
   Activeusers: boolean = false;
   Inactiveusers: boolean = false;
 
@@ -130,6 +131,7 @@ goToPrevGroup() {
     this.TodayUsers = section === 'today';
     this.Activeusers = section === 'active';
     this.tsusers = section === 'tsusers';
+    this.svdata = section === 'svdata';
     this.Inactiveusers = section === 'inactive';
   }
 

@@ -89,6 +89,26 @@ export class AdminService {
     );
   }
 
+   SilverUsersDate(value: { startdate: string; enddate: string }): Observable<any> {
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      }),
+      responseType: 'text' as 'json' 
+    };
+
+    return this.http.post(
+      AUTH_API + 'Total_silverdatetodate',
+      {
+        startdate: value.startdate,
+        enddate: value.enddate
+      },
+      httpOptions
+    );
+  }
+
 
     GetPckages(){
     const token1 = this.token.getToken();

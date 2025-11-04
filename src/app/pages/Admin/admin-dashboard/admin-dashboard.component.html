@@ -485,6 +485,12 @@
           <td>{{ data1?.todayjoin || 0 }}</td>
           <td> </td>
         </tr>
+           <tr>
+          <td>3</td>
+          <td>Total Credit</td>
+          <td>{{ data1?.totalcredit || 0 | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td> </td>
+        </tr>
           <tr>
           <td>3</td>
           <td>Total Amount Received</td>
@@ -515,12 +521,7 @@
           <td> </td>
           <td> </td>
         </tr>
-        <tr class="table-warning">
-          <td> </td>
-          <td><b>Total Product Cost</b></td>
-          <td><b> </b></td>
-          <td>{{ data1?.totalwithoutproducts + data1?.totalwithproducts | currency:'USD':'symbol':'1.2-2' }}</td>
-        </tr>
+        
         <tr>
           <td>8</td>
           <td>Total Inner Pairs</td>
@@ -605,7 +606,7 @@
           <td> {{data1?.todaycrown}} </td>
           <td> {{data1?.todaycrown * 163.2 | currency:'USD':'symbol':'1.2-2' }}</td>
         </tr>
-         <tr>
+        <tr>
           <td>22</td>
           <td>Total Output Funds</td>
           <td> </td>
@@ -617,24 +618,44 @@
               (data1?.totalplatinum * 40.8 || 0) +
               (data1?.totaldiamond * 81.6 || 0) +
               (data1?.totalcrown * 163.2 || 0)
+            ) | currency:'USD':'symbol':'1.2-2' 
+          }}</td>
+        </tr>
+        <tr class="table-warning">
+          <td> </td>
+          <td><b>Total Product Cost</b></td>
+          <td><b> </b></td>
+          <td>{{ data1?.totalwithproducts * 2.5 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+         <tr class="table-warning">
+          <td> </td>
+          <td><b>Total Silver Rewards</b></td>
+          <td><b> </b></td>
+          <td>{{ data1?.totalsilver * 4 | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
+         
+         <tr>
+          <td>23</td>
+          <td>Total Holding Amount (Above 18/10/2025)</td>
+          <td> </td>
+          <td>{{  
+            ( (data1?.totalsilvertrash * 12 || 0) +
+              (data1?.totalgoldtrash * 24 || 0) +
+              (data1?.totalplatinumtrash * 48 || 0) +
+              (data1?.totaldiamondtrash * 96 || 0) +
+              (data1?.totalcrowntrash * 192 || 0)
             ) | currency:'USD':'symbol':'1.2-2'
           }}</td>
         </tr>
-         <!-- <tr>
-          <td>23</td>
-          <td>Total Available Amount</td>
-          <td> </td>
-          <td>{{ (data1?.totalwithoutproducts + data1?.totalwithproducts) - 
-            ( (data1?.totallevel * 7.5 || 0) +
-              (data1?.totallevelinner * 1.2 || 0) +
-              (data1?.totalsilver * 10.2 || 0) +
-              (data1?.totalgold * 20.4 || 0) +
-              (data1?.totalplatinum * 40.8 || 0) +
-              (data1?.totaldiamond * 81.6 || 0) +
-              (data1?.totalcrown * 163.2 || 0)
-            ) | currency:'USD':'symbol':'1.2-2'
-          }}</td>
-        </tr> -->
+        <!-- ✅ Total Available Amount -->
+<tr class="table-success">
+  <td></td>
+  <td><b>Total Available Amount</b></td>
+  <td></td>
+  <td>
+    <b>{{ totalAvailableAmount | currency:'USD':'symbol':'1.2-2' }}</b>
+  </td>
+</tr>
         <tr>
           <td>24</td>
           <td>Total Withdraw</td>
