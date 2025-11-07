@@ -36,7 +36,7 @@ export class MyWalletComponent {
     private toastr: ToastrService
   ) {
     this.form = this.fb.group({
-      amount: ['', [Validators.required, Validators.min(7.5)]]
+      amount: ['', [Validators.required, Validators.min(10)]]
     });
   }
 

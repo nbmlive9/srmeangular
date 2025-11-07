@@ -52,7 +52,7 @@ export class TransferWalletComponent {
   constructor(private api:UserService, private fb:FormBuilder, private router:Router,     private toast: ToastrService ){
       this.form = this.fb.group({
               regid: ['', Validators.required], 
-              amount: ['', [Validators.required, Validators.min(1)]], 
+              amount: ['', [Validators.required, Validators.min(10)]], 
               wallettyoe: ['', Validators.required], 
               remark: ['Transfer Wallet'], 
               securepin: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
@@ -62,6 +62,28 @@ export class TransferWalletComponent {
       otp: ['', Validators.required],
     });
   }
+
+  onAmountInput(event: any) {
+  const input = event.target as HTMLInputElement;
+  let value = input.value;
+
+  // Allow only digits and one dot
+  value = value.replace(/[^0-9.]/g, '');
+
+  // Ensure only one dot
+  const parts = value.split('.');
+  if (parts.length > 2) {
+    value = parts[0] + '.' + parts[1];
+  }
+
+  // Limit to 2 decimal places if decimal exists
+  if (parts[1]?.length > 2) {
+    value = parts[0] + '.' + parts[1].substring(0, 2);
+  }
+
+  // Set formatted value back to control
+  this.form.get('amount')?.setValue(value, { emitEvent: false });
+}
 
   ngOnInit() {
     //get profile

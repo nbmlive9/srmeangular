@@ -22,13 +22,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="focus-label">Transfer Amount ($)*</label>
-                                    <input type="text" class="form-control floating" formControlName="amount" min="1">
+                                    <input type="text" class="form-control floating" formControlName="amount" min="10" (input)="onAmountInput($event)">
                                     <div *ngIf="form.get('amount')?.touched">
                                       <span class="text-danger" *ngIf="form.get('amount')?.hasError('required')">
                                         Amount is required.
                                       </span>
                                       <span class="text-danger" *ngIf="form.get('amount')?.hasError('min')">
-                                        Minimum transfer amount is $1.
+                                        Minimum transfer amount is $10.
                                       </span>
                                     </div>
                                 </div>
