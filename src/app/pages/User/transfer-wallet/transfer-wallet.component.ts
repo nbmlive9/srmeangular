@@ -52,7 +52,7 @@ export class TransferWalletComponent {
   constructor(private api:UserService, private fb:FormBuilder, private router:Router,     private toast: ToastrService ){
       this.form = this.fb.group({
               regid: ['', Validators.required], 
-              amount: ['', [Validators.required, Validators.min(10)]], 
+              amount: ['', [Validators.required, Validators.min(7.5)]], 
               wallettyoe: ['', Validators.required], 
               remark: ['Transfer Wallet'], 
               securepin: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
