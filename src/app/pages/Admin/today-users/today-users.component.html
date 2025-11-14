@@ -7,6 +7,7 @@
                 <th>S.No</th>
                 <th>Date</th>
                 <th>Name</th>
+                <th>Phone</th>
                 <th>Email</th>
                 <th>Sponsor</th>
                 <th>Wallet</th>
@@ -18,7 +19,8 @@
              <tr *ngFor="let item of tjdata; let i = index">
                 <td>{{ (currentPage - 1) * rowsPerPage + i + 1 }}</td>
                 <td>{{ item.crdate | date:'dd/MMM/YYYY' }}</td>
-                <td>{{ item.name }}<br /><small>{{ item.regid }}</small></td>
+                <td>{{ item.name }} <br /><small>{{ item.regid }}</small></td>
+                <td>{{ item.contact }}</td>
                 <td>{{ item.email }}</td>
                 <td>{{ item.sponsor }}</td>
                 <td>{{ item.wallet_amount }}</td>

@@ -129,28 +129,33 @@
             </div>
 
              <div class="col-6 col-md-4 col-lg-3">
-  <div class="info-card bg-gradient-red">
-    <h6>Binary Holding Amount</h6>
+                <div class="info-card bg-gradient-red">
+                  <h6>Binary Holding Amount</h6>
 
-    <!-- If any holding exists -->
-    <ng-container *ngIf="data2?.hasAnyHolding; else noHolding">
-      <div *ngFor="let type of ['levelpay','silverpay','goldpay','platinumpay','diamondpay','crownpay']">
-        <div *ngIf="data2[type + 'Holding'] > 0">
-          <h6>{{ type | titlecase }}</h6>
-          <h4>${{ data2[type + 'Holding'] }}</h4>
-        </div>
-      </div>
-    </ng-container>
+                  <!-- If any holding exists -->
+                  <ng-container *ngIf="data2?.hasAnyHolding; else noHolding">
+                    <div *ngFor="let type of ['levelpay','silverpay','goldpay','platinumpay','diamondpay','crownpay']">
+                      <div *ngIf="data2[type + 'Holding'] > 0">
+                        <h6>{{ type | titlecase }}</h6>
+                        <h4>${{ data2[type + 'Holding'] }}</h4>
+                      </div>
+                    </div>
+                  </ng-container>
 
-    <!-- If no holdings -->
-    <ng-template #noHolding>
-      <h4>$0</h4>
-      <!-- <p class="text-muted small">No eligible holdings yet</p> -->
-    </ng-template>
-  </div>
-</div>
+                <!-- If no holdings -->
+                <ng-template #noHolding>
+                  <h4>$0</h4>
+                  <!-- <p class="text-muted small">No eligible holdings yet</p> -->
+                </ng-template>
+              </div>
+            </div>
 
-
+  <div class="col-6 col-md-4 col-lg-3">
+              <div class="info-card bg-gradient-diamond">
+                <h6>Staking Coins</h6>
+                <h4>{{ data2?.stakingcois || 0 }} </h4>
+              </div>
+            </div>
 
           </div>
           

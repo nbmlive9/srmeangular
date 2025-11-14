@@ -16,7 +16,7 @@
              <tr *ngFor="let item of data1; let i = index">
                 <td>{{ i + 1 }}</td>
                 <td>{{ item.cdate | date:'dd/MMM/YYYY' }}</td>
-                <td>{{ item.regid }}</td>
+                <td>{{ item.regid }}<br><small>{{item.phone}}</small></td>
                 <td>{{ item.shiippingaddress }}</td>
                 <td>{{ item.pincode }}</td>
                 <td>{{ item.product }}</td>

@@ -208,6 +208,7 @@
         <p class="mb-1" *ngIf="form.value.deliverytype === 'home'">
           Delivery Fee: <strong>{{ selectedProduct.dfee | currency:'USD':true:'1.2-2' }} USDT</strong>
         </p>
+        <p class="text-danger">5$ worth of YOHAN coins will be staked for 1 year</p>
 
         <!-- Fund check -->
         <p *ngIf="!isFundSufficient" class="text-danger mt-2">
@@ -235,6 +236,7 @@
 <!-- Message for "No Product" -->
 <div *ngIf="form.value.regtype === 'noproduct'" class="alert alert-info mt-3">
   You need to pay <strong>10.8 USDT worth of YOHAN Coins</strong>.
+  <p class="text-danger">10$ worth of YOHAN coins will be staked for 1 year</p>
 </div>
 
 

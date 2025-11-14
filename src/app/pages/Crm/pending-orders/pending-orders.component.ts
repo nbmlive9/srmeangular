@@ -126,6 +126,7 @@ export class PendingOrdersComponent {
       'Date': new Date(item.cdate).toLocaleDateString(),
       'User ID': item.regid,
       'Name': item.name,
+      'Phone': item.phone,
       'Product': item.product,
       'Delivery Type': item.deliverytype,
       'Pincode': item.pincode,
@@ -150,6 +151,7 @@ export class PendingOrdersComponent {
       new Date(item.cdate).toLocaleDateString(),
       item.regid,
       item.name,
+      item.phone,
       item.product,
       item.deliverytype,
       item.pincode,
@@ -157,7 +159,7 @@ export class PendingOrdersComponent {
     ]);
 
     autoTable(doc, {
-      head: [['S.No', 'Date', 'User ID', 'Name', 'Product', 'Delivery', 'Pincode', 'Address']],
+      head: [['S.No', 'Date', 'User ID', 'Name','phone', 'Product', 'Delivery', 'Pincode', 'Address']],
       body: tableData,
       startY: 20
     });
