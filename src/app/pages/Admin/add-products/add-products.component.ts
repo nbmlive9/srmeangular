@@ -31,8 +31,8 @@ export class AddProductsComponent {
         price: ['', Validators.required],
         // gst: ['', Validators.required],
         info: ['', Validators.required],
-        dfee: ['', ],
-        home: [0],
+        dfee: ['', Validators.required],
+        home: [1],
        leader: [0],
       });
          this.form1 = this.fb.group({

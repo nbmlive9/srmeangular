@@ -52,6 +52,7 @@
         </th>
         <th>S.No</th>
         <th>Date</th>
+        <th>LR.No</th>
         <th>Userid</th>
         <th>Name</th>
         <th>Product</th>
@@ -73,6 +74,7 @@
         </td>
         <td>{{ i + 1 }}</td>
         <td>{{ item.cdate | date: 'dd/MMM/YYYY' }}</td>
+        <td> <input  type="text" placeholder="LR Number" /></td>
         <td>{{ item.regid }}</td>
         <td>{{ item.name }} <br><small>{{item.phone}}</small></td>
         <td>{{ item.product }}</td>

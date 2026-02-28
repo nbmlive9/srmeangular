@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/service/admin.service';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 declare var $: any;
 
@@ -30,6 +32,8 @@ totalPages: number = 50; // Example: set dynamically after API call
   form!: FormGroup;
   isEditModalOpen = false;
 isLoading: boolean = false; 
+totalMembersCount: number = 0;
+
   constructor(
     private api: AdminService,
     private router: Router,
@@ -46,7 +50,45 @@ isLoading: boolean = false;
     });
 
     this.loadUsers(this.currentPage, this.rowsPerPage);
+      this.loadTotalMembers();   // ✅ NEW
   }
+
+  loadTotalMembers() {
+  this.api.TotalMembers().subscribe(
+    (res: any) => {
+      console.log('Total Members API:', res);
+      this.totalMembersCount = res?.data.count || res?.data.total || 0;
+    },
+    (error) => {
+      console.error('Total Members Error:', error);
+    }
+  );
+}
+
+exportToExcel(): void {
+
+  if (!this.totalMembersCount || this.data.length === 0) {
+    alert('No data available to export');
+    return;
+  }
+
+  const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.data);
+  const workbook: XLSX.WorkBook = {
+    Sheets: { 'Users': worksheet },
+    SheetNames: ['Users']
+  };
+
+  const excelBuffer: any = XLSX.write(workbook, {
+    bookType: 'xlsx',
+    type: 'array'
+  });
+
+  const data: Blob = new Blob([excelBuffer], {
+    type: 'application/octet-stream'
+  });
+
+  FileSaver.saveAs(data, 'Total_Users.xlsx');
+}
 
   // ✅ API call for paginated users
 loadUsers(page: number, rows: number) {
@@ -54,7 +96,7 @@ loadUsers(page: number, rows: number) {
 
   this.api.TotalUsers(page, rows).subscribe(
     (res: any) => {
-      console.log('API Response:', res);
+      // console.log('API Response:', res);
 
       // Adjust depending on your backend
       const udata = res.udata || res.data; 
